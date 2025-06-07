@@ -98,13 +98,12 @@
                     <div class="ml-3 relative dropdown">
                         <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
                             <span class="px-2 py-1 rounded-md text-gray-700 bg-gray-100 hover:bg-gray-200">
-                                <i class="fas fa-globe mr-1"></i> English
+                                <i class="fas fa-globe mr-1"></i> <span id="current-lang">English</span>
                             </span>
                         </button>
                         <div class="dropdown-menu origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 hidden">
                             <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onclick="changeLanguage('en')">English</a>
                             <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onclick="changeLanguage('zh-CN')">简体中文</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onclick="changeLanguage('zh-TW')">繁體中文</a>
                         </div>
                     </div>
                 </div>
@@ -131,7 +130,6 @@
                     <div class="mt-1 flex space-x-2">
                         <a href="#" class="text-sm text-gray-700 hover:text-indigo-500" onclick="changeLanguage('en')">English</a>
                         <a href="#" class="text-sm text-gray-700 hover:text-indigo-500" onclick="changeLanguage('zh-CN')">简体中文</a>
-                        <a href="#" class="text-sm text-gray-700 hover:text-indigo-500" onclick="changeLanguage('zh-TW')">繁體中文</a>
                     </div>
                 </div>
             </div>
@@ -298,31 +296,31 @@
                                 </div>
                                 <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500">Street Address</p>
-                                    <p class="mt-1 text-lg text-gray-900">3551 Indian Queen Lane</p>
+                                    <p class="mt-1 text-lg text-gray-900" data-field="streetAddress">3551 Indian Queen Lane</p>
                                 </div>
                                 <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500">City</p>
-                                    <p class="mt-1 text-lg text-gray-900">Philadelphia</p>
+                                    <p class="mt-1 text-lg text-gray-900" data-field="city">Philadelphia</p>
                                 </div>
                                 <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500">State Code</p>
-                                    <p class="mt-1 text-lg text-gray-900">PA</p>
+                                    <p class="mt-1 text-lg text-gray-900" data-field="stateCode">PA</p>
                                 </div>
                                 <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500">State Name</p>
-                                    <p class="mt-1 text-lg text-gray-900">Pennsylvania</p>
+                                    <p class="mt-1 text-lg text-gray-900" data-field="stateName">Pennsylvania</p>
                                 </div>
                                 <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500">ZIP Code</p>
-                                    <p class="mt-1 text-lg text-gray-900">19129</p>
+                                    <p class="mt-1 text-lg text-gray-900" data-field="zipCode">19129</p>
                                 </div>
                                 <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500">Phone</p>
-                                    <p class="mt-1 text-lg text-gray-900">(412) 350-1941</p>
+                                    <p class="mt-1 text-lg text-gray-900" data-field="phone">(412) 350-1941</p>
                                 </div>
                                 <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500">Email</p>
-                                    <p class="mt-1 text-lg text-gray-900">robert.garcia70@outlook.com</p>
+                                    <p class="mt-1 text-lg text-gray-900" data-field="email">robert.garcia70@outlook.com</p>
                                 </div>
                             </div>
                         </div>
@@ -545,6 +543,219 @@
             ]
         };
 
+        // 翻译文本
+        const translations = {
+            'en': {
+                'home': 'Home',
+                'blog': 'Blog',
+                'faq': 'FAQ',
+                'about': 'About',
+                'feedback': 'Feedback',
+                'generate': 'Generate Information',
+                'generateMore': 'Generate More',
+                'copyAll': 'Copy All',
+                'downloadCSV': 'Download CSV',
+                'basicInfo': 'Basic Information',
+                'addressInfo': 'Address Information',
+                'creditCardInfo': 'Credit Card Information',
+                'employmentInfo': 'Employment Information',
+                'fullName': 'Full Name',
+                'email': 'Email',
+                'phoneNumber': 'Phone Number',
+                'dateOfBirth': 'Date of Birth',
+                'country': 'Country',
+                'streetAddress': 'Street Address',
+                'city': 'City',
+                'stateCode': 'State Code',
+                'stateName': 'State Name',
+                'zipCode': 'ZIP Code',
+                'phone': 'Phone',
+                'cardType': 'Card Type',
+                'cardNumber': 'Card Number',
+                'cvv': 'CVV',
+                'expiryDate': 'Expiry Date',
+                'occupation': 'Occupation',
+                'company': 'Company',
+                'selectCountry': 'Select Country',
+                'selectState': 'Select State',
+                'selectCity': 'Select City',
+                'quantity': 'Quantity',
+                'maximum': 'Maximum',
+                'randomState': '🎲 Random State',
+                'randomCity': '🎲 Random City',
+                'whyUse': 'Why Use Our Address Generator?',
+                'privacyProtection': 'Privacy Protection',
+                'internationalSupport': 'International Support',
+                'customizableOptions': 'Customizable Options',
+                'privacyPolicy': 'Privacy Policy',
+                'termsOfService': 'Terms of Service'
+            },
+            'zh-CN': {
+                'home': '首页',
+                'blog': '博客',
+                'faq': '常见问题',
+                'about': '关于',
+                'feedback': '反馈',
+                'generate': '生成信息',
+                'generateMore': '生成更多',
+                'copyAll': '复制全部',
+                'downloadCSV': '下载CSV',
+                'basicInfo': '基本信息',
+                'addressInfo': '地址信息',
+                'creditCardInfo': '信用卡信息',
+                'employmentInfo': '工作信息',
+                'fullName': '姓名',
+                'email': '邮箱',
+                'phoneNumber': '电话号码',
+                'dateOfBirth': '出生日期',
+                'country': '国家',
+                'streetAddress': '街道地址',
+                'city': '城市',
+                'stateCode': '州代码',
+                'stateName': '州名称',
+                'zipCode': '邮政编码',
+                'phone': '电话',
+                'cardType': '卡类型',
+                'cardNumber': '卡号',
+                'cvv': 'CVV',
+                'expiryDate': '有效期',
+                'occupation': '职业',
+                'company': '公司',
+                'selectCountry': '选择国家',
+                'selectState': '选择州',
+                'selectCity': '选择城市',
+                'quantity': '数量',
+                'maximum': '最大',
+                'randomState': '🎲 随机州',
+                'randomCity': '🎲 随机城市',
+                'whyUse': '为什么使用我们的地址生成器？',
+                'privacyProtection': '隐私保护',
+                'internationalSupport': '国际支持',
+                'customizableOptions': '自定义选项',
+                'privacyPolicy': '隐私政策',
+                'termsOfService': '服务条款'
+            }
+        };
+
+        // 当前语言
+        let currentLang = localStorage.getItem('language') || 'en';
+
+        // 更新页面文本
+        function updatePageText() {
+            const lang = translations[currentLang];
+            const currentLangElement = document.getElementById('current-lang');
+            if (currentLangElement) {
+                currentLangElement.textContent = currentLang === 'en' ? 'English' : '简体中文';
+            }
+            
+            // 更新导航栏
+            const navLinks = {
+                'index.html': lang.home,
+                'blog.html': lang.blog,
+                'faq.html': lang.faq,
+                'about.html': lang.about,
+                'feedback.html': lang.feedback
+            };
+
+            Object.entries(navLinks).forEach(([href, text]) => {
+                document.querySelectorAll(`a[href="${href}"]`).forEach(el => {
+                    if (el) el.textContent = text;
+                });
+            });
+
+            // 更新生成器部分
+            const generatorTitle = document.querySelector('h2.text-2xl.font-bold.text-gray-900.mb-6');
+            if (generatorTitle) generatorTitle.textContent = lang.generate;
+
+            const sectionTitles = document.querySelectorAll('h3.text-lg.font-medium.text-gray-900.mb-4');
+            if (sectionTitles.length >= 3) {
+                sectionTitles[0].textContent = lang.selectCountry;
+                sectionTitles[1].textContent = lang.selectState;
+                sectionTitles[2].textContent = lang.selectCity;
+            }
+
+            const quantityTitle = document.querySelector('h3.text-lg.font-medium.text-gray-900.mb-4:nth-of-type(4)');
+            if (quantityTitle) quantityTitle.textContent = lang.quantity;
+
+            const maxText = document.querySelector('span.ml-3.text-gray-500.text-sm');
+            if (maxText) maxText.textContent = lang.maximum + ': 100';
+
+            const generateBtn = document.getElementById('generate-btn');
+            if (generateBtn) generateBtn.innerHTML = `<i class="fas fa-magic mr-2"></i> ${lang.generate}`;
+
+            // 更新结果部分
+            const resultsTitle = document.querySelector('#results h2.text-2xl.font-bold.text-gray-900');
+            if (resultsTitle) resultsTitle.textContent = lang.generate;
+
+            const copyBtn = document.getElementById('copy-btn');
+            if (copyBtn) copyBtn.innerHTML = `<i class="fas fa-copy mr-2"></i> ${lang.copyAll}`;
+
+            const downloadBtn = document.getElementById('download-btn');
+            if (downloadBtn) downloadBtn.innerHTML = `<i class="fas fa-download mr-2"></i> ${lang.downloadCSV}`;
+
+            const generateMoreBtn = document.getElementById('generate-more-btn');
+            if (generateMoreBtn) generateMoreBtn.innerHTML = `<i class="fas fa-sync-alt mr-2"></i> ${lang.generateMore}`;
+
+            // 更新随机选项
+            const randomStateOption = document.querySelector('#state-select option[value="random"]');
+            if (randomStateOption) randomStateOption.textContent = lang.randomState;
+
+            const randomCityOption = document.querySelector('#city-select option[value="random"]');
+            if (randomCityOption) randomCityOption.textContent = lang.randomCity;
+
+            // 更新其他文本
+            document.querySelectorAll('.text-sm.font-medium.text-gray-500').forEach(el => {
+                if (el) {
+                    const key = el.textContent.toLowerCase().replace(/\s+/g, '');
+                    if (lang[key]) {
+                        el.textContent = lang[key];
+                    }
+                }
+            });
+        }
+
+        // 语言切换函数
+        function changeLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('language', lang);
+            updatePageText();
+        }
+
+        // 页面加载时初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('页面加载完成，准备初始化');
+            
+            // 初始化州选择下拉框
+            initializeStateSelect();
+            // 初始化城市选择下拉框
+            initializeCitySelect();
+            
+            // 确保默认选中美国
+            const usOption = document.querySelector('.country-option[data-country="us"]');
+            if (usOption) {
+                console.log('找到美国选项，设置为默认选中');
+                usOption.classList.add('selected');
+                usOption.querySelector('.flex-shrink-0:last-child').classList.remove('hidden');
+            } else {
+                console.error('未找到美国选项！');
+            }
+
+            // 初始化语言
+            updatePageText();
+
+            // 添加生成按钮点击事件
+            const generateBtn = document.getElementById('generate-btn');
+            if (generateBtn) {
+                generateBtn.addEventListener('click', generateAddress);
+            }
+
+            // 添加生成更多按钮点击事件
+            const generateMoreBtn = document.getElementById('generate-more-btn');
+            if (generateMoreBtn) {
+                generateMoreBtn.addEventListener('click', generateAddress);
+            }
+        });
+
         // 初始化州选择下拉框
         function initializeStateSelect() {
             console.log('开始初始化州选择下拉框');
@@ -555,13 +766,23 @@
             console.log('当前选中的国家元素:', selectedCountry);
             
             if (!selectedCountry) {
-                console.error('未找到选中的国家元素！');
+                console.log('未找到选中的国家元素，使用默认的美国数据');
+                // 使用默认的美国数据
+                const countryCode = 'us';
+                populateStateSelect(countryCode);
                 return;
             }
 
             const countryCode = selectedCountry.dataset.country;
             console.log('当前选中的国家代码:', countryCode);
-            
+            populateStateSelect(countryCode);
+        }
+
+        // 填充州选择下拉框
+        function populateStateSelect(countryCode) {
+            const stateSelect = document.getElementById('state-select');
+            if (!stateSelect) return;
+
             // 保存随机选项
             const randomOption = stateSelect.options[0];
             
@@ -590,46 +811,13 @@
             }
         }
 
-        // 监听州选择变化
-        document.getElementById('state-select').addEventListener('change', function() {
-            if (this.value === 'random') {
-                // 保持选中随机选项，不进行随机选择
-                this.selectedIndex = 0;
-            }
-        });
-
-        // Mobile menu toggle
-        document.getElementById('mobile-menu-button').addEventListener('click', function() {
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        // Country selection
-        document.querySelectorAll('.country-option').forEach(option => {
-            option.addEventListener('click', function() {
-                console.log('点击了国家选项:', this.dataset.country);
-                
-                // Remove selected class from all options
-                document.querySelectorAll('.country-option').forEach(opt => {
-                    opt.classList.remove('selected');
-                    opt.querySelector('.flex-shrink-0:last-child').classList.add('hidden');
-                });
-                
-                // Add selected class to clicked option
-                this.classList.add('selected');
-                this.querySelector('.flex-shrink-0:last-child').classList.remove('hidden');
-
-                // 更新州选择下拉框
-                console.log('准备更新州选择下拉框');
-                initializeStateSelect();
-            });
-        });
-
         // 初始化城市选择下拉框
         function initializeCitySelect() {
             console.log('开始初始化城市选择下拉框');
             const citySelect = document.getElementById('city-select');
             const stateSelect = document.getElementById('state-select');
+            
+            if (!citySelect || !stateSelect) return;
             
             // 保存随机选项
             const randomOption = citySelect.options[0];
@@ -657,98 +845,65 @@
             citySelect.selectedIndex = 0;
         }
 
-        // 监听州选择变化
-        document.getElementById('state-select').addEventListener('change', function() {
-            if (this.value === 'random') {
-                // 保持选中随机选项，不进行随机选择
-                this.selectedIndex = 0;
-            }
-            // 更新城市列表
-            initializeCitySelect();
-        });
-
-        // 监听城市选择变化
-        document.getElementById('city-select').addEventListener('change', function() {
-            if (this.value === 'random') {
-                // 保持选中随机选项，不进行随机选择
-                this.selectedIndex = 0;
-            }
-        });
-
-        // Generate button click
-        document.getElementById('generate-btn').addEventListener('click', function() {
-            // 如果当前选中的是随机选项，则随机选择一个州
-            const stateSelect = document.getElementById('state-select');
-            if (stateSelect.value === 'random') {
-                const randomIndex = Math.floor(Math.random() * (stateSelect.options.length - 1)) + 1; // 跳过随机选项
-                stateSelect.selectedIndex = randomIndex;
-                console.log('生成时随机选择了州:', stateSelect.options[randomIndex].text);
-                // 更新城市列表
-                initializeCitySelect();
-            }
-
-            // 如果当前选中的是随机城市，则随机选择一个城市
-            const citySelect = document.getElementById('city-select');
-            if (citySelect.value === 'random') {
-                const randomIndex = Math.floor(Math.random() * (citySelect.options.length - 1)) + 1; // 跳过随机选项
-                citySelect.selectedIndex = randomIndex;
-                console.log('生成时随机选择了城市:', citySelect.options[randomIndex].text);
-            }
-
-            // Show results section
-            document.getElementById('results').classList.remove('hidden');
+        // 生成随机地址函数
+        function generateAddress() {
+            console.log('开始生成地址');
             
-            // Scroll to results
-            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
-        });
-
-        // Generate more button click
-        document.getElementById('generate-more-btn').addEventListener('click', function() {
-            // 如果当前选中的是随机选项，则随机选择一个州
+            // 获取选中的国家
+            const selectedCountry = document.querySelector('.country-option.selected');
+            if (!selectedCountry) {
+                console.error('未选择国家');
+                return;
+            }
+            const countryCode = selectedCountry.dataset.country;
+            
+            // 获取选中的州
             const stateSelect = document.getElementById('state-select');
-            if (stateSelect.value === 'random') {
-                const randomIndex = Math.floor(Math.random() * (stateSelect.options.length - 1)) + 1; // 跳过随机选项
-                stateSelect.selectedIndex = randomIndex;
-                console.log('生成更多时随机选择了州:', stateSelect.options[randomIndex].text);
-                // 更新城市列表
-                initializeCitySelect();
-            }
-
-            // 如果当前选中的是随机城市，则随机选择一个城市
+            const selectedState = stateSelect.value === 'random' 
+                ? states[countryCode][Math.floor(Math.random() * states[countryCode].length)]
+                : states[countryCode].find(state => state.code === stateSelect.value);
+            
+            // 获取选中的城市
             const citySelect = document.getElementById('city-select');
-            if (citySelect.value === 'random') {
-                const randomIndex = Math.floor(Math.random() * (citySelect.options.length - 1)) + 1; // 跳过随机选项
-                citySelect.selectedIndex = randomIndex;
-                console.log('生成更多时随机选择了城市:', citySelect.options[randomIndex].text);
+            const selectedCity = citySelect.value === 'random'
+                ? selectedState.cities[Math.floor(Math.random() * selectedState.cities.length)]
+                : citySelect.value;
+
+            // 生成随机街道地址
+            const streetNumbers = ['123', '456', '789', '101', '202', '303', '404', '505'];
+            const streetNames = ['Main St', 'Oak Ave', 'Maple Dr', 'Cedar Ln', 'Pine Rd', 'Elm St', 'Birch Way', 'Willow Ct'];
+            const streetAddress = `${streetNumbers[Math.floor(Math.random() * streetNumbers.length)]} ${streetNames[Math.floor(Math.random() * streetNames.length)]}`;
+
+            // 生成随机邮编
+            const zipCode = Math.floor(10000 + Math.random() * 90000).toString();
+
+            // 生成随机电话号码
+            const areaCode = Math.floor(200 + Math.random() * 800).toString();
+            const phoneNumber = `(${areaCode}) ${Math.floor(100 + Math.random() * 900)}-${Math.floor(1000 + Math.random() * 9000)}`;
+
+            // 生成随机邮箱
+            const names = ['john', 'jane', 'mike', 'sarah', 'david', 'lisa', 'robert', 'emma'];
+            const domains = ['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com'];
+            const email = `${names[Math.floor(Math.random() * names.length)]}${Math.floor(Math.random() * 100)}@${domains[Math.floor(Math.random() * domains.length)]}`;
+
+            // 更新结果区域
+            const results = document.getElementById('results');
+            if (results) {
+                results.classList.remove('hidden');
+                
+                // 更新地址信息
+                document.querySelector('[data-field="streetAddress"]').textContent = streetAddress;
+                document.querySelector('[data-field="city"]').textContent = selectedCity;
+                document.querySelector('[data-field="stateCode"]').textContent = selectedState.code;
+                document.querySelector('[data-field="stateName"]').textContent = selectedState.name;
+                document.querySelector('[data-field="zipCode"]').textContent = zipCode;
+                document.querySelector('[data-field="phone"]').textContent = phoneNumber;
+                document.querySelector('[data-field="email"]').textContent = email;
             }
 
-            // In a real app, this would generate new data
-            // For now, just scroll back to the generator
-            document.getElementById('generator').scrollIntoView({ behavior: 'smooth' });
-        });
-
-        // Language change function
-        function changeLanguage(lang) {
-            console.log('Language changed to: ' + lang);
-            // In a real app, this would change the UI language
-            // For now, just log the change
+            // 滚动到结果区域
+            results.scrollIntoView({ behavior: 'smooth' });
         }
-
-        // 页面加载时初始化
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('页面加载完成，准备初始化');
-            // 确保默认选中美国
-            const usOption = document.querySelector('.country-option[data-country="us"]');
-            if (usOption) {
-                console.log('找到美国选项，设置为默认选中');
-                usOption.classList.add('selected');
-                usOption.querySelector('.flex-shrink-0:last-child').classList.remove('hidden');
-            } else {
-                console.error('未找到美国选项！');
-            }
-            initializeStateSelect();
-            initializeCitySelect();
-        });
 
         // 复制到剪贴板功能
         function copyToClipboard(element) {
