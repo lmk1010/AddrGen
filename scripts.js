@@ -91,12 +91,17 @@ function initGeneratorForm() {
     const generatorForm = document.getElementById('generator-form');
     const resultsSection = document.getElementById('results-section');
     
+    // Initialize state and city selection
+    initStateCitySelection();
+    
     if (generatorForm) {
         generatorForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
             // Get form values
             const country = document.getElementById('country').value;
+            const state = document.getElementById('state-select').value;
+            const city = document.getElementById('city-select').value;
             const infoTypes = [];
             
             document.querySelectorAll('input[name="info_type"]:checked').forEach(checkbox => {
@@ -115,15 +120,232 @@ function initGeneratorForm() {
             }
             
             // Generate the information
-            generateInformation(country, infoTypes);
+            generateInformation(country, state, city, infoTypes);
         });
+    }
+}
+
+/**
+ * Initialize state and city selection functionality
+ */
+function initStateCitySelection() {
+    const stateSelect = document.getElementById('state-select');
+    const citySelect = document.getElementById('city-select');
+    const randomStateBtn = document.getElementById('random-state');
+    const randomCityBtn = document.getElementById('random-city');
+    
+    // State data for different countries
+    const stateData = {
+        'us': [
+            { code: 'AL', name: 'Alabama' },
+            { code: 'AK', name: 'Alaska' },
+            { code: 'AZ', name: 'Arizona' },
+            { code: 'AR', name: 'Arkansas' },
+            { code: 'CA', name: 'California' },
+            { code: 'CO', name: 'Colorado' },
+            { code: 'CT', name: 'Connecticut' },
+            { code: 'DE', name: 'Delaware' },
+            { code: 'FL', name: 'Florida' },
+            { code: 'GA', name: 'Georgia' },
+            { code: 'HI', name: 'Hawaii' },
+            { code: 'ID', name: 'Idaho' },
+            { code: 'IL', name: 'Illinois' },
+            { code: 'IN', name: 'Indiana' },
+            { code: 'IA', name: 'Iowa' },
+            { code: 'KS', name: 'Kansas' },
+            { code: 'KY', name: 'Kentucky' },
+            { code: 'LA', name: 'Louisiana' },
+            { code: 'ME', name: 'Maine' },
+            { code: 'MD', name: 'Maryland' },
+            { code: 'MA', name: 'Massachusetts' },
+            { code: 'MI', name: 'Michigan' },
+            { code: 'MN', name: 'Minnesota' },
+            { code: 'MS', name: 'Mississippi' },
+            { code: 'MO', name: 'Missouri' },
+            { code: 'MT', name: 'Montana' },
+            { code: 'NE', name: 'Nebraska' },
+            { code: 'NV', name: 'Nevada' },
+            { code: 'NH', name: 'New Hampshire' },
+            { code: 'NJ', name: 'New Jersey' },
+            { code: 'NM', name: 'New Mexico' },
+            { code: 'NY', name: 'New York' },
+            { code: 'NC', name: 'North Carolina' },
+            { code: 'ND', name: 'North Dakota' },
+            { code: 'OH', name: 'Ohio' },
+            { code: 'OK', name: 'Oklahoma' },
+            { code: 'OR', name: 'Oregon' },
+            { code: 'PA', name: 'Pennsylvania' },
+            { code: 'RI', name: 'Rhode Island' },
+            { code: 'SC', name: 'South Carolina' },
+            { code: 'SD', name: 'South Dakota' },
+            { code: 'TN', name: 'Tennessee' },
+            { code: 'TX', name: 'Texas' },
+            { code: 'UT', name: 'Utah' },
+            { code: 'VT', name: 'Vermont' },
+            { code: 'VA', name: 'Virginia' },
+            { code: 'WA', name: 'Washington' },
+            { code: 'WV', name: 'West Virginia' },
+            { code: 'WI', name: 'Wisconsin' },
+            { code: 'WY', name: 'Wyoming' }
+        ],
+        'uk': [
+            { code: 'ENG', name: 'England' },
+            { code: 'SCT', name: 'Scotland' },
+            { code: 'WLS', name: 'Wales' },
+            { code: 'NIR', name: 'Northern Ireland' }
+        ],
+        'hk': [
+            { code: 'HK', name: 'Hong Kong Island' },
+            { code: 'KL', name: 'Kowloon' },
+            { code: 'NT', name: 'New Territories' }
+        ]
+    };
+
+    // City data for different states
+    const cityData = {
+        'us': {
+            'AL': ['Birmingham', 'Montgomery', 'Mobile', 'Huntsville', 'Tuscaloosa'],
+            'AK': ['Anchorage', 'Fairbanks', 'Juneau', 'Wasilla', 'Sitka'],
+            'AZ': ['Phoenix', 'Tucson', 'Mesa', 'Scottsdale', 'Glendale'],
+            'AR': ['Little Rock', 'Fort Smith', 'Fayetteville', 'Springdale', 'Jonesboro'],
+            'CA': ['Los Angeles', 'San Diego', 'San Jose', 'San Francisco', 'Fresno', 'Sacramento', 'Long Beach', 'Oakland', 'Anaheim', 'Bakersfield'],
+            'CO': ['Denver', 'Colorado Springs', 'Aurora', 'Fort Collins', 'Lakewood'],
+            'CT': ['Bridgeport', 'New Haven', 'Stamford', 'Hartford', 'Waterbury'],
+            'DE': ['Wilmington', 'Dover', 'Newark', 'Middletown', 'Smyrna'],
+            'FL': ['Jacksonville', 'Miami', 'Tampa', 'Orlando', 'St. Petersburg', 'Hialeah', 'Fort Lauderdale', 'Tallahassee', 'Cape Coral', 'Port St. Lucie'],
+            'GA': ['Atlanta', 'Augusta', 'Columbus', 'Macon', 'Savannah'],
+            'HI': ['Honolulu', 'Pearl City', 'Hilo', 'Kailua', 'Waipahu'],
+            'ID': ['Boise', 'Meridian', 'Nampa', 'Idaho Falls', 'Pocatello'],
+            'IL': ['Chicago', 'Aurora', 'Rockford', 'Joliet', 'Naperville', 'Springfield', 'Peoria', 'Elgin', 'Waukegan', 'Champaign'],
+            'IN': ['Indianapolis', 'Fort Wayne', 'Evansville', 'South Bend', 'Carmel'],
+            'IA': ['Des Moines', 'Cedar Rapids', 'Davenport', 'Sioux City', 'Iowa City'],
+            'KS': ['Wichita', 'Overland Park', 'Kansas City', 'Topeka', 'Olathe'],
+            'KY': ['Lexington', 'Louisville', 'Bowling Green', 'Owensboro', 'Covington'],
+            'LA': ['New Orleans', 'Baton Rouge', 'Shreveport', 'Lafayette', 'Lake Charles'],
+            'ME': ['Portland', 'Lewiston', 'Bangor', 'South Portland', 'Auburn'],
+            'MD': ['Baltimore', 'Rockville', 'Germantown', 'Frederick', 'Gaithersburg'],
+            'MA': ['Boston', 'Worcester', 'Springfield', 'Cambridge', 'Lowell'],
+            'MI': ['Detroit', 'Grand Rapids', 'Warren', 'Sterling Heights', 'Lansing'],
+            'MN': ['Minneapolis', 'St. Paul', 'Rochester', 'Duluth', 'Bloomington'],
+            'MS': ['Jackson', 'Gulfport', 'Hattiesburg', 'Biloxi', 'Meridian'],
+            'MO': ['Kansas City', 'St. Louis', 'Springfield', 'Columbia', 'Independence'],
+            'MT': ['Billings', 'Missoula', 'Great Falls', 'Bozeman', 'Butte'],
+            'NE': ['Omaha', 'Lincoln', 'Bellevue', 'Grand Island', 'Kearney'],
+            'NV': ['Las Vegas', 'Reno', 'Henderson', 'North Las Vegas', 'Sparks'],
+            'NH': ['Manchester', 'Nashua', 'Concord', 'Dover', 'Rochester'],
+            'NJ': ['Newark', 'Jersey City', 'Paterson', 'Elizabeth', 'Edison'],
+            'NM': ['Albuquerque', 'Las Cruces', 'Rio Rancho', 'Santa Fe', 'Roswell'],
+            'NY': ['New York City', 'Buffalo', 'Rochester', 'Yonkers', 'Syracuse', 'Albany', 'New Rochelle', 'Mount Vernon', 'Schenectady', 'Utica'],
+            'NC': ['Charlotte', 'Raleigh', 'Greensboro', 'Durham', 'Winston-Salem'],
+            'ND': ['Fargo', 'Bismarck', 'Grand Forks', 'Minot', 'West Fargo'],
+            'OH': ['Columbus', 'Cleveland', 'Cincinnati', 'Toledo', 'Akron', 'Dayton', 'Parma', 'Canton', 'Lorain', 'Hamilton'],
+            'OK': ['Oklahoma City', 'Tulsa', 'Norman', 'Broken Arrow', 'Lawton'],
+            'OR': ['Portland', 'Salem', 'Eugene', 'Gresham', 'Hillsboro'],
+            'PA': ['Philadelphia', 'Pittsburgh', 'Allentown', 'Erie', 'Reading'],
+            'RI': ['Providence', 'Warwick', 'Cranston', 'Pawtucket', 'East Providence'],
+            'SC': ['Columbia', 'Charleston', 'North Charleston', 'Mount Pleasant', 'Rock Hill'],
+            'SD': ['Sioux Falls', 'Rapid City', 'Aberdeen', 'Brookings', 'Watertown'],
+            'TN': ['Nashville', 'Memphis', 'Knoxville', 'Chattanooga', 'Clarksville'],
+            'TX': ['Houston', 'San Antonio', 'Dallas', 'Austin', 'Fort Worth', 'El Paso', 'Arlington', 'Corpus Christi', 'Plano', 'Laredo'],
+            'UT': ['Salt Lake City', 'West Valley City', 'Provo', 'West Jordan', 'Orem'],
+            'VT': ['Burlington', 'South Burlington', 'Rutland', 'Barre', 'Montpelier'],
+            'VA': ['Virginia Beach', 'Norfolk', 'Chesapeake', 'Richmond', 'Newport News'],
+            'WA': ['Seattle', 'Spokane', 'Tacoma', 'Vancouver', 'Bellevue'],
+            'WV': ['Charleston', 'Huntington', 'Morgantown', 'Parkersburg', 'Wheeling'],
+            'WI': ['Milwaukee', 'Madison', 'Green Bay', 'Kenosha', 'Racine'],
+            'WY': ['Cheyenne', 'Casper', 'Laramie', 'Gillette', 'Rock Springs']
+        },
+        'uk': {
+            'ENG': ['London', 'Manchester', 'Birmingham', 'Liverpool', 'Leeds'],
+            'SCT': ['Edinburgh', 'Glasgow', 'Aberdeen', 'Dundee', 'Inverness'],
+            'WLS': ['Cardiff', 'Swansea', 'Newport', 'Bangor', 'St Davids'],
+            'NIR': ['Belfast', 'Derry', 'Lisburn', 'Newry', 'Bangor']
+        },
+        'hk': {
+            'HK': ['Central', 'Wan Chai', 'Causeway Bay', 'North Point', 'Quarry Bay'],
+            'KL': ['Tsim Sha Tsui', 'Mong Kok', 'Yau Ma Tei', 'Jordan', 'Hung Hom'],
+            'NT': ['Sha Tin', 'Tsuen Wan', 'Tuen Mun', 'Yuen Long', 'Tai Po']
+        }
+    };
+
+    // 初始化默认选择美国
+    const defaultCountry = 'us';
+    updateStates(defaultCountry);
+
+    // Update states when country changes
+    document.querySelectorAll('.country-option').forEach(option => {
+        option.addEventListener('click', function() {
+            const country = this.getAttribute('data-country');
+            updateStates(country);
+            // Clear city selection
+            citySelect.innerHTML = '<option value="">Select a city</option>';
+        });
+    });
+
+    // Update cities when state changes
+    stateSelect.addEventListener('change', function() {
+        const country = document.querySelector('.country-option.selected').getAttribute('data-country');
+        const state = this.value;
+        updateCities(country, state);
+    });
+
+    // Random state button click handler
+    randomStateBtn.addEventListener('click', function() {
+        const country = document.querySelector('.country-option.selected').getAttribute('data-country');
+        const states = stateData[country];
+        if (states && states.length > 0) {
+            const randomState = getRandomElement(states);
+            stateSelect.value = randomState.code;
+            updateCities(country, randomState.code);
+        }
+    });
+
+    // Random city button click handler
+    randomCityBtn.addEventListener('click', function() {
+        const country = document.querySelector('.country-option.selected').getAttribute('data-country');
+        const state = stateSelect.value;
+        if (state && cityData[country] && cityData[country][state]) {
+            const cities = cityData[country][state];
+            citySelect.value = getRandomElement(cities);
+        }
+    });
+
+    function updateStates(country) {
+        stateSelect.innerHTML = '<option value="">Select a state</option>';
+        const states = stateData[country];
+        if (states) {
+            states.forEach(state => {
+                const option = document.createElement('option');
+                option.value = state.code;
+                option.textContent = state.name;
+                stateSelect.appendChild(option);
+            });
+            // 默认选择第一个州
+            if (states.length > 0) {
+                stateSelect.value = states[0].code;
+                // 更新对应的城市列表
+                updateCities(country, states[0].code);
+            }
+        }
+    }
+
+    function updateCities(country, state) {
+        citySelect.innerHTML = '<option value="">Select a city</option>';
+        if (cityData[country] && cityData[country][state]) {
+            cityData[country][state].forEach(city => {
+                const option = document.createElement('option');
+                option.value = city;
+                option.textContent = city;
+                citySelect.appendChild(option);
+            });
+        }
     }
 }
 
 /**
  * Generate address and identity information based on selected country and types
  */
-function generateInformation(country, infoTypes) {
+function generateInformation(country, state, city, infoTypes) {
     // Show loading state
     const generateButton = document.querySelector('#generator-form button[type="submit"]');
     const originalButtonText = generateButton.innerHTML;
@@ -141,7 +363,7 @@ function generateInformation(country, infoTypes) {
         const results = {};
         
         if (infoTypes.includes('address')) {
-            results.address = generateMockAddress(country);
+            results.address = generateMockAddress(country, state, city);
         }
         
         if (infoTypes.includes('identity')) {
@@ -164,18 +386,18 @@ function generateInformation(country, infoTypes) {
 /**
  * Generate mock address data based on country
  */
-function generateMockAddress(country) {
+function generateMockAddress(country, state, city) {
     const addresses = {
         'us': {
             street: `${Math.floor(Math.random() * 9999) + 1} ${getRandomElement([
                 'Main Street', 'Oak Avenue', 'Maple Drive', 'Washington Boulevard', 'Lincoln Road',
                 'Jefferson Street', 'Park Avenue', 'Broadway', 'Sunset Boulevard', 'Wilshire Boulevard'
             ])}`,
-            city: getRandomElement([
+            city: city || getRandomElement([
                 'New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix',
                 'Philadelphia', 'San Antonio', 'San Diego', 'Dallas', 'San Jose'
             ]),
-            state: getRandomElement([
+            state: state || getRandomElement([
                 'NY', 'CA', 'IL', 'TX', 'AZ', 'PA', 'FL', 'OH', 'MI', 'GA'
             ]),
             zipCode: `${Math.floor(Math.random() * 90000) + 10000}`,
@@ -186,7 +408,7 @@ function generateMockAddress(country) {
                 'High Street', 'Station Road', 'London Road', 'Church Street', 'Victoria Road',
                 'Green Lane', 'Manor Road', 'Church Lane', 'Park Road', 'Queen Street'
             ])}`,
-            city: getRandomElement([
+            city: city || getRandomElement([
                 'London', 'Birmingham', 'Manchester', 'Glasgow', 'Liverpool',
                 'Bristol', 'Edinburgh', 'Leeds', 'Sheffield', 'Cardiff'
             ]),
