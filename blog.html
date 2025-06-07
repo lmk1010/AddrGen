@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - AddressGen</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-md fixed w-full z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <span class="text-2xl font-bold text-indigo-600">AddressGen</span>
+                    </div>
+                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                        <a href="index.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Home
+                        </a>
+                        <a href="blog.html" class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Blog
+                        </a>
+                        <a href="faq.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            FAQ
+                        </a>
+                        <a href="about.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            About
+                        </a>
+                        <a href="feedback.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Feedback
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                    <!-- Language Selector -->
+                    <div class="ml-3 relative dropdown">
+                        <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
+                            <span class="px-2 py-1 rounded-md text-gray-700 bg-gray-100 hover:bg-gray-200">
+                                <i class="fas fa-globe mr-1"></i> English
+                            </span>
+                        </button>
+                        <div class="dropdown-menu origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 hidden">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onclick="changeLanguage('en')">English</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onclick="changeLanguage('zh-CN')">简体中文</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onclick="changeLanguage('zh-TW')">繁體中文</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="-mr-2 flex items-center sm:hidden">
+                    <!-- Mobile menu button -->
+                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500" aria-expanded="false" id="mobile-menu-button">
+                        <span class="sr-only">Open main menu</span>
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu, show/hide based on menu state. -->
+        <div class="sm:hidden hidden" id="mobile-menu">
+            <div class="pt-2 pb-3 space-y-1">
+                <a href="index.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Home</a>
+                <a href="blog.html" class="bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Blog</a>
+                <a href="faq.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">FAQ</a>
+                <a href="about.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">About</a>
+                <a href="feedback.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Feedback</a>
+                <div class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
+                    <span class="font-medium text-gray-500">Language:</span>
+                    <div class="mt-1 flex space-x-2">
+                        <a href="#" class="text-sm text-gray-700 hover:text-indigo-500" onclick="changeLanguage('en')">English</a>
+                        <a href="#" class="text-sm text-gray-700 hover:text-indigo-500" onclick="changeLanguage('zh-CN')">简体中文</a>
+                        <a href="#" class="text-sm text-gray-700 hover:text-indigo-500" onclick="changeLanguage('zh-TW')">繁體中文</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pt-16 pb-12">
+        <!-- Blog Header -->
+        <div class="bg-indigo-700 text-white">
+            <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">AddressGen Blog</h1>
+                    <p class="mt-6 text-xl max-w-3xl mx-auto">Latest news, tips, and insights about address generation, data privacy, and identity management.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blog Content -->
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Main Content -->
+                <div class="lg:col-span-2">
+                    <!-- Featured Article -->
+                    <div class="bg-white shadow-xl rounded-lg overflow-hidden mb-8">
+                        <img class="w-full h-64 object-cover" src="images/data_privacy.svg" alt="Data Privacy">
+                        <div class="p-6">
+                            <div class="flex items-center">
+                                <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-indigo-100 text-indigo-800">
+                                    Featured
+                                </span>
+                                <span class="ml-3 text-sm text-gray-500">May 15, 2023</span>
+                            </div>
+                            <a href="#" class="block mt-2">
+                                <p class="text-xl font-semibold text-gray-900">Why Data Privacy Matters in Address Generation</p>
+                                <p class="mt-3 text-base text-gray-500">
+                                    In today's digital world, protecting personal information is more important than ever. Learn how using randomly generated addresses can help safeguard your privacy during testing and development.
+                                </p>
+                            </a>
+                            <div class="mt-6 flex items-center">
+                                <div class="flex-shrink-0">
+                                    <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Author">
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm font-medium text-gray-900">Sarah Johnson</p>
+                                    <div class="flex space-x-1 text-sm text-gray-500">
+                                        <span>8 min read</span>
+                                        <span aria-hidden="true">&middot;</span>
+                                        <span>Data Privacy</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <a href="#" class="text-indigo-600 hover:text-indigo-500 font-medium">Read full article <i class="fas fa-arrow-right ml-1"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Article Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Article 1 -->
+                        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                            <img class="w-full h-48 object-cover" src="images/uk_address.svg" alt="UK Addresses">
+                            <div class="p-6">
+                                <div class="flex items-center">
+                                    <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                                        Guide
+                                    </span>
+                                    <span class="ml-3 text-sm text-gray-500">April 28, 2023</span>
+                                </div>
+                                <a href="#" class="block mt-2">
+                                    <p class="text-lg font-semibold text-gray-900">Understanding UK Address Formats</p>
+                                    <p class="mt-3 text-sm text-gray-500">
+                                        A comprehensive guide to UK address structures, postal codes, and regional variations for accurate address generation.
+                                    </p>
+                                </a>
+                                <div class="mt-4">
+                                    <a href="#" class="text-indigo-600 hover:text-indigo-500 font-medium text-sm">Continue reading <i class="fas fa-arrow-right ml-1"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Article 2 -->
+                        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                            <img class="w-full h-48 object-cover" src="images/credit_card.svg" alt="Credit Cards">
+                            <div class="p-6">
+                                <div class="flex items-center">
+                                    <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-red-100 text-red-800">
+                                        Security
+                                    </span>
+                                    <span class="ml-3 text-sm text-gray-500">April 15, 2023</span>
+                                </div>
+                                <a href="#" class="block mt-2">
+                                    <p class="text-lg font-semibold text-gray-900">Credit Card Number Generation: How It Works</p>
+                                    <p class="mt-3 text-sm text-gray-500">
+                                        Learn about the Luhn algorithm and how our system generates valid but fictional credit card numbers for testing purposes.
+                                    </p>
+                                </a>
+                                <div class="mt-4">
+                                    <a href="#" class="text-indigo-600 hover:text-indigo-500 font-medium text-sm">Continue reading <i class="fas fa-arrow-right ml-1"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Article 3 -->
+                        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                            <img class="w-full h-48 object-cover" src="images/hong_kong.svg" alt="Hong Kong">
+                            <div class="p-6">
+                                <div class="flex items-center">
+                                    <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800">
+                                        Regional
+                                    </span>
+                                    <span class="ml-3 text-sm text-gray-500">March 30, 2023</span>
+                                </div>
+                                <a href="#" class="block mt-2">
+                                    <p class="text-lg font-semibold text-gray-900">Hong Kong Address System Explained</p>
+                                    <p class="mt-3 text-sm text-gray-500">
+                                        Discover the unique characteristics of Hong Kong addresses and how our generator creates authentic-looking examples.
+                                    </p>
+                                </a>
+                                <div class="mt-4">
+                                    <a href="#" class="text-indigo-600 hover:text-indigo-500 font-medium text-sm">Continue reading <i class="fas fa-arrow-right ml-1"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Article 4 -->
+                        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                            <img class="w-full h-48 object-cover" src="images/data_testing.svg" alt="Data Testing">
+                            <div class="p-6">
+                                <div class="flex items-center">
+                                    <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+                                        Development
+                                    </span>
+                                    <span class="ml-3 text-sm text-gray-500">March 12, 2023</span>
+                                </div>
+                                <a href="#" class="block mt-2">
+                                    <p class="text-lg font-semibold text-gray-900">Best Practices for Using Generated Data in Testing</p>
+                                    <p class="mt-3 text-sm text-gray-500">
+                                        Tips and strategies for effectively using randomly generated address information in your software testing workflows.
+                                    </p>
+                                </a>
+                                <div class="mt-4">
+                                    <a href="#" class="text-indigo-600 hover:text-indigo-500 font-medium text-sm">Continue reading <i class="fas fa-arrow-right ml-1"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="mt-12 flex justify-center">
+                        <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                            <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                <span class="sr-only">Previous</span>
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                            <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-indigo-50 text-sm font-medium text-indigo-600 hover:bg-indigo-100">
+                                1
+                            </a>
+                            <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                2
+                            </a>
+                            <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                3
+                            </a>
+                            <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+                                ...
+                            </span>
+                            <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                8
+                            </a>
+                            <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                9
+                            </a>
+                            <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                <span class="sr-only">Next</span>
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="lg:col-span-1">
+                    <!-- Search -->
+                    <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-8">
+                        <div class="p-6">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Search</h3>
+                            <div class="mt-1 relative rounded-md shadow-sm">
+                                <input type="text" name="search" id="search" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-10 sm:text-sm border-gray-300 rounded-md" placeholder="Search articles...">
+                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-search text-gray-400"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Categories -->
+                    <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-8">
+                        <div class="p-6">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Categories</h3>
+                            <div class="space-y-2">
+                                <a href="#" class="flex items-center justify-between text-sm text-gray-600 hover:text-indigo-600">
+                                    <span>Data Privacy</span>
+                                    <span class="bg-gray-100 text-gray-500 px-2 py-1 rounded-full text-xs">12</span>
+                                </a>
+                                <a href="#" class="flex items-center justify-between text-sm text-gray-600 hover:text-indigo-600">
+                                    <span>Address Formats</span>
+                                    <span class="bg-gray-100 text-gray-500 px-2 py-1 rounded-full text-xs">8</span>
+                                </a>
+                                <a href="#" class="flex items-center justify-between text-sm text-gray-600 hover:text-indigo-600">
+                                    <span>Identity Generation</span>
+                                    <span class="bg-gray-100 text-gray-500 px-2 py-1 rounded-full text-xs">15</span>
+                                </a>
+                                <a href="#" class="flex items-center justify-between text-sm text-gray-600 hover:text-indigo-600">
+                                    <span>Credit Card Security</span>
+                                    <span class="bg-gray-100 text-gray-500 px-2 py-1 rounded-full text-xs">7</span>
+                                </a>
+                                <a href="#" class="flex items-center justify-between text-sm text-gray-600 hover:text-indigo-600">
+                                    <span>Development Tips</span>
+                                    <span class="bg-gray-100 text-gray-500 px-2 py-1 rounded-full text-xs">10</span>
+                                </a>
+                                <a href="#" class="flex items-center justify-between text-sm text-gray-600 hover:text-indigo-600">
+                                    <span>Regional Guides</span>
+                                    <span class="bg-gray-100 text-gray-500 px-2 py-1 rounded-full text-xs">9</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Popular Posts -->
+                    <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-8">
+                        <div class="p-6">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Popular Posts</h3>
+                            <div class="space-y-4">
+                                <a href="#" class="flex space-x-3">
+                                    <div class="flex-shrink-0">
+                                        <img class="h-12 w-12 rounded-md object-cover" src="images/us_address.svg" alt="US Address">
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-900">US Address Format Guide</p>
+                                        <p class="text-xs text-gray-500 mt-1">April 5, 2023</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="flex space-x-3">
+                                    <div class="flex-shrink-0">
+                                        <img class="h-12 w-12 rounded-md object-cover" src="images/privacy_gdpr.svg" alt="Privacy">
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-900">GDPR and Address Generation</p>
+                                        <p class="text-xs text-gray-500 mt-1">March 22, 2023</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="flex space-x-3">
+                                    <div class="flex-shrink-0">
+                                        <img class="h-12 w-12 rounded-md object-cover" src="images/testing_tips.svg" alt="Testing">
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-900">10 Tips for Better Test Data</p>
+                                        <p class="text-xs text-gray-500 mt-1">February 18, 2023</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="flex space-x-3">
+                                    <div class="flex-shrink-0">
+                                        <img class="h-12 w-12 rounded-md object-cover" src="images/hk_districts.svg" alt="Hong Kong">
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-900">Hong Kong Districts Guide</p>
+                                        <p class="text-xs text-gray-500 mt-1">February 5, 2023</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Newsletter -->
+                    <div class="bg-indigo-700 shadow-lg rounded-lg overflow-hidden">
+                        <div class="p-6">
+                            <h3 class="text-lg font-medium text-white mb-4">Subscribe to Our Newsletter</h3>
+                            <p class="text-indigo-100 text-sm mb-4">Get the latest articles and resources delivered straight to your inbox.</p>
+                            <form class="mt-2">
+                                <div>
+                                    <label for="email-address" class="sr-only">Email address</label>
+                                    <input id="email-address" name="email" type="email" autocomplete="email" required class="appearance-none min-w-0 w-full bg-white border border-transparent rounded-md py-2 px-4 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-700 focus:ring-white focus:border-white focus:placeholder-gray-400" placeholder="Enter your email">
+                                </div>
+                                <div class="mt-2">
+                                    <button type="submit" class="w-full flex items-center justify-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-white hover:bg-indigo-50 md:py-2">
+                                        Subscribe
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white">
+        <div class="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
+            <nav class="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
+                <div class="px-5 py-2">
+                    <a href="index.html" class="text-base text-gray-500 hover:text-gray-900">Home</a>
+                </div>
+                <div class="px-5 py-2">
+                    <a href="blog.html" class="text-base text-gray-500 hover:text-gray-900">Blog</a>
+                </div>
+                <div class="px-5 py-2">
+                    <a href="faq.html" class="text-base text-gray-500 hover:text-gray-900">FAQ</a>
+                </div>
+                <div class="px-5 py-2">
+                    <a href="about.html" class="text-base text-gray-500 hover:text-gray-900">About</a>
+                </div>
+                <div class="px-5 py-2">
+                    <a href="feedback.html" class="text-base text-gray-500 hover:text-gray-900">Feedback</a>
+                </div>
+                <div class="px-5 py-2">
+                    <a href="#" class="text-base text-gray-500 hover:text-gray-900">Privacy Policy</a>
+                </div>
+                <div class="px-5 py-2">
+                    <a href="#" class="text-base text-gray-500 hover:text-gray-900">Terms of Service</a>
+                </div>
+            </nav>
+            <div class="mt-8 flex justify-center space-x-6">
+                <a href="#" class="text-gray-400 hover:text-gray-500">
+                    <span class="sr-only">Facebook</span>
+                    <i class="fab fa-facebook text-xl"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-gray-500">
+                    <span class="sr-only">Twitter</span>
+                    <i class="fab fa-twitter text-xl"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-gray-500">
+                    <span class="sr-only">GitHub</span>
+                    <i class="fab fa-github text-xl"></i>
+                </a>
+            </div>
+            <p class="mt-8 text-center text-base text-gray-400">&copy; 2023 AddressGen. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Language change function
+        function changeLanguage(lang) {
+            console.log('Language changed to: ' + lang);
+            // In a real app, this would change the UI language
+            // For now, just log the change
+        }
+    </script>
+</body>
+</html>

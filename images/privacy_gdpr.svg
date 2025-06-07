@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Background -->
+  <rect width="200" height="200" fill="#f8f9fa" />
+  
+  <!-- EU Stars Circle (GDPR Reference) -->
+  <circle cx="100" cy="100" r="70" fill="#039be5" opacity="0.1" />
+  
+  <!-- Lock Icon -->
+  <rect x="70" y="90" width="60" height="50" rx="5" ry="5" fill="#4f46e5" />
+  <rect x="85" y="60" width="30" height="30" rx="15" ry="15" fill="none" stroke="#4f46e5" stroke-width="8" />
+  
+  <!-- Shield Outline -->
+  <path d="M100 40 L140 60 L140 110 C140 140 110 170 100 180 C90 170 60 140 60 110 L60 60 Z" fill="none" stroke="#4f46e5" stroke-width="3" opacity="0.5" />
+  
+  <!-- GDPR Text -->
+  <text x="100" y="170" font-family="Arial, sans-serif" font-size="16" fill="#4f46e5" text-anchor="middle" font-weight="bold">GDPR</text>
+</svg>

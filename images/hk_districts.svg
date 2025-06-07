@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Background -->
+  <rect width="200" height="200" fill="#f8f9fa" />
+  
+  <!-- Simplified Hong Kong Map Shape -->
+  <path d="M40 100 C40 70 60 50 100 50 C140 50 160 70 160 100 C160 130 140 150 100 150 C60 150 40 130 40 100 Z" fill="#4f46e5" opacity="0.1" />
+  
+  <!-- District Divisions (Simplified) -->
+  <path d="M40 100 L100 50 L160 100" fill="none" stroke="#4f46e5" stroke-width="1" />
+  <path d="M100 50 L100 150" fill="none" stroke="#4f46e5" stroke-width="1" />
+  <path d="M40 100 L160 100" fill="none" stroke="#4f46e5" stroke-width="1" />
+  
+  <!-- Location Pin -->
+  <circle cx="100" cy="100" r="15" fill="#ff0000" opacity="0.8" />
+  <path d="M100 85 L100 115" fill="none" stroke="#ffffff" stroke-width="4" />
+  <circle cx="100" cy="85" r="6" fill="#ffffff" />
+  
+  <!-- District Labels -->
+  <text x="70" y="80" font-family="Arial, sans-serif" font-size="8" fill="#4f46e5" text-anchor="middle">New Territories</text>
+  <text x="130" y="80" font-family="Arial, sans-serif" font-size="8" fill="#4f46e5" text-anchor="middle">Kowloon</text>
+  <text x="100" y="130" font-family="Arial, sans-serif" font-size="8" fill="#4f46e5" text-anchor="middle">Hong Kong Island</text>
+  
+  <!-- Title -->
+  <text x="100" y="180" font-family="Arial, sans-serif" font-size="14" fill="#4f46e5" text-anchor="middle" font-weight="bold">HK Districts</text>
+</svg>

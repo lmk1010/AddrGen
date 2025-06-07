@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f5f7fa" />
+  
+  <!-- UK Flag Background (Simplified) -->
+  <rect x="50" y="50" width="700" height="500" fill="#012169" opacity="0.1" />
+  <path d="M50 50 L750 550 M750 50 L50 550" stroke="#C8102E" stroke-width="20" opacity="0.1" />
+  
+  <!-- Envelope -->
+  <path d="M250 200 L550 200 L550 400 L250 400 Z" fill="#ffffff" stroke="#4f46e5" stroke-width="8" />
+  <path d="M250 200 L400 300 L550 200" fill="none" stroke="#4f46e5" stroke-width="8" />
+  
+  <!-- Address Lines -->
+  <rect x="300" y="250" width="200" height="15" rx="2" ry="2" fill="#4f46e5" opacity="0.7" />
+  <rect x="300" y="275" width="180" height="15" rx="2" ry="2" fill="#4f46e5" opacity="0.7" />
+  <rect x="300" y="300" width="160" height="15" rx="2" ry="2" fill="#4f46e5" opacity="0.7" />
+  <rect x="300" y="325" width="120" height="15" rx="2" ry="2" fill="#4f46e5" opacity="0.7" />
+  <rect x="300" y="350" width="100" height="15" rx="2" ry="2" fill="#C8102E" opacity="0.9" />
+  
+  <!-- Postcode Elements -->
+  <rect x="450" y="450" width="120" height="40" rx="5" ry="5" fill="#4f46e5" />
+  <text x="510" y="475" font-family="Arial, sans-serif" font-size="18" fill="#ffffff" text-anchor="middle" font-weight="bold">SW1A 1AA</text>
+  
+  <!-- Location Pin -->
+  <circle cx="200" cy="450" r="30" fill="#C8102E" />
+  <path d="M200 430 L200 480" fill="none" stroke="#ffffff" stroke-width="8" />
+  <circle cx="200" cy="430" r="12" fill="#ffffff" />
+  
+  <!-- Title -->
+  <text x="400" y="570" font-family="Arial, sans-serif" font-size="24" fill="#4f46e5" text-anchor="middle" font-weight="bold">UK Address Format Guide</text>
+</svg>
