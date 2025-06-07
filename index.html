@@ -13,6 +13,57 @@
         .dropdown:hover .dropdown-menu {
             display: block;
         }
+        /* 自定义下拉框样式 */
+        select {
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+            background-image: linear-gradient(45deg, transparent 50%, #4F46E5 50%),
+                            linear-gradient(135deg, #4F46E5 50%, transparent 50%);
+            background-position: calc(100% - 20px) calc(1em + 2px),
+                               calc(100% - 15px) calc(1em + 2px);
+            background-size: 5px 5px,
+                           5px 5px;
+            background-repeat: no-repeat;
+            padding-right: 30px !important;
+        }
+        select:hover {
+            border-color: #4F46E5;
+            box-shadow: 0 0 0 1px #4F46E5;
+        }
+        select:focus {
+            border-color: #4F46E5;
+            box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
+        }
+        select option {
+            padding: 10px;
+            font-size: 0.875rem;
+            color: #374151;
+        }
+        select option:first-child {
+            color: #4F46E5;
+            font-weight: 500;
+        }
+        .select-wrapper {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+        .select-wrapper::after {
+            content: '';
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid #4F46E5;
+            pointer-events: none;
+            transition: transform 0.2s ease;
+        }
+        .select-wrapper:hover::after {
+            transform: translateY(-50%) rotate(180deg);
+        }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -143,65 +194,35 @@
                                     <i class="fas fa-check-circle text-indigo-600"></i>
                                 </div>
                             </div>
-                            
-                            <div class="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-indigo-400 hover:ring-1 hover:ring-indigo-500 cursor-pointer country-option" data-country="hk">
-                                <div class="flex-shrink-0">
-                                    <img class="h-10 w-10 rounded-full" src="https://flagcdn.com/w80/hk.png" alt="Hong Kong Flag">
+                        </div>
+                    </div>
+
+                    <!-- State and City Selection -->
+                    <div class="mb-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- State Selection -->
+                            <div>
+                                <h3 class="text-lg font-medium text-gray-900 mb-4">Select State</h3>
+                                <div class="select-wrapper">
+                                    <select id="state-select" class="block w-full px-4 py-2.5 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm appearance-none bg-white">
+                                        <option value="random">🎲 Random State</option>
+                                    </select>
                                 </div>
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-sm font-medium text-gray-900">Hong Kong</p>
-                                </div>
-                                <div class="flex-shrink-0 hidden">
-                                    <i class="fas fa-check-circle text-indigo-600"></i>
+                            </div>
+
+                            <!-- City Selection -->
+                            <div>
+                                <h3 class="text-lg font-medium text-gray-900 mb-4">Select City</h3>
+                                <div class="select-wrapper">
+                                    <select id="city-select" class="block w-full px-4 py-2.5 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm appearance-none bg-white">
+                                        <option value="random">🎲 Random City</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
                     <!-- Generator Options -->
-                    <div class="mb-8">
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">Information to Generate</h3>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" checked>
-                                <span class="ml-2 text-gray-700">Full Name</span>
-                            </label>
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" checked>
-                                <span class="ml-2 text-gray-700">Address</span>
-                            </label>
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" checked>
-                                <span class="ml-2 text-gray-700">Phone Number</span>
-                            </label>
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" checked>
-                                <span class="ml-2 text-gray-700">Email</span>
-                            </label>
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" checked>
-                                <span class="ml-2 text-gray-700">Credit Card</span>
-                            </label>
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600">
-                                <span class="ml-2 text-gray-700">Date of Birth</span>
-                            </label>
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600">
-                                <span class="ml-2 text-gray-700">SSN/ID Number</span>
-                            </label>
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600">
-                                <span class="ml-2 text-gray-700">Occupation</span>
-                            </label>
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600">
-                                <span class="ml-2 text-gray-700">Company</span>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <!-- Quantity Selection -->
                     <div class="mb-8">
                         <h3 class="text-lg font-medium text-gray-900 mb-4">Quantity</h3>
                         <div class="flex items-center">
@@ -238,26 +259,115 @@
                     
                     <!-- Sample Generated Data -->
                     <div class="bg-gray-50 p-4 rounded-lg mb-4">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <p class="text-sm font-medium text-gray-500">Full Name</p>
-                                <p class="mt-1 text-lg text-gray-900">John A. Smith</p>
+                        <!-- Basic Information -->
+                        <div class="mb-6 pb-6 border-b border-gray-200">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
+                                <i class="fas fa-user-circle text-indigo-600 mr-2"></i>
+                                Basic Information
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
+                                    <p class="text-sm font-medium text-gray-500">Full Name</p>
+                                    <p class="mt-1 text-lg text-gray-900">John A. Smith</p>
+                                </div>
+                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
+                                    <p class="text-sm font-medium text-gray-500">Email</p>
+                                    <p class="mt-1 text-lg text-gray-900">john.smith@example.com</p>
+                                </div>
+                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
+                                    <p class="text-sm font-medium text-gray-500">Phone Number</p>
+                                    <p class="mt-1 text-lg text-gray-900">(212) 555-1234</p>
+                                </div>
+                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
+                                    <p class="text-sm font-medium text-gray-500">Date of Birth</p>
+                                    <p class="mt-1 text-lg text-gray-900">1985-06-15</p>
+                                </div>
                             </div>
-                            <div>
-                                <p class="text-sm font-medium text-gray-500">Email</p>
-                                <p class="mt-1 text-lg text-gray-900">john.smith@example.com</p>
+                        </div>
+
+                        <!-- Address Information -->
+                        <div class="mb-6 pb-6 border-b border-gray-200">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
+                                <i class="fas fa-map-marker-alt text-indigo-600 mr-2"></i>
+                                Address Information
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
+                                    <p class="text-sm font-medium text-gray-500">Country</p>
+                                    <p class="mt-1 text-lg text-gray-900">United States</p>
+                                </div>
+                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
+                                    <p class="text-sm font-medium text-gray-500">Street Address</p>
+                                    <p class="mt-1 text-lg text-gray-900">3551 Indian Queen Lane</p>
+                                </div>
+                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
+                                    <p class="text-sm font-medium text-gray-500">City</p>
+                                    <p class="mt-1 text-lg text-gray-900">Philadelphia</p>
+                                </div>
+                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
+                                    <p class="text-sm font-medium text-gray-500">State Code</p>
+                                    <p class="mt-1 text-lg text-gray-900">PA</p>
+                                </div>
+                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
+                                    <p class="text-sm font-medium text-gray-500">State Name</p>
+                                    <p class="mt-1 text-lg text-gray-900">Pennsylvania</p>
+                                </div>
+                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
+                                    <p class="text-sm font-medium text-gray-500">ZIP Code</p>
+                                    <p class="mt-1 text-lg text-gray-900">19129</p>
+                                </div>
+                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
+                                    <p class="text-sm font-medium text-gray-500">Phone</p>
+                                    <p class="mt-1 text-lg text-gray-900">(412) 350-1941</p>
+                                </div>
+                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
+                                    <p class="text-sm font-medium text-gray-500">Email</p>
+                                    <p class="mt-1 text-lg text-gray-900">robert.garcia70@outlook.com</p>
+                                </div>
                             </div>
-                            <div>
-                                <p class="text-sm font-medium text-gray-500">Address</p>
-                                <p class="mt-1 text-lg text-gray-900">123 Main Street, Apt 4B<br>New York, NY 10001</p>
+                        </div>
+
+                        <!-- Credit Card Information -->
+                        <div class="mb-6 pb-6 border-b border-gray-200">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
+                                <i class="fas fa-credit-card text-indigo-600 mr-2"></i>
+                                Credit Card Information
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
+                                    <p class="text-sm font-medium text-gray-500">Card Type</p>
+                                    <p class="mt-1 text-lg text-gray-900">MasterCard</p>
+                                </div>
+                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
+                                    <p class="text-sm font-medium text-gray-500">Card Number</p>
+                                    <p class="mt-1 text-lg text-gray-900">5728 1295 2846 9556</p>
+                                </div>
+                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
+                                    <p class="text-sm font-medium text-gray-500">CVV</p>
+                                    <p class="mt-1 text-lg text-gray-900">841</p>
+                                </div>
+                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
+                                    <p class="text-sm font-medium text-gray-500">Expiry Date</p>
+                                    <p class="mt-1 text-lg text-gray-900">10/2028</p>
+                                </div>
                             </div>
-                            <div>
-                                <p class="text-sm font-medium text-gray-500">Phone Number</p>
-                                <p class="mt-1 text-lg text-gray-900">(212) 555-1234</p>
-                            </div>
-                            <div>
-                                <p class="text-sm font-medium text-gray-500">Credit Card</p>
-                                <p class="mt-1 text-lg text-gray-900">VISA: 4111 2222 3333 4444<br>Exp: 05/25 | CVV: 123</p>
+                        </div>
+
+                        <!-- Employment Information -->
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
+                                <i class="fas fa-briefcase text-indigo-600 mr-2"></i>
+                                Employment Information
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
+                                    <p class="text-sm font-medium text-gray-500">Occupation</p>
+                                    <p class="mt-1 text-lg text-gray-900">Software Engineer</p>
+                                </div>
+                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
+                                    <p class="text-sm font-medium text-gray-500">Company</p>
+                                    <p class="mt-1 text-lg text-gray-900">Tech Solutions Inc.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -379,6 +489,115 @@
 
     <!-- JavaScript -->
     <script>
+        // 美国各州数据
+        const states = {
+            'us': [
+                { code: 'AL', name: 'Alabama', cities: ['Montgomery', 'Birmingham', 'Mobile', 'Huntsville'] },
+                { code: 'AK', name: 'Alaska', cities: ['Juneau', 'Anchorage', 'Fairbanks', 'Sitka'] },
+                { code: 'AZ', name: 'Arizona', cities: ['Phoenix', 'Tucson', 'Mesa', 'Scottsdale'] },
+                { code: 'AR', name: 'Arkansas', cities: ['Little Rock', 'Fort Smith', 'Fayetteville', 'Springdale'] },
+                { code: 'CA', name: 'California', cities: ['Sacramento', 'Los Angeles', 'San Diego', 'San Jose'] },
+                { code: 'CO', name: 'Colorado', cities: ['Denver', 'Colorado Springs', 'Aurora', 'Fort Collins'] },
+                { code: 'CT', name: 'Connecticut', cities: ['Hartford', 'Bridgeport', 'New Haven', 'Stamford'] },
+                { code: 'DE', name: 'Delaware', cities: ['Dover', 'Wilmington', 'Newark', 'Middletown'] },
+                { code: 'FL', name: 'Florida', cities: ['Tallahassee', 'Miami', 'Orlando', 'Tampa'] },
+                { code: 'GA', name: 'Georgia', cities: ['Atlanta', 'Augusta', 'Columbus', 'Savannah'] },
+                { code: 'HI', name: 'Hawaii', cities: ['Honolulu', 'Pearl City', 'Hilo', 'Kailua'] },
+                { code: 'ID', name: 'Idaho', cities: ['Boise', 'Meridian', 'Nampa', 'Idaho Falls'] },
+                { code: 'IL', name: 'Illinois', cities: ['Springfield', 'Chicago', 'Aurora', 'Rockford'] },
+                { code: 'IN', name: 'Indiana', cities: ['Indianapolis', 'Fort Wayne', 'Evansville', 'South Bend'] },
+                { code: 'IA', name: 'Iowa', cities: ['Des Moines', 'Cedar Rapids', 'Davenport', 'Sioux City'] },
+                { code: 'KS', name: 'Kansas', cities: ['Topeka', 'Wichita', 'Overland Park', 'Kansas City'] },
+                { code: 'KY', name: 'Kentucky', cities: ['Frankfort', 'Lexington', 'Louisville', 'Bowling Green'] },
+                { code: 'LA', name: 'Louisiana', cities: ['Baton Rouge', 'New Orleans', 'Shreveport', 'Lafayette'] },
+                { code: 'ME', name: 'Maine', cities: ['Augusta', 'Portland', 'Lewiston', 'Bangor'] },
+                { code: 'MD', name: 'Maryland', cities: ['Annapolis', 'Baltimore', 'Rockville', 'Germantown'] },
+                { code: 'MA', name: 'Massachusetts', cities: ['Boston', 'Worcester', 'Springfield', 'Cambridge'] },
+                { code: 'MI', name: 'Michigan', cities: ['Lansing', 'Detroit', 'Grand Rapids', 'Warren'] },
+                { code: 'MN', name: 'Minnesota', cities: ['Saint Paul', 'Minneapolis', 'Rochester', 'Duluth'] },
+                { code: 'MS', name: 'Mississippi', cities: ['Jackson', 'Gulfport', 'Hattiesburg', 'Southaven'] },
+                { code: 'MO', name: 'Missouri', cities: ['Jefferson City', 'Kansas City', 'St. Louis', 'Springfield'] },
+                { code: 'MT', name: 'Montana', cities: ['Helena', 'Billings', 'Missoula', 'Great Falls'] },
+                { code: 'NE', name: 'Nebraska', cities: ['Lincoln', 'Omaha', 'Bellevue', 'Grand Island'] },
+                { code: 'NV', name: 'Nevada', cities: ['Carson City', 'Las Vegas', 'Reno', 'Henderson'] },
+                { code: 'NH', name: 'New Hampshire', cities: ['Concord', 'Manchester', 'Nashua', 'Dover'] },
+                { code: 'NJ', name: 'New Jersey', cities: ['Trenton', 'Newark', 'Jersey City', 'Paterson'] },
+                { code: 'NM', name: 'New Mexico', cities: ['Santa Fe', 'Albuquerque', 'Las Cruces', 'Rio Rancho'] },
+                { code: 'NY', name: 'New York', cities: ['Albany', 'New York City', 'Buffalo', 'Rochester'] },
+                { code: 'NC', name: 'North Carolina', cities: ['Raleigh', 'Charlotte', 'Greensboro', 'Durham'] },
+                { code: 'ND', name: 'North Dakota', cities: ['Bismarck', 'Fargo', 'Grand Forks', 'Minot'] },
+                { code: 'OH', name: 'Ohio', cities: ['Columbus', 'Cleveland', 'Cincinnati', 'Toledo'] },
+                { code: 'OK', name: 'Oklahoma', cities: ['Oklahoma City', 'Tulsa', 'Norman', 'Broken Arrow'] },
+                { code: 'OR', name: 'Oregon', cities: ['Salem', 'Portland', 'Eugene', 'Gresham'] },
+                { code: 'PA', name: 'Pennsylvania', cities: ['Harrisburg', 'Philadelphia', 'Pittsburgh', 'Allentown'] },
+                { code: 'RI', name: 'Rhode Island', cities: ['Providence', 'Warwick', 'Cranston', 'Pawtucket'] },
+                { code: 'SC', name: 'South Carolina', cities: ['Columbia', 'Charleston', 'North Charleston', 'Mount Pleasant'] },
+                { code: 'SD', name: 'South Dakota', cities: ['Pierre', 'Sioux Falls', 'Rapid City', 'Aberdeen'] },
+                { code: 'TN', name: 'Tennessee', cities: ['Nashville', 'Memphis', 'Knoxville', 'Chattanooga'] },
+                { code: 'TX', name: 'Texas', cities: ['Austin', 'Houston', 'San Antonio', 'Dallas'] },
+                { code: 'UT', name: 'Utah', cities: ['Salt Lake City', 'West Valley City', 'Provo', 'West Jordan'] },
+                { code: 'VT', name: 'Vermont', cities: ['Montpelier', 'Burlington', 'South Burlington', 'Rutland'] },
+                { code: 'VA', name: 'Virginia', cities: ['Richmond', 'Virginia Beach', 'Norfolk', 'Chesapeake'] },
+                { code: 'WA', name: 'Washington', cities: ['Olympia', 'Seattle', 'Spokane', 'Tacoma'] },
+                { code: 'WV', name: 'West Virginia', cities: ['Charleston', 'Huntington', 'Morgantown', 'Parkersburg'] },
+                { code: 'WI', name: 'Wisconsin', cities: ['Madison', 'Milwaukee', 'Green Bay', 'Kenosha'] },
+                { code: 'WY', name: 'Wyoming', cities: ['Cheyenne', 'Casper', 'Laramie', 'Gillette'] }
+            ]
+        };
+
+        // 初始化州选择下拉框
+        function initializeStateSelect() {
+            console.log('开始初始化州选择下拉框');
+            const stateSelect = document.getElementById('state-select');
+            console.log('获取到的state-select元素:', stateSelect);
+
+            const selectedCountry = document.querySelector('.country-option.selected');
+            console.log('当前选中的国家元素:', selectedCountry);
+            
+            if (!selectedCountry) {
+                console.error('未找到选中的国家元素！');
+                return;
+            }
+
+            const countryCode = selectedCountry.dataset.country;
+            console.log('当前选中的国家代码:', countryCode);
+            
+            // 保存随机选项
+            const randomOption = stateSelect.options[0];
+            
+            // 清空现有选项
+            stateSelect.innerHTML = '';
+            console.log('已清空现有选项');
+            
+            // 重新添加随机选项
+            stateSelect.appendChild(randomOption);
+            
+            // 添加州选项
+            if (states[countryCode]) {
+                console.log('找到对应国家的州数据:', states[countryCode]);
+                states[countryCode].forEach(state => {
+                    const option = document.createElement('option');
+                    option.value = state.code;
+                    option.textContent = state.name;
+                    stateSelect.appendChild(option);
+                    console.log('添加州选项:', state.name);
+                });
+
+                // 默认选中随机选项
+                stateSelect.selectedIndex = 0;
+            } else {
+                console.error('未找到对应国家的州数据！');
+            }
+        }
+
+        // 监听州选择变化
+        document.getElementById('state-select').addEventListener('change', function() {
+            if (this.value === 'random') {
+                // 保持选中随机选项，不进行随机选择
+                this.selectedIndex = 0;
+            }
+        });
+
         // Mobile menu toggle
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
             const mobileMenu = document.getElementById('mobile-menu');
@@ -388,6 +607,8 @@
         // Country selection
         document.querySelectorAll('.country-option').forEach(option => {
             option.addEventListener('click', function() {
+                console.log('点击了国家选项:', this.dataset.country);
+                
                 // Remove selected class from all options
                 document.querySelectorAll('.country-option').forEach(opt => {
                     opt.classList.remove('selected');
@@ -397,11 +618,83 @@
                 // Add selected class to clicked option
                 this.classList.add('selected');
                 this.querySelector('.flex-shrink-0:last-child').classList.remove('hidden');
+
+                // 更新州选择下拉框
+                console.log('准备更新州选择下拉框');
+                initializeStateSelect();
             });
+        });
+
+        // 初始化城市选择下拉框
+        function initializeCitySelect() {
+            console.log('开始初始化城市选择下拉框');
+            const citySelect = document.getElementById('city-select');
+            const stateSelect = document.getElementById('state-select');
+            
+            // 保存随机选项
+            const randomOption = citySelect.options[0];
+            
+            // 清空现有选项
+            citySelect.innerHTML = '';
+            
+            // 重新添加随机选项
+            citySelect.appendChild(randomOption);
+            
+            // 如果州选择不是随机选项，则添加对应州的城市
+            if (stateSelect.value !== 'random') {
+                const selectedState = states['us'].find(state => state.code === stateSelect.value);
+                if (selectedState) {
+                    selectedState.cities.forEach(city => {
+                        const option = document.createElement('option');
+                        option.value = city;
+                        option.textContent = city;
+                        citySelect.appendChild(option);
+                    });
+                }
+            }
+            
+            // 默认选中随机选项
+            citySelect.selectedIndex = 0;
+        }
+
+        // 监听州选择变化
+        document.getElementById('state-select').addEventListener('change', function() {
+            if (this.value === 'random') {
+                // 保持选中随机选项，不进行随机选择
+                this.selectedIndex = 0;
+            }
+            // 更新城市列表
+            initializeCitySelect();
+        });
+
+        // 监听城市选择变化
+        document.getElementById('city-select').addEventListener('change', function() {
+            if (this.value === 'random') {
+                // 保持选中随机选项，不进行随机选择
+                this.selectedIndex = 0;
+            }
         });
 
         // Generate button click
         document.getElementById('generate-btn').addEventListener('click', function() {
+            // 如果当前选中的是随机选项，则随机选择一个州
+            const stateSelect = document.getElementById('state-select');
+            if (stateSelect.value === 'random') {
+                const randomIndex = Math.floor(Math.random() * (stateSelect.options.length - 1)) + 1; // 跳过随机选项
+                stateSelect.selectedIndex = randomIndex;
+                console.log('生成时随机选择了州:', stateSelect.options[randomIndex].text);
+                // 更新城市列表
+                initializeCitySelect();
+            }
+
+            // 如果当前选中的是随机城市，则随机选择一个城市
+            const citySelect = document.getElementById('city-select');
+            if (citySelect.value === 'random') {
+                const randomIndex = Math.floor(Math.random() * (citySelect.options.length - 1)) + 1; // 跳过随机选项
+                citySelect.selectedIndex = randomIndex;
+                console.log('生成时随机选择了城市:', citySelect.options[randomIndex].text);
+            }
+
             // Show results section
             document.getElementById('results').classList.remove('hidden');
             
@@ -411,6 +704,24 @@
 
         // Generate more button click
         document.getElementById('generate-more-btn').addEventListener('click', function() {
+            // 如果当前选中的是随机选项，则随机选择一个州
+            const stateSelect = document.getElementById('state-select');
+            if (stateSelect.value === 'random') {
+                const randomIndex = Math.floor(Math.random() * (stateSelect.options.length - 1)) + 1; // 跳过随机选项
+                stateSelect.selectedIndex = randomIndex;
+                console.log('生成更多时随机选择了州:', stateSelect.options[randomIndex].text);
+                // 更新城市列表
+                initializeCitySelect();
+            }
+
+            // 如果当前选中的是随机城市，则随机选择一个城市
+            const citySelect = document.getElementById('city-select');
+            if (citySelect.value === 'random') {
+                const randomIndex = Math.floor(Math.random() * (citySelect.options.length - 1)) + 1; // 跳过随机选项
+                citySelect.selectedIndex = randomIndex;
+                console.log('生成更多时随机选择了城市:', citySelect.options[randomIndex].text);
+            }
+
             // In a real app, this would generate new data
             // For now, just scroll back to the generator
             document.getElementById('generator').scrollIntoView({ behavior: 'smooth' });
@@ -421,6 +732,46 @@
             console.log('Language changed to: ' + lang);
             // In a real app, this would change the UI language
             // For now, just log the change
+        }
+
+        // 页面加载时初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('页面加载完成，准备初始化');
+            // 确保默认选中美国
+            const usOption = document.querySelector('.country-option[data-country="us"]');
+            if (usOption) {
+                console.log('找到美国选项，设置为默认选中');
+                usOption.classList.add('selected');
+                usOption.querySelector('.flex-shrink-0:last-child').classList.remove('hidden');
+            } else {
+                console.error('未找到美国选项！');
+            }
+            initializeStateSelect();
+            initializeCitySelect();
+        });
+
+        // 复制到剪贴板功能
+        function copyToClipboard(element) {
+            const text = element.querySelector('p:last-child').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                // 创建临时提示元素
+                const tooltip = document.createElement('div');
+                tooltip.className = 'fixed bg-gray-800 text-white px-3 py-1 rounded text-sm';
+                tooltip.textContent = 'Copied to clipboard';
+                tooltip.style.top = '10px';
+                tooltip.style.left = '50%';
+                tooltip.style.transform = 'translateX(-50%)';
+                tooltip.style.zIndex = '1000';
+                
+                document.body.appendChild(tooltip);
+                
+                // 2秒后移除提示
+                setTimeout(() => {
+                    tooltip.remove();
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+            });
         }
     </script>
 </body>
