@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feedback - AddressGen</title>
+    <title data-i18n="feedback.title">Feedback - AddressGen</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -25,35 +25,34 @@
                         <span class="text-2xl font-bold text-indigo-600">AddressGen</span>
                     </div>
                     <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                        <a href="index.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        <a href="index.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" data-i18n="nav.home">
                             Home
                         </a>
-                        <a href="blog.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        <a href="blog.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" data-i18n="nav.blog">
                             Blog
                         </a>
-                        <a href="faq.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        <a href="faq.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" data-i18n="nav.faq">
                             FAQ
                         </a>
-                        <a href="about.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        <a href="about.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" data-i18n="nav.about">
                             About
                         </a>
-                        <a href="feedback.html" class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        <a href="feedback.html" class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" data-i18n="nav.feedback">
                             Feedback
                         </a>
                     </div>
                 </div>
                 <div class="hidden sm:ml-6 sm:flex sm:items-center">
                     <!-- Language Selector -->
-                    <div class="ml-3 relative dropdown">
-                        <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
+                    <div class="ml-3 relative">
+                        <button id="lang-button" class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
                             <span class="px-2 py-1 rounded-md text-gray-700 bg-gray-100 hover:bg-gray-200">
-                                <i class="fas fa-globe mr-1"></i> English
+                                <i class="fas fa-globe mr-1"></i> <span id="current-lang">English</span>
                             </span>
                         </button>
-                        <div class="dropdown-menu origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 hidden">
+                        <div id="lang-dropdown" class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5">
                             <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onclick="changeLanguage('en')">English</a>
                             <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onclick="changeLanguage('zh-CN')">简体中文</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onclick="changeLanguage('zh-TW')">繁體中文</a>
                         </div>
                     </div>
                 </div>
@@ -93,259 +92,52 @@
         <div class="bg-indigo-700 text-white">
             <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
                 <div class="text-center">
-                    <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">We Value Your Feedback</h1>
-                    <p class="mt-6 text-xl max-w-3xl mx-auto">Your thoughts and suggestions help us improve AddressGen. Let us know what you think!</p>
+                    <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl" data-i18n="feedback.title">Feedback</h1>
+                    <p class="mt-6 text-xl max-w-3xl mx-auto" data-i18n="feedback.subtitle">
+                        We value your feedback and suggestions. Help us improve AddressGen by sharing your thoughts.
+                    </p>
                 </div>
             </div>
         </div>
 
-        <!-- Feedback Form Section -->
+        <!-- Feedback Form -->
         <div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
-            <div class="lg:grid lg:grid-cols-2 lg:gap-8">
-                <!-- Left Column: Form -->
-                <div>
-                    <h2 class="text-3xl font-extrabold text-gray-900">Send Us Your Feedback</h2>
-                    <p class="mt-4 text-lg text-gray-500">Whether you have a question, suggestion, or just want to share your experience, we're here to listen.</p>
-                    
-                    <form class="mt-9 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
-                        <div class="sm:col-span-2">
-                            <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-                            <div class="mt-1">
-                                <input type="text" name="name" id="name" autocomplete="name" class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
-                            </div>
-                        </div>
-                        <div class="sm:col-span-2">
-                            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                            <div class="mt-1">
-                                <input id="email" name="email" type="email" autocomplete="email" class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
-                            </div>
-                        </div>
-                        <div class="sm:col-span-2">
-                            <label for="subject" class="block text-sm font-medium text-gray-700">Subject</label>
-                            <div class="mt-1">
-                                <input type="text" name="subject" id="subject" class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
-                            </div>
-                        </div>
-                        <div class="sm:col-span-2">
-                            <label for="feedback-type" class="block text-sm font-medium text-gray-700">Feedback Type</label>
-                            <div class="mt-1">
-                                <select id="feedback-type" name="feedback-type" class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
-                                    <option value="">Please select</option>
-                                    <option value="suggestion">Suggestion</option>
-                                    <option value="bug">Bug Report</option>
-                                    <option value="question">Question</option>
-                                    <option value="praise">Praise</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="sm:col-span-2">
-                            <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
-                            <div class="mt-1">
-                                <textarea id="message" name="message" rows="6" class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"></textarea>
-                            </div>
-                        </div>
-                        <div class="sm:col-span-2">
-                            <div class="flex items-start">
-                                <div class="flex-shrink-0">
-                                    <input id="newsletter" name="newsletter" type="checkbox" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
-                                </div>
-                                <div class="ml-3">
-                                    <p class="text-base text-gray-500">Subscribe to our newsletter to receive updates and news about AddressGen.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="sm:col-span-2">
-                            <button type="submit" class="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                Submit Feedback
-                            </button>
-                        </div>
-                    </form>
-                </div>
-
-                <!-- Right Column: Contact Info & FAQ -->
-                <div class="mt-12 lg:mt-0">
-                    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                        <div class="px-6 py-8">
-                            <h3 class="text-2xl font-bold text-gray-900">Contact Information</h3>
-                            <p class="mt-4 text-gray-500">If you prefer to reach us directly, you can use the following contact information:</p>
-                            
-                            <dl class="mt-8 space-y-6">
-                                <div class="flex">
-                                    <div class="flex-shrink-0">
-                                        <i class="fas fa-envelope text-indigo-600 text-xl"></i>
-                                    </div>
-                                    <div class="ml-3 text-base text-gray-500">
-                                        <p>support@addressgen.com</p>
-                                        <p class="mt-1">For general inquiries and support</p>
-                                    </div>
-                                </div>
-                                <div class="flex">
-                                    <div class="flex-shrink-0">
-                                        <i class="fas fa-phone-alt text-indigo-600 text-xl"></i>
-                                    </div>
-                                    <div class="ml-3 text-base text-gray-500">
-                                        <p>+1 (555) 123-4567</p>
-                                        <p class="mt-1">Mon-Fri 9am to 5pm PST</p>
-                                    </div>
-                                </div>
-                                <div class="flex">
-                                    <div class="flex-shrink-0">
-                                        <i class="fas fa-map-marker-alt text-indigo-600 text-xl"></i>
-                                    </div>
-                                    <div class="ml-3 text-base text-gray-500">
-                                        <p>123 Tech Street</p>
-                                        <p>San Francisco, CA 94107</p>
-                                    </div>
-                                </div>
-                            </dl>
-
-                            <div class="mt-8">
-                                <h3 class="text-lg font-medium text-gray-900">Connect With Us</h3>
-                                <div class="mt-4 flex space-x-6">
-                                    <a href="#" class="text-gray-400 hover:text-gray-500">
-                                        <i class="fab fa-facebook text-xl"></i>
-                                    </a>
-                                    <a href="#" class="text-gray-400 hover:text-gray-500">
-                                        <i class="fab fa-twitter text-xl"></i>
-                                    </a>
-                                    <a href="#" class="text-gray-400 hover:text-gray-500">
-                                        <i class="fab fa-instagram text-xl"></i>
-                                    </a>
-                                    <a href="#" class="text-gray-400 hover:text-gray-500">
-                                        <i class="fab fa-linkedin text-xl"></i>
-                                    </a>
-                                </div>
-                            </div>
+            <div class="max-w-3xl mx-auto">
+                <form id="feedback-form" class="space-y-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700" data-i18n="feedback.form.name">Name</label>
+                        <div class="mt-1">
+                            <input type="text" name="name" id="name" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Your name" data-i18n-placeholder="feedback.form.placeholder.name">
                         </div>
                     </div>
 
-                    <div class="mt-8 bg-white shadow-lg rounded-lg overflow-hidden">
-                        <div class="px-6 py-8">
-                            <h3 class="text-2xl font-bold text-gray-900">Frequently Asked Questions</h3>
-                            <p class="mt-4 text-gray-500">Before submitting feedback, you might want to check if your question has already been answered.</p>
-                            
-                            <div class="mt-6 space-y-6">
-                                <div>
-                                    <h4 class="text-lg font-medium text-gray-900">How quickly will I receive a response?</h4>
-                                    <p class="mt-2 text-gray-500">We typically respond to all inquiries within 24-48 business hours.</p>
-                                </div>
-                                <div>
-                                    <h4 class="text-lg font-medium text-gray-900">Can I request a new feature?</h4>
-                                    <p class="mt-2 text-gray-500">Absolutely! We love hearing about new features that would make AddressGen more useful for you.</p>
-                                </div>
-                                <div>
-                                    <h4 class="text-lg font-medium text-gray-900">How do I report a bug?</h4>
-                                    <p class="mt-2 text-gray-500">Select "Bug Report" in the feedback type dropdown and provide as much detail as possible about the issue you encountered.</p>
-                                </div>
-                            </div>
-                            
-                            <div class="mt-8">
-                                <a href="faq.html" class="text-indigo-600 hover:text-indigo-500 font-medium">View all FAQs <i class="fas fa-arrow-right ml-1"></i></a>
-                            </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700" data-i18n="feedback.form.email">Email</label>
+                        <div class="mt-1">
+                            <input type="email" name="email" id="email" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="your.email@example.com" data-i18n-placeholder="feedback.form.placeholder.email">
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Testimonials Section -->
-        <div class="bg-gray-50">
-            <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
-                <div class="text-center">
-                    <h2 class="text-3xl font-extrabold text-gray-900">What Our Users Say</h2>
-                    <p class="mt-4 text-lg text-gray-500">We're proud of the feedback we've received from our users.</p>
-                </div>
-                <div class="mt-12">
-                    <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
-                        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                            <div class="px-6 py-8">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0">
-                                        <img class="h-12 w-12 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User">
-                                    </div>
-                                    <div class="ml-4">
-                                        <h3 class="text-lg font-medium text-gray-900">Emily R.</h3>
-                                        <p class="text-sm text-gray-500">Software Developer</p>
-                                    </div>
-                                </div>
-                                <div class="mt-4">
-                                    <p class="text-gray-600">"The customer support team is incredibly responsive. I had a question about generating UK addresses, and they got back to me within hours with a detailed explanation."</p>
-                                </div>
-                                <div class="mt-4">
-                                    <div class="flex items-center">
-                                        <div class="flex">
-                                            <i class="fas fa-star text-yellow-400"></i>
-                                            <i class="fas fa-star text-yellow-400"></i>
-                                            <i class="fas fa-star text-yellow-400"></i>
-                                            <i class="fas fa-star text-yellow-400"></i>
-                                            <i class="fas fa-star text-yellow-400"></i>
-                                        </div>
-                                        <p class="ml-2 text-sm text-gray-500">5.0</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                            <div class="px-6 py-8">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0">
-                                        <img class="h-12 w-12 rounded-full" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User">
-                                    </div>
-                                    <div class="ml-4">
-                                        <h3 class="text-lg font-medium text-gray-900">Marcus T.</h3>
-                                        <p class="text-sm text-gray-500">QA Engineer</p>
-                                    </div>
-                                </div>
-                                <div class="mt-4">
-                                    <p class="text-gray-600">"I suggested a feature to add more Asian countries to the generator, and they implemented it within a month. It's great to see a company that actually listens to user feedback."</p>
-                                </div>
-                                <div class="mt-4">
-                                    <div class="flex items-center">
-                                        <div class="flex">
-                                            <i class="fas fa-star text-yellow-400"></i>
-                                            <i class="fas fa-star text-yellow-400"></i>
-                                            <i class="fas fa-star text-yellow-400"></i>
-                                            <i class="fas fa-star text-yellow-400"></i>
-                                            <i class="fas fa-star text-yellow-400"></i>
-                                        </div>
-                                        <p class="ml-2 text-sm text-gray-500">5.0</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                            <div class="px-6 py-8">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0">
-                                        <img class="h-12 w-12 rounded-full" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User">
-                                    </div>
-                                    <div class="ml-4">
-                                        <h3 class="text-lg font-medium text-gray-900">Sophia L.</h3>
-                                        <p class="text-sm text-gray-500">Product Manager</p>
-                                    </div>
-                                </div>
-                                <div class="mt-4">
-                                    <p class="text-gray-600">"I reported a small bug in the Hong Kong address format, and they fixed it immediately. Their attention to detail and commitment to quality is impressive."</p>
-                                </div>
-                                <div class="mt-4">
-                                    <div class="flex items-center">
-                                        <div class="flex">
-                                            <i class="fas fa-star text-yellow-400"></i>
-                                            <i class="fas fa-star text-yellow-400"></i>
-                                            <i class="fas fa-star text-yellow-400"></i>
-                                            <i class="fas fa-star text-yellow-400"></i>
-                                            <i class="far fa-star text-yellow-400"></i>
-                                        </div>
-                                        <p class="ml-2 text-sm text-gray-500">4.0</p>
-                                    </div>
-                                </div>
-                            </div>
+                    <div>
+                        <label for="subject" class="block text-sm font-medium text-gray-700" data-i18n="feedback.form.subject">Subject</label>
+                        <div class="mt-1">
+                            <input type="text" name="subject" id="subject" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="What is this regarding?" data-i18n-placeholder="feedback.form.placeholder.subject">
                         </div>
                     </div>
-                </div>
+
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-700" data-i18n="feedback.form.message">Message</label>
+                        <div class="mt-1">
+                            <textarea id="message" name="message" rows="4" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Tell us what you think..." data-i18n-placeholder="feedback.form.placeholder.message"></textarea>
+                        </div>
+                    </div>
+
+                    <div>
+                        <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" data-i18n="feedback.form.submit">
+                            Submit Feedback
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -355,65 +147,38 @@
         <div class="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
             <nav class="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
                 <div class="px-5 py-2">
-                    <a href="index.html" class="text-base text-gray-500 hover:text-gray-900">Home</a>
+                    <a href="index.html" class="text-base text-gray-500 hover:text-gray-900" data-i18n="nav.home">Home</a>
                 </div>
                 <div class="px-5 py-2">
-                    <a href="blog.html" class="text-base text-gray-500 hover:text-gray-900">Blog</a>
+                    <a href="blog.html" class="text-base text-gray-500 hover:text-gray-900" data-i18n="nav.blog">Blog</a>
                 </div>
                 <div class="px-5 py-2">
-                    <a href="faq.html" class="text-base text-gray-500 hover:text-gray-900">FAQ</a>
+                    <a href="faq.html" class="text-base text-gray-500 hover:text-gray-900" data-i18n="nav.faq">FAQ</a>
                 </div>
                 <div class="px-5 py-2">
-                    <a href="about.html" class="text-base text-gray-500 hover:text-gray-900">About</a>
+                    <a href="about.html" class="text-base text-gray-500 hover:text-gray-900" data-i18n="nav.about">About</a>
                 </div>
                 <div class="px-5 py-2">
-                    <a href="feedback.html" class="text-base text-gray-500 hover:text-gray-900">Feedback</a>
+                    <a href="feedback.html" class="text-base text-gray-500 hover:text-gray-900" data-i18n="nav.feedback">Feedback</a>
                 </div>
                 <div class="px-5 py-2">
-                    <a href="#" class="text-base text-gray-500 hover:text-gray-900">Privacy Policy</a>
+                    <a href="#" class="text-base text-gray-500 hover:text-gray-900" data-i18n="footer.privacy">Privacy Policy</a>
                 </div>
                 <div class="px-5 py-2">
-                    <a href="#" class="text-base text-gray-500 hover:text-gray-900">Terms of Service</a>
+                    <a href="#" class="text-base text-gray-500 hover:text-gray-900" data-i18n="footer.terms">Terms of Service</a>
                 </div>
             </nav>
-            <div class="mt-8 flex justify-center space-x-6">
-                <a href="#" class="text-gray-400 hover:text-gray-500">
-                    <span class="sr-only">Facebook</span>
-                    <i class="fab fa-facebook text-xl"></i>
-                </a>
-                <a href="#" class="text-gray-400 hover:text-gray-500">
-                    <span class="sr-only">Twitter</span>
-                    <i class="fab fa-twitter text-xl"></i>
-                </a>
-                <a href="#" class="text-gray-400 hover:text-gray-500">
-                    <span class="sr-only">GitHub</span>
-                    <i class="fab fa-github text-xl"></i>
-                </a>
-            </div>
-            <p class="mt-8 text-center text-base text-gray-400">&copy; 2023 AddressGen. All rights reserved.</p>
+            <p class="mt-8 text-center text-base text-gray-400" data-i18n="footer.copyright">&copy; 2023 AddressGen. All rights reserved.</p>
         </div>
     </footer>
 
     <!-- JavaScript -->
+    <script src="js/i18n.js"></script>
     <script>
         // Mobile menu toggle
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
             const mobileMenu = document.getElementById('mobile-menu');
             mobileMenu.classList.toggle('hidden');
-        });
-
-        // Language change function
-        function changeLanguage(lang) {
-            console.log('Language changed to: ' + lang);
-            // In a real app, this would change the UI language
-            // For now, just log the change
-        }
-
-        // Form submission handling (for demo purposes)
-        document.querySelector('form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your feedback! In a real application, this would be sent to our servers.');
-            this.reset();
         });
     </script>
 </body>

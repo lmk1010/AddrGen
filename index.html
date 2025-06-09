@@ -17,25 +17,25 @@
         select {
             transition: all 0.2s ease-in-out;
             cursor: pointer;
-            background-image: linear-gradient(45deg, transparent 50%, #4F46E5 50%),
-                            linear-gradient(135deg, #4F46E5 50%, transparent 50%);
-            background-position: calc(100% - 20px) calc(1em + 2px),
-                               calc(100% - 15px) calc(1em + 2px);
-            background-size: 5px 5px,
-                           5px 5px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236B7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-position: right 0.5rem center;
             background-repeat: no-repeat;
-            padding-right: 30px !important;
+            background-size: 1.5em 1.5em;
+            padding-right: 2.5rem;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
         }
         select:hover {
             border-color: #4F46E5;
-            box-shadow: 0 0 0 1px #4F46E5;
         }
         select:focus {
             border-color: #4F46E5;
             box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
+            outline: none;
         }
         select option {
-            padding: 10px;
+            padding: 0.5rem;
             font-size: 0.875rem;
             color: #374151;
         }
@@ -76,32 +76,32 @@
                         <span class="text-2xl font-bold text-indigo-600">AddressGen</span>
                     </div>
                     <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                        <a href="index.html" class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        <a href="index.html" class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" data-i18n="nav.home">
                             Home
                         </a>
-                        <a href="blog.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        <a href="blog.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" data-i18n="nav.blog">
                             Blog
                         </a>
-                        <a href="faq.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        <a href="faq.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" data-i18n="nav.faq">
                             FAQ
                         </a>
-                        <a href="about.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        <a href="about.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" data-i18n="nav.about">
                             About
                         </a>
-                        <a href="feedback.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        <a href="feedback.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" data-i18n="nav.feedback">
                             Feedback
                         </a>
                     </div>
                 </div>
                 <div class="hidden sm:ml-6 sm:flex sm:items-center">
                     <!-- Language Selector -->
-                    <div class="ml-3 relative dropdown">
-                        <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
+                    <div class="ml-3 relative">
+                        <button id="lang-button" class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
                             <span class="px-2 py-1 rounded-md text-gray-700 bg-gray-100 hover:bg-gray-200">
                                 <i class="fas fa-globe mr-1"></i> <span id="current-lang">English</span>
                             </span>
                         </button>
-                        <div class="dropdown-menu origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 hidden">
+                        <div id="lang-dropdown" class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5">
                             <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onclick="changeLanguage('en')">English</a>
                             <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onclick="changeLanguage('zh-CN')">简体中文</a>
                         </div>
@@ -120,11 +120,11 @@
         <!-- Mobile menu, show/hide based on menu state. -->
         <div class="sm:hidden hidden" id="mobile-menu">
             <div class="pt-2 pb-3 space-y-1">
-                <a href="index.html" class="bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Home</a>
-                <a href="blog.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Blog</a>
-                <a href="faq.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">FAQ</a>
-                <a href="about.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">About</a>
-                <a href="feedback.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Feedback</a>
+                <a href="index.html" class="bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium" data-i18n="nav.home">Home</a>
+                <a href="blog.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium" data-i18n="nav.blog">Blog</a>
+                <a href="faq.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium" data-i18n="nav.faq">FAQ</a>
+                <a href="about.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium" data-i18n="nav.about">About</a>
+                <a href="feedback.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium" data-i18n="nav.feedback">Feedback</a>
                 <div class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
                     <span class="font-medium text-gray-500">Language:</span>
                     <div class="mt-1 flex space-x-2">
@@ -142,14 +142,14 @@
         <div class="bg-indigo-700 text-white">
             <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center">
                 <div class="md:w-1/2 mb-8 md:mb-0">
-                    <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">Generate Random Address Information</h1>
-                    <p class="mt-6 text-xl max-w-3xl">Create realistic random addresses, identities, and credit card information for testing, development, or data privacy purposes.</p>
+                    <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl" data-i18n="heroTitle">Generate Random Address Information</h1>
+                    <p class="mt-6 text-xl max-w-3xl" data-i18n="heroDesc">Create realistic random addresses, identities, and credit card information for testing, development, or data privacy purposes.</p>
                     <div class="mt-8 flex space-x-4">
                         <a href="#generator" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-white hover:bg-indigo-50">
-                            Get Started
+                            <span data-i18n="getStarted">Get Started</span>
                         </a>
                         <a href="about.html" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 bg-opacity-60 hover:bg-opacity-70">
-                            Learn More
+                            <span data-i18n="learnMore">Learn More</span>
                         </a>
                     </div>
                 </div>
@@ -163,18 +163,18 @@
         <div id="generator" class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
             <div class="bg-white shadow-xl rounded-lg overflow-hidden">
                 <div class="px-4 py-5 sm:p-6">
-                    <h2 class="text-2xl font-bold text-gray-900 mb-6">Address Generator</h2>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6" data-i18n="generator.title">Address Generator</h2>
                     
                     <!-- Country Selection -->
                     <div class="mb-8">
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">Select Country</h3>
+                        <h3 class="text-lg font-medium text-gray-900 mb-4" data-i18n="generator.country.title">Select Country</h3>
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                             <div class="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-indigo-400 hover:ring-1 hover:ring-indigo-500 cursor-pointer country-option selected" data-country="us">
                                 <div class="flex-shrink-0">
                                     <img class="h-10 w-10 rounded-full" src="https://flagcdn.com/w80/us.png" alt="USA Flag">
                                 </div>
                                 <div class="flex-1 min-w-0">
-                                    <p class="text-sm font-medium text-gray-900">United States</p>
+                                    <p class="text-sm font-medium text-gray-900" data-i18n="country.us">United States</p>
                                 </div>
                                 <div class="flex-shrink-0">
                                     <i class="fas fa-check-circle text-indigo-600"></i>
@@ -186,7 +186,7 @@
                                     <img class="h-10 w-10 rounded-full" src="https://flagcdn.com/w80/gb.png" alt="UK Flag">
                                 </div>
                                 <div class="flex-1 min-w-0">
-                                    <p class="text-sm font-medium text-gray-900">United Kingdom</p>
+                                    <p class="text-sm font-medium text-gray-900" data-i18n="country.uk">United Kingdom</p>
                                 </div>
                                 <div class="flex-shrink-0 hidden">
                                     <i class="fas fa-check-circle text-indigo-600"></i>
@@ -200,9 +200,9 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- State Selection -->
                             <div>
-                                <h3 class="text-lg font-medium text-gray-900 mb-4">Select State</h3>
-                                <div class="select-wrapper">
-                                    <select id="state-select" class="block w-full px-4 py-2.5 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm appearance-none bg-white">
+                                <h3 class="text-lg font-medium text-gray-900 mb-4" data-i18n="generator.state.title">Select State</h3>
+                                <div class="mb-4">
+                                    <select id="state-select" name="state" class="block w-full px-3 py-2 text-base border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white">
                                         <option value="random">🎲 Random State</option>
                                     </select>
                                 </div>
@@ -210,9 +210,9 @@
 
                             <!-- City Selection -->
                             <div>
-                                <h3 class="text-lg font-medium text-gray-900 mb-4">Select City</h3>
-                                <div class="select-wrapper">
-                                    <select id="city-select" class="block w-full px-4 py-2.5 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm appearance-none bg-white">
+                                <h3 class="text-lg font-medium text-gray-900 mb-4" data-i18n="generator.city.title">Select City</h3>
+                                <div class="mb-4">
+                                    <select id="city-select" name="city" class="block w-full px-3 py-2 text-base border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white">
                                         <option value="random">🎲 Random City</option>
                                     </select>
                                 </div>
@@ -222,17 +222,17 @@
                     
                     <!-- Generator Options -->
                     <div class="mb-8">
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">Quantity</h3>
+                        <h3 class="text-lg font-medium text-gray-900 mb-4" data-i18n="generator.quantity.title">Quantity</h3>
                         <div class="flex items-center">
                             <input type="number" min="1" max="100" value="1" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:w-32 sm:text-sm border-gray-300 rounded-md">
-                            <span class="ml-3 text-gray-500 text-sm">Maximum: 100</span>
+                            <span class="ml-3 text-gray-500 text-sm" data-i18n="generator.quantity.max">Maximum: 100</span>
                         </div>
                     </div>
                     
                     <!-- Generate Button -->
                     <div class="flex justify-center">
                         <button type="button" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" id="generate-btn">
-                            <i class="fas fa-magic mr-2"></i> Generate Information
+                            <i class="fas fa-magic mr-2"></i> <span data-i18n="generator.button">Generate Information</span>
                         </button>
                     </div>
                 </div>
@@ -244,13 +244,13 @@
             <div class="bg-white shadow-xl rounded-lg overflow-hidden">
                 <div class="px-4 py-5 sm:p-6">
                     <div class="flex justify-between items-center mb-6">
-                        <h2 class="text-2xl font-bold text-gray-900">Generated Information</h2>
+                        <h2 class="text-2xl font-bold text-gray-900" data-i18n="generator.results.title">Generated Information</h2>
                         <div class="flex space-x-2">
                             <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" id="copy-btn">
-                                <i class="fas fa-copy mr-2"></i> Copy All
+                                <i class="fas fa-copy mr-2"></i> <span data-i18n="generator.results.copy">Copy All</span>
                             </button>
                             <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" id="download-btn">
-                                <i class="fas fa-download mr-2"></i> Download CSV
+                                <i class="fas fa-download mr-2"></i> <span data-i18n="generator.results.download">Download CSV</span>
                             </button>
                         </div>
                     </div>
@@ -261,23 +261,23 @@
                         <div class="mb-6 pb-6 border-b border-gray-200">
                             <h3 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
                                 <i class="fas fa-user-circle text-indigo-600 mr-2"></i>
-                                Basic Information
+                                <span data-i18n="generator.results.basicInfo">Basic Information</span>
                             </h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500">Full Name</p>
+                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.fullName">Full Name</p>
                                     <p class="mt-1 text-lg text-gray-900">John A. Smith</p>
                                 </div>
                                 <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500">Email</p>
+                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.email">Email</p>
                                     <p class="mt-1 text-lg text-gray-900">john.smith@example.com</p>
                                 </div>
                                 <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500">Phone Number</p>
+                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.phone">Phone Number</p>
                                     <p class="mt-1 text-lg text-gray-900">(212) 555-1234</p>
                                 </div>
                                 <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500">Date of Birth</p>
+                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.dob">Date of Birth</p>
                                     <p class="mt-1 text-lg text-gray-900">1985-06-15</p>
                                 </div>
                             </div>
@@ -287,40 +287,32 @@
                         <div class="mb-6 pb-6 border-b border-gray-200">
                             <h3 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
                                 <i class="fas fa-map-marker-alt text-indigo-600 mr-2"></i>
-                                Address Information
+                                <span data-i18n="generator.results.addressInfo">Address Information</span>
                             </h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500">Country</p>
+                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.country">Country</p>
                                     <p class="mt-1 text-lg text-gray-900">United States</p>
                                 </div>
                                 <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500">Street Address</p>
+                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.streetAddress">Street Address</p>
                                     <p class="mt-1 text-lg text-gray-900" data-field="streetAddress">3551 Indian Queen Lane</p>
                                 </div>
                                 <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500">City</p>
+                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.city">City</p>
                                     <p class="mt-1 text-lg text-gray-900" data-field="city">Philadelphia</p>
                                 </div>
                                 <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500">State Code</p>
+                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.stateCode">State Code</p>
                                     <p class="mt-1 text-lg text-gray-900" data-field="stateCode">PA</p>
                                 </div>
                                 <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500">State Name</p>
+                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.stateName">State Name</p>
                                     <p class="mt-1 text-lg text-gray-900" data-field="stateName">Pennsylvania</p>
                                 </div>
                                 <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500">ZIP Code</p>
+                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.zipCode">ZIP Code</p>
                                     <p class="mt-1 text-lg text-gray-900" data-field="zipCode">19129</p>
-                                </div>
-                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500">Phone</p>
-                                    <p class="mt-1 text-lg text-gray-900" data-field="phone">(412) 350-1941</p>
-                                </div>
-                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500">Email</p>
-                                    <p class="mt-1 text-lg text-gray-900" data-field="email">robert.garcia70@outlook.com</p>
                                 </div>
                             </div>
                         </div>
@@ -329,23 +321,23 @@
                         <div class="mb-6 pb-6 border-b border-gray-200">
                             <h3 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
                                 <i class="fas fa-credit-card text-indigo-600 mr-2"></i>
-                                Credit Card Information
+                                <span data-i18n="generator.results.creditCardInfo">Credit Card Information</span>
                             </h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500">Card Type</p>
+                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.cardType">Card Type</p>
                                     <p class="mt-1 text-lg text-gray-900">MasterCard</p>
                                 </div>
                                 <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500">Card Number</p>
+                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.cardNumber">Card Number</p>
                                     <p class="mt-1 text-lg text-gray-900">5728 1295 2846 9556</p>
                                 </div>
                                 <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500">CVV</p>
+                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.cvv">CVV</p>
                                     <p class="mt-1 text-lg text-gray-900">841</p>
                                 </div>
                                 <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500">Expiry Date</p>
+                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.expiryDate">Expiry Date</p>
                                     <p class="mt-1 text-lg text-gray-900">10/2028</p>
                                 </div>
                             </div>
@@ -355,15 +347,15 @@
                         <div>
                             <h3 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
                                 <i class="fas fa-briefcase text-indigo-600 mr-2"></i>
-                                Employment Information
+                                <span data-i18n="generator.results.employmentInfo">Employment Information</span>
                             </h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500">Occupation</p>
+                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.occupation">Occupation</p>
                                     <p class="mt-1 text-lg text-gray-900">Software Engineer</p>
                                 </div>
                                 <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500">Company</p>
+                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.company">Company</p>
                                     <p class="mt-1 text-lg text-gray-900">Tech Solutions Inc.</p>
                                 </div>
                             </div>
@@ -373,7 +365,7 @@
                     <!-- Generate More Button -->
                     <div class="flex justify-center mt-6">
                         <button type="button" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" id="generate-more-btn">
-                            <i class="fas fa-sync-alt mr-2"></i> Generate More
+                            <i class="fas fa-sync-alt mr-2"></i> <span data-i18n="generator.results.generateMore">Generate More</span>
                         </button>
                     </div>
                 </div>
@@ -383,8 +375,8 @@
         <!-- Features Section -->
         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
             <div class="text-center">
-                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">Why Use Our Address Generator?</h2>
-                <p class="mt-4 text-lg text-gray-500 max-w-3xl mx-auto">Our tool provides realistic, randomly generated information for various purposes while ensuring privacy and security.</p>
+                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl" data-i18n="whyUse">Why Use Our Address Generator?</h2>
+                <p class="mt-4 text-lg text-gray-500 max-w-3xl mx-auto" data-i18n="whyUseDesc">Our tool provides realistic, randomly generated information for various purposes while ensuring privacy and security.</p>
             </div>
 
             <div class="mt-12">
@@ -397,8 +389,8 @@
                                         <i class="fas fa-shield-alt text-white text-2xl"></i>
                                     </span>
                                 </div>
-                                <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Privacy Protection</h3>
-                                <p class="mt-5 text-base text-gray-500">
+                                <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight" data-i18n="privacyProtection">Privacy Protection</h3>
+                                <p class="mt-5 text-base text-gray-500" data-i18n="privacyProtectionDesc">
                                     Use randomly generated information instead of real personal data for testing and development purposes.
                                 </p>
                             </div>
@@ -413,8 +405,8 @@
                                         <i class="fas fa-globe text-white text-2xl"></i>
                                     </span>
                                 </div>
-                                <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">International Support</h3>
-                                <p class="mt-5 text-base text-gray-500">
+                                <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight" data-i18n="internationalSupport">International Support</h3>
+                                <p class="mt-5 text-base text-gray-500" data-i18n="internationalSupportDesc">
                                     Generate address information for multiple countries including the US, UK, and Hong Kong.
                                 </p>
                             </div>
@@ -429,8 +421,8 @@
                                         <i class="fas fa-cogs text-white text-2xl"></i>
                                     </span>
                                 </div>
-                                <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Customizable Options</h3>
-                                <p class="mt-5 text-base text-gray-500">
+                                <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight" data-i18n="customizableOptions">Customizable Options</h3>
+                                <p class="mt-5 text-base text-gray-500" data-i18n="customizableOptionsDesc">
                                     Select exactly what information you need, from basic address details to complete identity profiles.
                                 </p>
                             </div>
@@ -486,448 +478,50 @@
     </footer>
 
     <!-- JavaScript -->
+    <script src="js/i18n.js"></script>
+    <script src="scripts.js"></script>
     <script>
-        // 美国各州数据
-        const states = {
-            'us': [
-                { code: 'AL', name: 'Alabama', cities: ['Montgomery', 'Birmingham', 'Mobile', 'Huntsville'] },
-                { code: 'AK', name: 'Alaska', cities: ['Juneau', 'Anchorage', 'Fairbanks', 'Sitka'] },
-                { code: 'AZ', name: 'Arizona', cities: ['Phoenix', 'Tucson', 'Mesa', 'Scottsdale'] },
-                { code: 'AR', name: 'Arkansas', cities: ['Little Rock', 'Fort Smith', 'Fayetteville', 'Springdale'] },
-                { code: 'CA', name: 'California', cities: ['Sacramento', 'Los Angeles', 'San Diego', 'San Jose'] },
-                { code: 'CO', name: 'Colorado', cities: ['Denver', 'Colorado Springs', 'Aurora', 'Fort Collins'] },
-                { code: 'CT', name: 'Connecticut', cities: ['Hartford', 'Bridgeport', 'New Haven', 'Stamford'] },
-                { code: 'DE', name: 'Delaware', cities: ['Dover', 'Wilmington', 'Newark', 'Middletown'] },
-                { code: 'FL', name: 'Florida', cities: ['Tallahassee', 'Miami', 'Orlando', 'Tampa'] },
-                { code: 'GA', name: 'Georgia', cities: ['Atlanta', 'Augusta', 'Columbus', 'Savannah'] },
-                { code: 'HI', name: 'Hawaii', cities: ['Honolulu', 'Pearl City', 'Hilo', 'Kailua'] },
-                { code: 'ID', name: 'Idaho', cities: ['Boise', 'Meridian', 'Nampa', 'Idaho Falls'] },
-                { code: 'IL', name: 'Illinois', cities: ['Springfield', 'Chicago', 'Aurora', 'Rockford'] },
-                { code: 'IN', name: 'Indiana', cities: ['Indianapolis', 'Fort Wayne', 'Evansville', 'South Bend'] },
-                { code: 'IA', name: 'Iowa', cities: ['Des Moines', 'Cedar Rapids', 'Davenport', 'Sioux City'] },
-                { code: 'KS', name: 'Kansas', cities: ['Topeka', 'Wichita', 'Overland Park', 'Kansas City'] },
-                { code: 'KY', name: 'Kentucky', cities: ['Frankfort', 'Lexington', 'Louisville', 'Bowling Green'] },
-                { code: 'LA', name: 'Louisiana', cities: ['Baton Rouge', 'New Orleans', 'Shreveport', 'Lafayette'] },
-                { code: 'ME', name: 'Maine', cities: ['Augusta', 'Portland', 'Lewiston', 'Bangor'] },
-                { code: 'MD', name: 'Maryland', cities: ['Annapolis', 'Baltimore', 'Rockville', 'Germantown'] },
-                { code: 'MA', name: 'Massachusetts', cities: ['Boston', 'Worcester', 'Springfield', 'Cambridge'] },
-                { code: 'MI', name: 'Michigan', cities: ['Lansing', 'Detroit', 'Grand Rapids', 'Warren'] },
-                { code: 'MN', name: 'Minnesota', cities: ['Saint Paul', 'Minneapolis', 'Rochester', 'Duluth'] },
-                { code: 'MS', name: 'Mississippi', cities: ['Jackson', 'Gulfport', 'Hattiesburg', 'Southaven'] },
-                { code: 'MO', name: 'Missouri', cities: ['Jefferson City', 'Kansas City', 'St. Louis', 'Springfield'] },
-                { code: 'MT', name: 'Montana', cities: ['Helena', 'Billings', 'Missoula', 'Great Falls'] },
-                { code: 'NE', name: 'Nebraska', cities: ['Lincoln', 'Omaha', 'Bellevue', 'Grand Island'] },
-                { code: 'NV', name: 'Nevada', cities: ['Carson City', 'Las Vegas', 'Reno', 'Henderson'] },
-                { code: 'NH', name: 'New Hampshire', cities: ['Concord', 'Manchester', 'Nashua', 'Dover'] },
-                { code: 'NJ', name: 'New Jersey', cities: ['Trenton', 'Newark', 'Jersey City', 'Paterson'] },
-                { code: 'NM', name: 'New Mexico', cities: ['Santa Fe', 'Albuquerque', 'Las Cruces', 'Rio Rancho'] },
-                { code: 'NY', name: 'New York', cities: ['Albany', 'New York City', 'Buffalo', 'Rochester'] },
-                { code: 'NC', name: 'North Carolina', cities: ['Raleigh', 'Charlotte', 'Greensboro', 'Durham'] },
-                { code: 'ND', name: 'North Dakota', cities: ['Bismarck', 'Fargo', 'Grand Forks', 'Minot'] },
-                { code: 'OH', name: 'Ohio', cities: ['Columbus', 'Cleveland', 'Cincinnati', 'Toledo'] },
-                { code: 'OK', name: 'Oklahoma', cities: ['Oklahoma City', 'Tulsa', 'Norman', 'Broken Arrow'] },
-                { code: 'OR', name: 'Oregon', cities: ['Salem', 'Portland', 'Eugene', 'Gresham'] },
-                { code: 'PA', name: 'Pennsylvania', cities: ['Harrisburg', 'Philadelphia', 'Pittsburgh', 'Allentown'] },
-                { code: 'RI', name: 'Rhode Island', cities: ['Providence', 'Warwick', 'Cranston', 'Pawtucket'] },
-                { code: 'SC', name: 'South Carolina', cities: ['Columbia', 'Charleston', 'North Charleston', 'Mount Pleasant'] },
-                { code: 'SD', name: 'South Dakota', cities: ['Pierre', 'Sioux Falls', 'Rapid City', 'Aberdeen'] },
-                { code: 'TN', name: 'Tennessee', cities: ['Nashville', 'Memphis', 'Knoxville', 'Chattanooga'] },
-                { code: 'TX', name: 'Texas', cities: ['Austin', 'Houston', 'San Antonio', 'Dallas'] },
-                { code: 'UT', name: 'Utah', cities: ['Salt Lake City', 'West Valley City', 'Provo', 'West Jordan'] },
-                { code: 'VT', name: 'Vermont', cities: ['Montpelier', 'Burlington', 'South Burlington', 'Rutland'] },
-                { code: 'VA', name: 'Virginia', cities: ['Richmond', 'Virginia Beach', 'Norfolk', 'Chesapeake'] },
-                { code: 'WA', name: 'Washington', cities: ['Olympia', 'Seattle', 'Spokane', 'Tacoma'] },
-                { code: 'WV', name: 'West Virginia', cities: ['Charleston', 'Huntington', 'Morgantown', 'Parkersburg'] },
-                { code: 'WI', name: 'Wisconsin', cities: ['Madison', 'Milwaukee', 'Green Bay', 'Kenosha'] },
-                { code: 'WY', name: 'Wyoming', cities: ['Cheyenne', 'Casper', 'Laramie', 'Gillette'] }
-            ]
-        };
-
-        // 翻译文本
-        const translations = {
-            'en': {
-                'home': 'Home',
-                'blog': 'Blog',
-                'faq': 'FAQ',
-                'about': 'About',
-                'feedback': 'Feedback',
-                'generate': 'Generate Information',
-                'generateMore': 'Generate More',
-                'copyAll': 'Copy All',
-                'downloadCSV': 'Download CSV',
-                'basicInfo': 'Basic Information',
-                'addressInfo': 'Address Information',
-                'creditCardInfo': 'Credit Card Information',
-                'employmentInfo': 'Employment Information',
-                'fullName': 'Full Name',
-                'email': 'Email',
-                'phoneNumber': 'Phone Number',
-                'dateOfBirth': 'Date of Birth',
-                'country': 'Country',
-                'streetAddress': 'Street Address',
-                'city': 'City',
-                'stateCode': 'State Code',
-                'stateName': 'State Name',
-                'zipCode': 'ZIP Code',
-                'phone': 'Phone',
-                'cardType': 'Card Type',
-                'cardNumber': 'Card Number',
-                'cvv': 'CVV',
-                'expiryDate': 'Expiry Date',
-                'occupation': 'Occupation',
-                'company': 'Company',
-                'selectCountry': 'Select Country',
-                'selectState': 'Select State',
-                'selectCity': 'Select City',
-                'quantity': 'Quantity',
-                'maximum': 'Maximum',
-                'randomState': '🎲 Random State',
-                'randomCity': '🎲 Random City',
-                'whyUse': 'Why Use Our Address Generator?',
-                'privacyProtection': 'Privacy Protection',
-                'internationalSupport': 'International Support',
-                'customizableOptions': 'Customizable Options',
-                'privacyPolicy': 'Privacy Policy',
-                'termsOfService': 'Terms of Service'
-            },
-            'zh-CN': {
-                'home': '首页',
-                'blog': '博客',
-                'faq': '常见问题',
-                'about': '关于',
-                'feedback': '反馈',
-                'generate': '生成信息',
-                'generateMore': '生成更多',
-                'copyAll': '复制全部',
-                'downloadCSV': '下载CSV',
-                'basicInfo': '基本信息',
-                'addressInfo': '地址信息',
-                'creditCardInfo': '信用卡信息',
-                'employmentInfo': '工作信息',
-                'fullName': '姓名',
-                'email': '邮箱',
-                'phoneNumber': '电话号码',
-                'dateOfBirth': '出生日期',
-                'country': '国家',
-                'streetAddress': '街道地址',
-                'city': '城市',
-                'stateCode': '州代码',
-                'stateName': '州名称',
-                'zipCode': '邮政编码',
-                'phone': '电话',
-                'cardType': '卡类型',
-                'cardNumber': '卡号',
-                'cvv': 'CVV',
-                'expiryDate': '有效期',
-                'occupation': '职业',
-                'company': '公司',
-                'selectCountry': '选择国家',
-                'selectState': '选择州',
-                'selectCity': '选择城市',
-                'quantity': '数量',
-                'maximum': '最大',
-                'randomState': '🎲 随机州',
-                'randomCity': '🎲 随机城市',
-                'whyUse': '为什么使用我们的地址生成器？',
-                'privacyProtection': '隐私保护',
-                'internationalSupport': '国际支持',
-                'customizableOptions': '自定义选项',
-                'privacyPolicy': '隐私政策',
-                'termsOfService': '服务条款'
-            }
-        };
-
-        // 当前语言
-        let currentLang = localStorage.getItem('language') || 'en';
-
-        // 更新页面文本
-        function updatePageText() {
-            const lang = translations[currentLang];
-            const currentLangElement = document.getElementById('current-lang');
-            if (currentLangElement) {
-                currentLangElement.textContent = currentLang === 'en' ? 'English' : '简体中文';
-            }
-            
-            // 更新导航栏
-            const navLinks = {
-                'index.html': lang.home,
-                'blog.html': lang.blog,
-                'faq.html': lang.faq,
-                'about.html': lang.about,
-                'feedback.html': lang.feedback
-            };
-
-            Object.entries(navLinks).forEach(([href, text]) => {
-                document.querySelectorAll(`a[href="${href}"]`).forEach(el => {
-                    if (el) el.textContent = text;
-                });
-            });
-
-            // 更新生成器部分
-            const generatorTitle = document.querySelector('h2.text-2xl.font-bold.text-gray-900.mb-6');
-            if (generatorTitle) generatorTitle.textContent = lang.generate;
-
-            const sectionTitles = document.querySelectorAll('h3.text-lg.font-medium.text-gray-900.mb-4');
-            if (sectionTitles.length >= 3) {
-                sectionTitles[0].textContent = lang.selectCountry;
-                sectionTitles[1].textContent = lang.selectState;
-                sectionTitles[2].textContent = lang.selectCity;
-            }
-
-            const quantityTitle = document.querySelector('h3.text-lg.font-medium.text-gray-900.mb-4:nth-of-type(4)');
-            if (quantityTitle) quantityTitle.textContent = lang.quantity;
-
-            const maxText = document.querySelector('span.ml-3.text-gray-500.text-sm');
-            if (maxText) maxText.textContent = lang.maximum + ': 100';
-
-            const generateBtn = document.getElementById('generate-btn');
-            if (generateBtn) generateBtn.innerHTML = `<i class="fas fa-magic mr-2"></i> ${lang.generate}`;
-
-            // 更新结果部分
-            const resultsTitle = document.querySelector('#results h2.text-2xl.font-bold.text-gray-900');
-            if (resultsTitle) resultsTitle.textContent = lang.generate;
-
-            const copyBtn = document.getElementById('copy-btn');
-            if (copyBtn) copyBtn.innerHTML = `<i class="fas fa-copy mr-2"></i> ${lang.copyAll}`;
-
-            const downloadBtn = document.getElementById('download-btn');
-            if (downloadBtn) downloadBtn.innerHTML = `<i class="fas fa-download mr-2"></i> ${lang.downloadCSV}`;
-
-            const generateMoreBtn = document.getElementById('generate-more-btn');
-            if (generateMoreBtn) generateMoreBtn.innerHTML = `<i class="fas fa-sync-alt mr-2"></i> ${lang.generateMore}`;
-
-            // 更新随机选项
-            const randomStateOption = document.querySelector('#state-select option[value="random"]');
-            if (randomStateOption) randomStateOption.textContent = lang.randomState;
-
-            const randomCityOption = document.querySelector('#city-select option[value="random"]');
-            if (randomCityOption) randomCityOption.textContent = lang.randomCity;
-
-            // 更新其他文本
-            document.querySelectorAll('.text-sm.font-medium.text-gray-500').forEach(el => {
-                if (el) {
-                    const key = el.textContent.toLowerCase().replace(/\s+/g, '');
-                    if (lang[key]) {
-                        el.textContent = lang[key];
-                    }
-                }
-            });
-        }
-
-        // 语言切换函数
-        function changeLanguage(lang) {
-            currentLang = lang;
-            localStorage.setItem('language', lang);
-            updatePageText();
-        }
-
-        // 页面加载时初始化
+        // 等待 DOM 加载完成
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('页面加载完成，准备初始化');
+            // 初始化表单
+            initGeneratorForm();
             
-            // 初始化州选择下拉框
-            initializeStateSelect();
-            // 初始化城市选择下拉框
-            initializeCitySelect();
-            
-            // 确保默认选中美国
-            const usOption = document.querySelector('.country-option[data-country="us"]');
-            if (usOption) {
-                console.log('找到美国选项，设置为默认选中');
-                usOption.classList.add('selected');
-                usOption.querySelector('.flex-shrink-0:last-child').classList.remove('hidden');
-            } else {
-                console.error('未找到美国选项！');
-            }
-
-            // 初始化语言
-            updatePageText();
-
-            // 添加生成按钮点击事件
-            const generateBtn = document.getElementById('generate-btn');
-            if (generateBtn) {
-                generateBtn.addEventListener('click', generateAddress);
-            }
-
-            // 添加生成更多按钮点击事件
-            const generateMoreBtn = document.getElementById('generate-more-btn');
-            if (generateMoreBtn) {
-                generateMoreBtn.addEventListener('click', generateAddress);
-            }
-        });
-
-        // 初始化州选择下拉框
-        function initializeStateSelect() {
-            console.log('开始初始化州选择下拉框');
-            const stateSelect = document.getElementById('state-select');
-            console.log('获取到的state-select元素:', stateSelect);
-
-            const selectedCountry = document.querySelector('.country-option.selected');
-            console.log('当前选中的国家元素:', selectedCountry);
-            
-            if (!selectedCountry) {
-                console.log('未找到选中的国家元素，使用默认的美国数据');
-                // 使用默认的美国数据
-                const countryCode = 'us';
-                populateStateSelect(countryCode);
-                return;
-            }
-
-            const countryCode = selectedCountry.dataset.country;
-            console.log('当前选中的国家代码:', countryCode);
-            populateStateSelect(countryCode);
-        }
-
-        // 填充州选择下拉框
-        function populateStateSelect(countryCode) {
-            const stateSelect = document.getElementById('state-select');
-            if (!stateSelect) return;
-
-            // 保存随机选项
-            const randomOption = stateSelect.options[0];
-            
-            // 清空现有选项
-            stateSelect.innerHTML = '';
-            console.log('已清空现有选项');
-            
-            // 重新添加随机选项
-            stateSelect.appendChild(randomOption);
-            
-            // 添加州选项
-            if (states[countryCode]) {
-                console.log('找到对应国家的州数据:', states[countryCode]);
-                states[countryCode].forEach(state => {
-                    const option = document.createElement('option');
-                    option.value = state.code;
-                    option.textContent = state.name;
-                    stateSelect.appendChild(option);
-                    console.log('添加州选项:', state.name);
-                });
-
-                // 默认选中随机选项
-                stateSelect.selectedIndex = 0;
-            } else {
-                console.error('未找到对应国家的州数据！');
-            }
-        }
-
-        // 初始化城市选择下拉框
-        function initializeCitySelect() {
-            console.log('开始初始化城市选择下拉框');
-            const citySelect = document.getElementById('city-select');
-            const stateSelect = document.getElementById('state-select');
-            
-            if (!citySelect || !stateSelect) return;
-            
-            // 保存随机选项
-            const randomOption = citySelect.options[0];
-            
-            // 清空现有选项
-            citySelect.innerHTML = '';
-            
-            // 重新添加随机选项
-            citySelect.appendChild(randomOption);
-            
-            // 如果州选择不是随机选项，则添加对应州的城市
-            if (stateSelect.value !== 'random') {
-                const selectedState = states['us'].find(state => state.code === stateSelect.value);
-                if (selectedState) {
-                    selectedState.cities.forEach(city => {
-                        const option = document.createElement('option');
-                        option.value = city;
-                        option.textContent = city;
-                        citySelect.appendChild(option);
-                    });
-                }
-            }
-            
-            // 默认选中随机选项
-            citySelect.selectedIndex = 0;
-        }
-
-        // 生成随机地址函数
-        function generateAddress() {
-            console.log('开始生成地址');
-            
-            // 获取选中的国家
-            const selectedCountry = document.querySelector('.country-option.selected');
-            if (!selectedCountry) {
-                console.error('未选择国家');
-                return;
-            }
-            const countryCode = selectedCountry.dataset.country;
-            
-            // 获取选中的州
-            const stateSelect = document.getElementById('state-select');
-            const selectedState = stateSelect.value === 'random' 
-                ? states[countryCode][Math.floor(Math.random() * states[countryCode].length)]
-                : states[countryCode].find(state => state.code === stateSelect.value);
-            
-            // 获取选中的城市
-            const citySelect = document.getElementById('city-select');
-            const selectedCity = citySelect.value === 'random'
-                ? selectedState.cities[Math.floor(Math.random() * selectedState.cities.length)]
-                : citySelect.value;
-
-            // 生成随机街道地址
-            const streetNumbers = ['123', '456', '789', '101', '202', '303', '404', '505'];
-            const streetNames = ['Main St', 'Oak Ave', 'Maple Dr', 'Cedar Ln', 'Pine Rd', 'Elm St', 'Birch Way', 'Willow Ct'];
-            const streetAddress = `${streetNumbers[Math.floor(Math.random() * streetNumbers.length)]} ${streetNames[Math.floor(Math.random() * streetNames.length)]}`;
-
-            // 生成随机邮编
-            const zipCode = Math.floor(10000 + Math.random() * 90000).toString();
-
-            // 生成随机电话号码
-            const areaCode = Math.floor(200 + Math.random() * 800).toString();
-            const phoneNumber = `(${areaCode}) ${Math.floor(100 + Math.random() * 900)}-${Math.floor(1000 + Math.random() * 9000)}`;
-
-            // 生成随机邮箱
-            const names = ['john', 'jane', 'mike', 'sarah', 'david', 'lisa', 'robert', 'emma'];
-            const domains = ['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com'];
-            const email = `${names[Math.floor(Math.random() * names.length)]}${Math.floor(Math.random() * 100)}@${domains[Math.floor(Math.random() * domains.length)]}`;
-
-            // 更新结果区域
-            const results = document.getElementById('results');
-            if (results) {
-                results.classList.remove('hidden');
-                
-                // 更新地址信息
-                document.querySelector('[data-field="streetAddress"]').textContent = streetAddress;
-                document.querySelector('[data-field="city"]').textContent = selectedCity;
-                document.querySelector('[data-field="stateCode"]').textContent = selectedState.code;
-                document.querySelector('[data-field="stateName"]').textContent = selectedState.name;
-                document.querySelector('[data-field="zipCode"]').textContent = zipCode;
-                document.querySelector('[data-field="phone"]').textContent = phoneNumber;
-                document.querySelector('[data-field="email"]').textContent = email;
-            }
-
-            // 滚动到结果区域
-            results.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // 复制到剪贴板功能
-        function copyToClipboard(element) {
-            const text = element.querySelector('p:last-child').textContent;
-            navigator.clipboard.writeText(text).then(() => {
-                // 创建临时提示元素
-                const tooltip = document.createElement('div');
-                tooltip.className = 'fixed bg-gray-800 text-white px-3 py-1 rounded text-sm';
-                tooltip.textContent = 'Copied to clipboard';
-                tooltip.style.top = '10px';
-                tooltip.style.left = '50%';
-                tooltip.style.transform = 'translateX(-50%)';
-                tooltip.style.zIndex = '1000';
-                
-                document.body.appendChild(tooltip);
-                
-                // 2秒后移除提示
-                setTimeout(() => {
-                    tooltip.remove();
-                }, 2000);
-            }).catch(err => {
-                console.error('Failed to copy:', err);
+            // Mobile menu toggle
+            document.getElementById('mobile-menu-button').addEventListener('click', function() {
+                const mobileMenu = document.getElementById('mobile-menu');
+                mobileMenu.classList.toggle('hidden');
             });
-        }
+
+            // Generate button click handler
+            document.getElementById('generate-btn').addEventListener('click', function() {
+                const country = document.querySelector('.country-option.selected').getAttribute('data-country');
+                const state = document.getElementById('state-select').value;
+                const city = document.getElementById('city-select').value;
+                const quantity = document.querySelector('input[type="number"]').value;
+                
+                // Show loading state
+                this.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> <span data-i18n="generator.button">Generating...</span>';
+                this.disabled = true;
+                
+                // Simulate API call
+                setTimeout(() => {
+                    // Reset button state
+                    this.innerHTML = '<i class="fas fa-magic mr-2"></i> <span data-i18n="generator.button">Generate Information</span>';
+                    this.disabled = false;
+                    
+                    // Show results section
+                    document.getElementById('results').classList.remove('hidden');
+                    
+                    // Scroll to results
+                    document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+                }, 1500);
+            });
+
+            // Generate more button click handler
+            document.getElementById('generate-more-btn').addEventListener('click', function() {
+                document.getElementById('generate-btn').click();
+            });
+        });
     </script>
 </body>
 </html>

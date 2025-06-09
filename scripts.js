@@ -131,8 +131,11 @@ function initGeneratorForm() {
 function initStateCitySelection() {
     const stateSelect = document.getElementById('state-select');
     const citySelect = document.getElementById('city-select');
-    const randomStateBtn = document.getElementById('random-state');
-    const randomCityBtn = document.getElementById('random-city');
+    
+    if (!stateSelect || !citySelect) {
+        console.warn('State or city select elements not found');
+        return;
+    }
     
     // State data for different countries
     const stateData = {
@@ -278,7 +281,7 @@ function initStateCitySelection() {
             const country = this.getAttribute('data-country');
             updateStates(country);
             // Clear city selection
-            citySelect.innerHTML = '<option value="">Select a city</option>';
+            citySelect.innerHTML = '<option value="random">🎲 Random City</option>';
         });
     });
 
@@ -289,29 +292,8 @@ function initStateCitySelection() {
         updateCities(country, state);
     });
 
-    // Random state button click handler
-    randomStateBtn.addEventListener('click', function() {
-        const country = document.querySelector('.country-option.selected').getAttribute('data-country');
-        const states = stateData[country];
-        if (states && states.length > 0) {
-            const randomState = getRandomElement(states);
-            stateSelect.value = randomState.code;
-            updateCities(country, randomState.code);
-        }
-    });
-
-    // Random city button click handler
-    randomCityBtn.addEventListener('click', function() {
-        const country = document.querySelector('.country-option.selected').getAttribute('data-country');
-        const state = stateSelect.value;
-        if (state && cityData[country] && cityData[country][state]) {
-            const cities = cityData[country][state];
-            citySelect.value = getRandomElement(cities);
-        }
-    });
-
     function updateStates(country) {
-        stateSelect.innerHTML = '<option value="">Select a state</option>';
+        stateSelect.innerHTML = '<option value="random">🎲 Random State</option>';
         const states = stateData[country];
         if (states) {
             states.forEach(state => {
@@ -320,18 +302,26 @@ function initStateCitySelection() {
                 option.textContent = state.name;
                 stateSelect.appendChild(option);
             });
-            // 默认选择第一个州
-            if (states.length > 0) {
-                stateSelect.value = states[0].code;
-                // 更新对应的城市列表
-                updateCities(country, states[0].code);
-            }
         }
     }
 
     function updateCities(country, state) {
-        citySelect.innerHTML = '<option value="">Select a city</option>';
-        if (cityData[country] && cityData[country][state]) {
+        citySelect.innerHTML = '<option value="random">🎲 Random City</option>';
+        if (state === 'random') {
+            // 如果选择了随机州/省，则显示所有城市
+            const allCities = [];
+            if (cityData[country]) {
+                Object.values(cityData[country]).forEach(cities => {
+                    allCities.push(...cities);
+                });
+            }
+            allCities.forEach(city => {
+                const option = document.createElement('option');
+                option.value = city;
+                option.textContent = city;
+                citySelect.appendChild(option);
+            });
+        } else if (cityData[country] && cityData[country][state]) {
             cityData[country][state].forEach(city => {
                 const option = document.createElement('option');
                 option.value = city;

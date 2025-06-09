@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - AddressGen</title>
+    <title data-i18n="blog.title">Blog - AddressGen</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -25,35 +25,34 @@
                         <span class="text-2xl font-bold text-indigo-600">AddressGen</span>
                     </div>
                     <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                        <a href="index.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        <a href="index.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" data-i18n="nav.home">
                             Home
                         </a>
-                        <a href="blog.html" class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        <a href="blog.html" class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" data-i18n="nav.blog">
                             Blog
                         </a>
-                        <a href="faq.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        <a href="faq.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" data-i18n="nav.faq">
                             FAQ
                         </a>
-                        <a href="about.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        <a href="about.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" data-i18n="nav.about">
                             About
                         </a>
-                        <a href="feedback.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        <a href="feedback.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" data-i18n="nav.feedback">
                             Feedback
                         </a>
                     </div>
                 </div>
                 <div class="hidden sm:ml-6 sm:flex sm:items-center">
                     <!-- Language Selector -->
-                    <div class="ml-3 relative dropdown">
-                        <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
+                    <div class="ml-3 relative">
+                        <button id="lang-button" class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
                             <span class="px-2 py-1 rounded-md text-gray-700 bg-gray-100 hover:bg-gray-200">
-                                <i class="fas fa-globe mr-1"></i> English
+                                <i class="fas fa-globe mr-1"></i> <span id="current-lang">English</span>
                             </span>
                         </button>
-                        <div class="dropdown-menu origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 hidden">
+                        <div id="lang-dropdown" class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5">
                             <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onclick="changeLanguage('en')">English</a>
                             <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onclick="changeLanguage('zh-CN')">简体中文</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onclick="changeLanguage('zh-TW')">繁體中文</a>
                         </div>
                     </div>
                 </div>
@@ -70,17 +69,16 @@
         <!-- Mobile menu, show/hide based on menu state. -->
         <div class="sm:hidden hidden" id="mobile-menu">
             <div class="pt-2 pb-3 space-y-1">
-                <a href="index.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Home</a>
-                <a href="blog.html" class="bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Blog</a>
-                <a href="faq.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">FAQ</a>
-                <a href="about.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">About</a>
-                <a href="feedback.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Feedback</a>
+                <a href="index.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium" data-i18n="nav.home">Home</a>
+                <a href="blog.html" class="bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium" data-i18n="nav.blog">Blog</a>
+                <a href="faq.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium" data-i18n="nav.faq">FAQ</a>
+                <a href="about.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium" data-i18n="nav.about">About</a>
+                <a href="feedback.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium" data-i18n="nav.feedback">Feedback</a>
                 <div class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
-                    <span class="font-medium text-gray-500">Language:</span>
+                    <span class="font-medium text-gray-500" data-i18n="language">Language:</span>
                     <div class="mt-1 flex space-x-2">
                         <a href="#" class="text-sm text-gray-700 hover:text-indigo-500" onclick="changeLanguage('en')">English</a>
                         <a href="#" class="text-sm text-gray-700 hover:text-indigo-500" onclick="changeLanguage('zh-CN')">简体中文</a>
-                        <a href="#" class="text-sm text-gray-700 hover:text-indigo-500" onclick="changeLanguage('zh-TW')">繁體中文</a>
                     </div>
                 </div>
             </div>
@@ -93,8 +91,8 @@
         <div class="bg-indigo-700 text-white">
             <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
                 <div class="text-center">
-                    <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">AddressGen Blog</h1>
-                    <p class="mt-6 text-xl max-w-3xl mx-auto">Latest news, tips, and insights about address generation, data privacy, and identity management.</p>
+                    <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl" data-i18n="blog.header.title">AddressGen Blog</h1>
+                    <p class="mt-6 text-xl max-w-3xl mx-auto" data-i18n="blog.header.subtitle">Get the latest news, tips, and insights about address generation, data privacy, and identity management.</p>
                 </div>
             </div>
         </div>
@@ -106,35 +104,35 @@
                 <div class="lg:col-span-2">
                     <!-- Featured Article -->
                     <div class="bg-white shadow-xl rounded-lg overflow-hidden mb-8">
-                        <img class="w-full h-64 object-cover" src="images/data_privacy.svg" alt="Data Privacy">
+                        <img class="w-full h-64 object-cover" src="images/data_privacy.svg" alt="数据隐私">
                         <div class="p-6">
                             <div class="flex items-center">
                                 <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-indigo-100 text-indigo-800">
-                                    Featured
+                                    精选
                                 </span>
-                                <span class="ml-3 text-sm text-gray-500">May 15, 2023</span>
+                                <span class="ml-3 text-sm text-gray-500">2023年5月15日</span>
                             </div>
                             <a href="#" class="block mt-2">
-                                <p class="text-xl font-semibold text-gray-900">Why Data Privacy Matters in Address Generation</p>
+                                <p class="text-xl font-semibold text-gray-900">为什么数据隐私在地址生成中很重要</p>
                                 <p class="mt-3 text-base text-gray-500">
-                                    In today's digital world, protecting personal information is more important than ever. Learn how using randomly generated addresses can help safeguard your privacy during testing and development.
+                                    在当今的数字世界中，保护个人信息比以往任何时候都更加重要。了解如何在测试和开发过程中使用随机生成的地址来保护您的隐私。
                                 </p>
                             </a>
                             <div class="mt-6 flex items-center">
                                 <div class="flex-shrink-0">
-                                    <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Author">
+                                    <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="作者">
                                 </div>
                                 <div class="ml-3">
                                     <p class="text-sm font-medium text-gray-900">Sarah Johnson</p>
                                     <div class="flex space-x-1 text-sm text-gray-500">
-                                        <span>8 min read</span>
+                                        <span>8分钟阅读</span>
                                         <span aria-hidden="true">&middot;</span>
-                                        <span>Data Privacy</span>
+                                        <span>数据隐私</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="mt-4">
-                                <a href="#" class="text-indigo-600 hover:text-indigo-500 font-medium">Read full article <i class="fas fa-arrow-right ml-1"></i></a>
+                                <a href="#" class="text-indigo-600 hover:text-indigo-500 font-medium">阅读全文 <i class="fas fa-arrow-right ml-1"></i></a>
                             </div>
                         </div>
                     </div>
@@ -143,88 +141,88 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <!-- Article 1 -->
                         <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                            <img class="w-full h-48 object-cover" src="images/uk_address.svg" alt="UK Addresses">
+                            <img class="w-full h-48 object-cover" src="images/uk_address.svg" alt="英国地址">
                             <div class="p-6">
                                 <div class="flex items-center">
                                     <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800">
-                                        Guide
+                                        指南
                                     </span>
-                                    <span class="ml-3 text-sm text-gray-500">April 28, 2023</span>
+                                    <span class="ml-3 text-sm text-gray-500">2023年4月28日</span>
                                 </div>
                                 <a href="#" class="block mt-2">
-                                    <p class="text-lg font-semibold text-gray-900">Understanding UK Address Formats</p>
+                                    <p class="text-lg font-semibold text-gray-900">了解英国地址格式</p>
                                     <p class="mt-3 text-sm text-gray-500">
-                                        A comprehensive guide to UK address structures, postal codes, and regional variations for accurate address generation.
+                                        全面了解英国地址结构、邮政编码和地区差异，以生成准确的地址。
                                     </p>
                                 </a>
                                 <div class="mt-4">
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-500 font-medium text-sm">Continue reading <i class="fas fa-arrow-right ml-1"></i></a>
+                                    <a href="#" class="text-indigo-600 hover:text-indigo-500 font-medium text-sm">继续阅读 <i class="fas fa-arrow-right ml-1"></i></a>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Article 2 -->
                         <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                            <img class="w-full h-48 object-cover" src="images/credit_card.svg" alt="Credit Cards">
+                            <img class="w-full h-48 object-cover" src="images/credit_card.svg" alt="信用卡">
                             <div class="p-6">
                                 <div class="flex items-center">
                                     <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-red-100 text-red-800">
-                                        Security
+                                        安全
                                     </span>
-                                    <span class="ml-3 text-sm text-gray-500">April 15, 2023</span>
+                                    <span class="ml-3 text-sm text-gray-500">2023年4月15日</span>
                                 </div>
                                 <a href="#" class="block mt-2">
-                                    <p class="text-lg font-semibold text-gray-900">Credit Card Number Generation: How It Works</p>
+                                    <p class="text-lg font-semibold text-gray-900">信用卡号码生成：工作原理</p>
                                     <p class="mt-3 text-sm text-gray-500">
-                                        Learn about the Luhn algorithm and how our system generates valid but fictional credit card numbers for testing purposes.
+                                        了解Luhn算法以及我们的系统如何生成用于测试目的的有效但虚构的信用卡号码。
                                     </p>
                                 </a>
                                 <div class="mt-4">
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-500 font-medium text-sm">Continue reading <i class="fas fa-arrow-right ml-1"></i></a>
+                                    <a href="#" class="text-indigo-600 hover:text-indigo-500 font-medium text-sm">继续阅读 <i class="fas fa-arrow-right ml-1"></i></a>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Article 3 -->
                         <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                            <img class="w-full h-48 object-cover" src="images/hong_kong.svg" alt="Hong Kong">
+                            <img class="w-full h-48 object-cover" src="images/hong_kong.svg" alt="香港">
                             <div class="p-6">
                                 <div class="flex items-center">
                                     <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800">
-                                        Regional
+                                        地区
                                     </span>
-                                    <span class="ml-3 text-sm text-gray-500">March 30, 2023</span>
+                                    <span class="ml-3 text-sm text-gray-500">2023年3月30日</span>
                                 </div>
                                 <a href="#" class="block mt-2">
-                                    <p class="text-lg font-semibold text-gray-900">Hong Kong Address System Explained</p>
+                                    <p class="text-lg font-semibold text-gray-900">香港地址系统详解</p>
                                     <p class="mt-3 text-sm text-gray-500">
-                                        Discover the unique characteristics of Hong Kong addresses and how our generator creates authentic-looking examples.
+                                        探索香港地址的独特特点，以及我们的生成器如何创建真实可信的示例。
                                     </p>
                                 </a>
                                 <div class="mt-4">
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-500 font-medium text-sm">Continue reading <i class="fas fa-arrow-right ml-1"></i></a>
+                                    <a href="#" class="text-indigo-600 hover:text-indigo-500 font-medium text-sm">继续阅读 <i class="fas fa-arrow-right ml-1"></i></a>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Article 4 -->
                         <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                            <img class="w-full h-48 object-cover" src="images/data_testing.svg" alt="Data Testing">
+                            <img class="w-full h-48 object-cover" src="images/data_testing.svg" alt="数据测试">
                             <div class="p-6">
                                 <div class="flex items-center">
                                     <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
-                                        Development
+                                        开发
                                     </span>
-                                    <span class="ml-3 text-sm text-gray-500">March 12, 2023</span>
+                                    <span class="ml-3 text-sm text-gray-500">2023年3月12日</span>
                                 </div>
                                 <a href="#" class="block mt-2">
-                                    <p class="text-lg font-semibold text-gray-900">Best Practices for Using Generated Data in Testing</p>
+                                    <p class="text-lg font-semibold text-gray-900">在测试中使用生成数据的最佳实践</p>
                                     <p class="mt-3 text-sm text-gray-500">
-                                        Tips and strategies for effectively using randomly generated address information in your software testing workflows.
+                                        在软件测试工作流程中有效使用随机生成的地址信息的技巧和策略。
                                     </p>
                                 </a>
                                 <div class="mt-4">
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-500 font-medium text-sm">Continue reading <i class="fas fa-arrow-right ml-1"></i></a>
+                                    <a href="#" class="text-indigo-600 hover:text-indigo-500 font-medium text-sm">继续阅读 <i class="fas fa-arrow-right ml-1"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -232,9 +230,9 @@
 
                     <!-- Pagination -->
                     <div class="mt-12 flex justify-center">
-                        <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                        <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="分页">
                             <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                                <span class="sr-only">Previous</span>
+                                <span class="sr-only">上一页</span>
                                 <i class="fas fa-chevron-left"></i>
                             </a>
                             <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-indigo-50 text-sm font-medium text-indigo-600 hover:bg-indigo-100">
@@ -256,7 +254,7 @@
                                 9
                             </a>
                             <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                                <span class="sr-only">Next</span>
+                                <span class="sr-only">下一页</span>
                                 <i class="fas fa-chevron-right"></i>
                             </a>
                         </nav>
@@ -268,9 +266,9 @@
                     <!-- Search -->
                     <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-8">
                         <div class="p-6">
-                            <h3 class="text-lg font-medium text-gray-900 mb-4">Search</h3>
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">搜索</h3>
                             <div class="mt-1 relative rounded-md shadow-sm">
-                                <input type="text" name="search" id="search" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-10 sm:text-sm border-gray-300 rounded-md" placeholder="Search articles...">
+                                <input type="text" name="search" id="search" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-10 sm:text-sm border-gray-300 rounded-md" placeholder="搜索文章...">
                                 <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                                     <i class="fas fa-search text-gray-400"></i>
                                 </div>
@@ -281,30 +279,30 @@
                     <!-- Categories -->
                     <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-8">
                         <div class="p-6">
-                            <h3 class="text-lg font-medium text-gray-900 mb-4">Categories</h3>
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">分类</h3>
                             <div class="space-y-2">
                                 <a href="#" class="flex items-center justify-between text-sm text-gray-600 hover:text-indigo-600">
-                                    <span>Data Privacy</span>
+                                    <span>数据隐私</span>
                                     <span class="bg-gray-100 text-gray-500 px-2 py-1 rounded-full text-xs">12</span>
                                 </a>
                                 <a href="#" class="flex items-center justify-between text-sm text-gray-600 hover:text-indigo-600">
-                                    <span>Address Formats</span>
+                                    <span>地址格式</span>
                                     <span class="bg-gray-100 text-gray-500 px-2 py-1 rounded-full text-xs">8</span>
                                 </a>
                                 <a href="#" class="flex items-center justify-between text-sm text-gray-600 hover:text-indigo-600">
-                                    <span>Identity Generation</span>
+                                    <span>身份生成</span>
                                     <span class="bg-gray-100 text-gray-500 px-2 py-1 rounded-full text-xs">15</span>
                                 </a>
                                 <a href="#" class="flex items-center justify-between text-sm text-gray-600 hover:text-indigo-600">
-                                    <span>Credit Card Security</span>
+                                    <span>信用卡安全</span>
                                     <span class="bg-gray-100 text-gray-500 px-2 py-1 rounded-full text-xs">7</span>
                                 </a>
                                 <a href="#" class="flex items-center justify-between text-sm text-gray-600 hover:text-indigo-600">
-                                    <span>Development Tips</span>
+                                    <span>开发技巧</span>
                                     <span class="bg-gray-100 text-gray-500 px-2 py-1 rounded-full text-xs">10</span>
                                 </a>
                                 <a href="#" class="flex items-center justify-between text-sm text-gray-600 hover:text-indigo-600">
-                                    <span>Regional Guides</span>
+                                    <span>地区指南</span>
                                     <span class="bg-gray-100 text-gray-500 px-2 py-1 rounded-full text-xs">9</span>
                                 </a>
                             </div>
@@ -314,42 +312,42 @@
                     <!-- Popular Posts -->
                     <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-8">
                         <div class="p-6">
-                            <h3 class="text-lg font-medium text-gray-900 mb-4">Popular Posts</h3>
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">热门文章</h3>
                             <div class="space-y-4">
                                 <a href="#" class="flex space-x-3">
                                     <div class="flex-shrink-0">
-                                        <img class="h-12 w-12 rounded-md object-cover" src="images/us_address.svg" alt="US Address">
+                                        <img class="h-12 w-12 rounded-md object-cover" src="images/us_address.svg" alt="美国地址">
                                     </div>
                                     <div>
-                                        <p class="text-sm font-medium text-gray-900">US Address Format Guide</p>
-                                        <p class="text-xs text-gray-500 mt-1">April 5, 2023</p>
+                                        <p class="text-sm font-medium text-gray-900">美国地址格式指南</p>
+                                        <p class="text-xs text-gray-500 mt-1">2023年4月5日</p>
                                     </div>
                                 </a>
                                 <a href="#" class="flex space-x-3">
                                     <div class="flex-shrink-0">
-                                        <img class="h-12 w-12 rounded-md object-cover" src="images/privacy_gdpr.svg" alt="Privacy">
+                                        <img class="h-12 w-12 rounded-md object-cover" src="images/privacy_gdpr.svg" alt="隐私">
                                     </div>
                                     <div>
-                                        <p class="text-sm font-medium text-gray-900">GDPR and Address Generation</p>
-                                        <p class="text-xs text-gray-500 mt-1">March 22, 2023</p>
+                                        <p class="text-sm font-medium text-gray-900">GDPR与地址生成</p>
+                                        <p class="text-xs text-gray-500 mt-1">2023年3月22日</p>
                                     </div>
                                 </a>
                                 <a href="#" class="flex space-x-3">
                                     <div class="flex-shrink-0">
-                                        <img class="h-12 w-12 rounded-md object-cover" src="images/testing_tips.svg" alt="Testing">
+                                        <img class="h-12 w-12 rounded-md object-cover" src="images/testing_tips.svg" alt="测试">
                                     </div>
                                     <div>
-                                        <p class="text-sm font-medium text-gray-900">10 Tips for Better Test Data</p>
-                                        <p class="text-xs text-gray-500 mt-1">February 18, 2023</p>
+                                        <p class="text-sm font-medium text-gray-900">10个测试数据优化技巧</p>
+                                        <p class="text-xs text-gray-500 mt-1">2023年2月18日</p>
                                     </div>
                                 </a>
                                 <a href="#" class="flex space-x-3">
                                     <div class="flex-shrink-0">
-                                        <img class="h-12 w-12 rounded-md object-cover" src="images/hk_districts.svg" alt="Hong Kong">
+                                        <img class="h-12 w-12 rounded-md object-cover" src="images/hk_districts.svg" alt="香港">
                                     </div>
                                     <div>
-                                        <p class="text-sm font-medium text-gray-900">Hong Kong Districts Guide</p>
-                                        <p class="text-xs text-gray-500 mt-1">February 5, 2023</p>
+                                        <p class="text-sm font-medium text-gray-900">香港地区指南</p>
+                                        <p class="text-xs text-gray-500 mt-1">2023年2月5日</p>
                                     </div>
                                 </a>
                             </div>
@@ -359,16 +357,16 @@
                     <!-- Newsletter -->
                     <div class="bg-indigo-700 shadow-lg rounded-lg overflow-hidden">
                         <div class="p-6">
-                            <h3 class="text-lg font-medium text-white mb-4">Subscribe to Our Newsletter</h3>
-                            <p class="text-indigo-100 text-sm mb-4">Get the latest articles and resources delivered straight to your inbox.</p>
+                            <h3 class="text-lg font-medium text-white mb-4">订阅我们的通讯</h3>
+                            <p class="text-indigo-100 text-sm mb-4">获取最新文章和资源，直接发送到您的收件箱。</p>
                             <form class="mt-2">
                                 <div>
-                                    <label for="email-address" class="sr-only">Email address</label>
-                                    <input id="email-address" name="email" type="email" autocomplete="email" required class="appearance-none min-w-0 w-full bg-white border border-transparent rounded-md py-2 px-4 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-700 focus:ring-white focus:border-white focus:placeholder-gray-400" placeholder="Enter your email">
+                                    <label for="email-address" class="sr-only">电子邮箱地址</label>
+                                    <input id="email-address" name="email" type="email" autocomplete="email" required class="appearance-none min-w-0 w-full bg-white border border-transparent rounded-md py-2 px-4 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-700 focus:ring-white focus:border-white focus:placeholder-gray-400" placeholder="输入您的邮箱">
                                 </div>
                                 <div class="mt-2">
                                     <button type="submit" class="w-full flex items-center justify-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-white hover:bg-indigo-50 md:py-2">
-                                        Subscribe
+                                        订阅
                                     </button>
                                 </div>
                             </form>
@@ -382,27 +380,27 @@
     <!-- Footer -->
     <footer class="bg-white">
         <div class="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
-            <nav class="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
+            <nav class="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="页脚">
                 <div class="px-5 py-2">
-                    <a href="index.html" class="text-base text-gray-500 hover:text-gray-900">Home</a>
+                    <a href="index.html" class="text-base text-gray-500 hover:text-gray-900" data-i18n="nav.home">Home</a>
                 </div>
                 <div class="px-5 py-2">
-                    <a href="blog.html" class="text-base text-gray-500 hover:text-gray-900">Blog</a>
+                    <a href="blog.html" class="text-base text-gray-500 hover:text-gray-900" data-i18n="nav.blog">Blog</a>
                 </div>
                 <div class="px-5 py-2">
-                    <a href="faq.html" class="text-base text-gray-500 hover:text-gray-900">FAQ</a>
+                    <a href="faq.html" class="text-base text-gray-500 hover:text-gray-900" data-i18n="nav.faq">FAQ</a>
                 </div>
                 <div class="px-5 py-2">
-                    <a href="about.html" class="text-base text-gray-500 hover:text-gray-900">About</a>
+                    <a href="about.html" class="text-base text-gray-500 hover:text-gray-900" data-i18n="nav.about">About</a>
                 </div>
                 <div class="px-5 py-2">
-                    <a href="feedback.html" class="text-base text-gray-500 hover:text-gray-900">Feedback</a>
+                    <a href="feedback.html" class="text-base text-gray-500 hover:text-gray-900" data-i18n="nav.feedback">Feedback</a>
                 </div>
                 <div class="px-5 py-2">
-                    <a href="#" class="text-base text-gray-500 hover:text-gray-900">Privacy Policy</a>
+                    <a href="#" class="text-base text-gray-500 hover:text-gray-900" data-i18n="footer.privacy">Privacy Policy</a>
                 </div>
                 <div class="px-5 py-2">
-                    <a href="#" class="text-base text-gray-500 hover:text-gray-900">Terms of Service</a>
+                    <a href="#" class="text-base text-gray-500 hover:text-gray-900" data-i18n="footer.terms">Terms of Service</a>
                 </div>
             </nav>
             <div class="mt-8 flex justify-center space-x-6">
@@ -419,24 +417,18 @@
                     <i class="fab fa-github text-xl"></i>
                 </a>
             </div>
-            <p class="mt-8 text-center text-base text-gray-400">&copy; 2023 AddressGen. All rights reserved.</p>
+            <p class="mt-8 text-center text-base text-gray-400" data-i18n="footer.copyright">&copy; 2023 AddressGen. All rights reserved.</p>
         </div>
     </footer>
 
     <!-- JavaScript -->
+    <script src="js/i18n.js"></script>
     <script>
         // Mobile menu toggle
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
             const mobileMenu = document.getElementById('mobile-menu');
             mobileMenu.classList.toggle('hidden');
         });
-
-        // Language change function
-        function changeLanguage(lang) {
-            console.log('Language changed to: ' + lang);
-            // In a real app, this would change the UI language
-            // For now, just log the change
-        }
     </script>
 </body>
 </html>
