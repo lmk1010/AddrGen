@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - AddressGen</title>
+    <title data-i18n="faq.title">FAQ - AddressGen</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -110,8 +110,8 @@
         <div class="bg-indigo-700 text-white">
             <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
                 <div class="text-center">
-                    <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">Frequently Asked Questions</h1>
-                    <p class="mt-6 text-xl max-w-3xl mx-auto">Find answers to common questions about our address generation service.</p>
+                    <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl" data-i18n="faq.title">Frequently Asked Questions</h1>
+                    <p class="mt-6 text-xl max-w-3xl mx-auto" data-i18n="faq.subtitle">Find answers to common questions about our address generation service.</p>
                 </div>
             </div>
         </div>
@@ -123,35 +123,35 @@
                 <div class="lg:col-span-1">
                     <div class="bg-white shadow-lg rounded-lg overflow-hidden sticky top-20">
                         <div class="p-6">
-                            <h3 class="text-lg font-medium text-gray-900 mb-4">FAQ Categories</h3>
+                            <h3 class="text-lg font-medium text-gray-900 mb-4" data-i18n="faq.categories.title">FAQ Categories</h3>
                             <nav class="space-y-1" aria-label="Sidebar">
                                 <a href="#general" class="flex items-center px-3 py-2 text-sm font-medium rounded-md bg-indigo-50 text-indigo-700" aria-current="page">
                                     <i class="fas fa-info-circle mr-3 text-indigo-500"></i>
-                                    <span class="truncate">General Questions</span>
+                                    <span class="truncate" data-i18n="faq.categories.general">General Questions</span>
                                 </a>
                                 <a href="#usage" class="flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
                                     <i class="fas fa-user-cog mr-3 text-gray-400"></i>
-                                    <span class="truncate">Usage & Features</span>
+                                    <span class="truncate" data-i18n="faq.categories.usage">Usage & Features</span>
                                 </a>
                                 <a href="#privacy" class="flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
                                     <i class="fas fa-shield-alt mr-3 text-gray-400"></i>
-                                    <span class="truncate">Privacy & Security</span>
+                                    <span class="truncate" data-i18n="faq.categories.privacy">Privacy & Security</span>
                                 </a>
                                 <a href="#technical" class="flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
                                     <i class="fas fa-cogs mr-3 text-gray-400"></i>
-                                    <span class="truncate">Technical Details</span>
+                                    <span class="truncate" data-i18n="faq.categories.technical">Technical Details</span>
                                 </a>
                                 <a href="#billing" class="flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
                                     <i class="fas fa-credit-card mr-3 text-gray-400"></i>
-                                    <span class="truncate">Billing & Pricing</span>
+                                    <span class="truncate" data-i18n="faq.categories.billing">Billing & Pricing</span>
                                 </a>
                             </nav>
                             
                             <div class="mt-8">
-                                <h3 class="text-lg font-medium text-gray-900 mb-4">Still Have Questions?</h3>
-                                <p class="text-sm text-gray-500 mb-4">Can't find the answer you're looking for? Please feel free to contact our customer support team.</p>
+                                <h3 class="text-lg font-medium text-gray-900 mb-4" data-i18n="faq.contact.title">Still Have Questions?</h3>
+                                <p class="text-sm text-gray-500 mb-4" data-i18n="faq.contact.subtitle">Can't find the answer you're looking for? Please feel free to contact our customer support team.</p>
                                 <a href="feedback.html" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                    <i class="fas fa-envelope mr-2"></i> Contact Support
+                                    <i class="fas fa-envelope mr-2"></i> <span data-i18n="faq.contact.button">Contact Support</span>
                                 </a>
                             </div>
                         </div>
@@ -162,59 +162,59 @@
                 <div class="lg:col-span-2">
                     <!-- General Questions -->
                     <div id="general" class="mb-12">
-                        <h2 class="text-2xl font-bold text-gray-900 mb-6">General Questions</h2>
+                        <h2 class="text-2xl font-bold text-gray-900 mb-6" data-i18n="faq.categories.general">General Questions</h2>
                         
                         <div class="space-y-4">
                             <div class="bg-white shadow-lg rounded-lg overflow-hidden faq-item active">
                                 <button class="w-full px-6 py-4 text-left focus:outline-none flex justify-between items-center">
-                                    <span class="text-lg font-medium text-gray-900">What is AddressGen?</span>
+                                    <span class="text-lg font-medium text-gray-900" data-i18n="faq.questions.general.what.title">What is AddressGen?</span>
                                     <span>
                                         <i class="fas fa-plus text-indigo-500 faq-icon-plus"></i>
                                         <i class="fas fa-minus text-indigo-500 faq-icon-minus"></i>
                                     </span>
                                 </button>
                                 <div class="px-6 pb-4 faq-answer">
-                                    <p class="text-gray-500">AddressGen is a web application that generates random address information for various countries including the United States, United Kingdom, and Hong Kong. It creates realistic but fictional personal data such as addresses, names, phone numbers, email addresses, and credit card information for testing, development, or data privacy purposes.</p>
+                                    <p class="text-gray-500" data-i18n="faq.questions.general.what.answer">AddressGen is a web application that generates random address information for various countries including the United States, United Kingdom, and Hong Kong. It creates realistic but fictional personal data such as addresses, names, phone numbers, email addresses, and credit card information for testing, development, or data privacy purposes.</p>
                                 </div>
                             </div>
                             
                             <div class="bg-white shadow-lg rounded-lg overflow-hidden faq-item">
                                 <button class="w-full px-6 py-4 text-left focus:outline-none flex justify-between items-center">
-                                    <span class="text-lg font-medium text-gray-900">Why would I need to generate random addresses?</span>
+                                    <span class="text-lg font-medium text-gray-900" data-i18n="faq.questions.general.why.title">Why would I need to generate random addresses?</span>
                                     <span>
                                         <i class="fas fa-plus text-indigo-500 faq-icon-plus"></i>
                                         <i class="fas fa-minus text-indigo-500 faq-icon-minus"></i>
                                     </span>
                                 </button>
                                 <div class="px-6 pb-4 faq-answer">
-                                    <p class="text-gray-500">Random address generation is useful for various purposes:</p>
+                                    <p class="text-gray-500" data-i18n="faq.questions.general.why.answer">Random address generation is useful for various purposes:</p>
                                     <ul class="list-disc pl-5 mt-2 text-gray-500 space-y-1">
-                                        <li>Software testing and development</li>
-                                        <li>Database population for demos</li>
-                                        <li>UI/UX testing with realistic data</li>
-                                        <li>Protecting privacy by avoiding the use of real personal information</li>
-                                        <li>Creating sample data for educational purposes</li>
-                                        <li>Testing e-commerce checkout flows</li>
+                                        <li data-i18n="faq.questions.general.why.list.0">Software testing and development</li>
+                                        <li data-i18n="faq.questions.general.why.list.1">Database population for demos</li>
+                                        <li data-i18n="faq.questions.general.why.list.2">UI/UX testing with realistic data</li>
+                                        <li data-i18n="faq.questions.general.why.list.3">Protecting privacy by avoiding the use of real personal information</li>
+                                        <li data-i18n="faq.questions.general.why.list.4">Creating sample data for educational purposes</li>
+                                        <li data-i18n="faq.questions.general.why.list.5">Testing e-commerce checkout flows</li>
                                     </ul>
                                 </div>
                             </div>
                             
                             <div class="bg-white shadow-lg rounded-lg overflow-hidden faq-item">
                                 <button class="w-full px-6 py-4 text-left focus:outline-none flex justify-between items-center">
-                                    <span class="text-lg font-medium text-gray-900">Which countries are supported?</span>
+                                    <span class="text-lg font-medium text-gray-900" data-i18n="faq.questions.general.countries.title">Which countries are supported?</span>
                                     <span>
                                         <i class="fas fa-plus text-indigo-500 faq-icon-plus"></i>
                                         <i class="fas fa-minus text-indigo-500 faq-icon-minus"></i>
                                     </span>
                                 </button>
                                 <div class="px-6 pb-4 faq-answer">
-                                    <p class="text-gray-500">Currently, AddressGen supports address generation for:</p>
+                                    <p class="text-gray-500" data-i18n="faq.questions.general.countries.answer">Currently, AddressGen supports address generation for:</p>
                                     <ul class="list-disc pl-5 mt-2 text-gray-500 space-y-1">
-                                        <li>United States (including all 50 states and territories)</li>
-                                        <li>United Kingdom (England, Scotland, Wales, and Northern Ireland)</li>
-                                        <li>Hong Kong</li>
+                                        <li data-i18n="faq.questions.general.countries.list.0">United States (including all 50 states and territories)</li>
+                                        <li data-i18n="faq.questions.general.countries.list.1">United Kingdom (England, Scotland, Wales, and Northern Ireland)</li>
+                                        <li data-i18n="faq.questions.general.countries.list.2">Hong Kong</li>
                                     </ul>
-                                    <p class="text-gray-500 mt-2">We're continuously working to add more countries and regions to our service. If you need a specific country that isn't currently supported, please let us know through our feedback page.</p>
+                                    <p class="text-gray-500 mt-2" data-i18n="faq.questions.general.countries.note">We're continuously working to add more countries and regions to our service. If you need a specific country that isn't currently supported, please let us know through our feedback page.</p>
                                 </div>
                             </div>
                         </div>
@@ -222,64 +222,64 @@
                     
                     <!-- Usage & Features -->
                     <div id="usage" class="mb-12">
-                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Usage & Features</h2>
+                        <h2 class="text-2xl font-bold text-gray-900 mb-6" data-i18n="faq.categories.usage">Usage & Features</h2>
                         
                         <div class="space-y-4">
                             <div class="bg-white shadow-lg rounded-lg overflow-hidden faq-item">
                                 <button class="w-full px-6 py-4 text-left focus:outline-none flex justify-between items-center">
-                                    <span class="text-lg font-medium text-gray-900">How do I generate address information?</span>
+                                    <span class="text-lg font-medium text-gray-900" data-i18n="faq.questions.usage.how.title">How do I generate address information?</span>
                                     <span>
                                         <i class="fas fa-plus text-indigo-500 faq-icon-plus"></i>
                                         <i class="fas fa-minus text-indigo-500 faq-icon-minus"></i>
                                     </span>
                                 </button>
                                 <div class="px-6 pb-4 faq-answer">
-                                    <p class="text-gray-500">Generating address information is simple:</p>
+                                    <p class="text-gray-500" data-i18n="faq.questions.usage.how.answer">Generating address information is simple:</p>
                                     <ol class="list-decimal pl-5 mt-2 text-gray-500 space-y-1">
-                                        <li>Select the country for which you want to generate addresses</li>
-                                        <li>Choose the types of information you need (name, address, phone, email, credit card, etc.)</li>
-                                        <li>Specify the quantity of records you want to generate (up to 100 at once)</li>
-                                        <li>Click the "Generate Information" button</li>
-                                        <li>View, copy, or download the generated data</li>
+                                        <li data-i18n="faq.questions.usage.how.steps.0">Select the country for which you want to generate addresses</li>
+                                        <li data-i18n="faq.questions.usage.how.steps.1">Choose the types of information you need (name, address, phone, email, credit card, etc.)</li>
+                                        <li data-i18n="faq.questions.usage.how.steps.2">Specify the quantity of records you want to generate (up to 100 at once)</li>
+                                        <li data-i18n="faq.questions.usage.how.steps.3">Click the "Generate Information" button</li>
+                                        <li data-i18n="faq.questions.usage.how.steps.4">View, copy, or download the generated data</li>
                                     </ol>
                                 </div>
                             </div>
                             
                             <div class="bg-white shadow-lg rounded-lg overflow-hidden faq-item">
                                 <button class="w-full px-6 py-4 text-left focus:outline-none flex justify-between items-center">
-                                    <span class="text-lg font-medium text-gray-900">What information types can I generate?</span>
+                                    <span class="text-lg font-medium text-gray-900" data-i18n="faq.questions.usage.what.title">What information types can I generate?</span>
                                     <span>
                                         <i class="fas fa-plus text-indigo-500 faq-icon-plus"></i>
                                         <i class="fas fa-minus text-indigo-500 faq-icon-minus"></i>
                                     </span>
                                 </button>
                                 <div class="px-6 pb-4 faq-answer">
-                                    <p class="text-gray-500">AddressGen can generate the following types of information:</p>
+                                    <p class="text-gray-500" data-i18n="faq.questions.usage.what.answer">AddressGen can generate the following types of information:</p>
                                     <ul class="list-disc pl-5 mt-2 text-gray-500 space-y-1">
-                                        <li>Full names (first, middle, last)</li>
-                                        <li>Complete addresses (street, city, state/province, postal code)</li>
-                                        <li>Phone numbers (formatted according to country standards)</li>
-                                        <li>Email addresses</li>
-                                        <li>Credit card information (number, expiration date, CVV)</li>
-                                        <li>Date of birth</li>
-                                        <li>Social Security Numbers (US) or ID numbers</li>
-                                        <li>Occupation and company information</li>
+                                        <li data-i18n="faq.questions.usage.what.list.0">Full names (first, middle, last)</li>
+                                        <li data-i18n="faq.questions.usage.what.list.1">Complete addresses (street, city, state/province, postal code)</li>
+                                        <li data-i18n="faq.questions.usage.what.list.2">Phone numbers (formatted according to country standards)</li>
+                                        <li data-i18n="faq.questions.usage.what.list.3">Email addresses</li>
+                                        <li data-i18n="faq.questions.usage.what.list.4">Credit card information (number, expiration date, CVV)</li>
+                                        <li data-i18n="faq.questions.usage.what.list.5">Date of birth</li>
+                                        <li data-i18n="faq.questions.usage.what.list.6">Social Security Numbers (US) or ID numbers</li>
+                                        <li data-i18n="faq.questions.usage.what.list.7">Occupation and company information</li>
                                     </ul>
-                                    <p class="text-gray-500 mt-2">You can select exactly which information types you need for your specific use case.</p>
+                                    <p class="text-gray-500 mt-2" data-i18n="faq.questions.usage.what.note">You can select exactly which information types you need for your specific use case.</p>
                                 </div>
                             </div>
                             
                             <div class="bg-white shadow-lg rounded-lg overflow-hidden faq-item">
                                 <button class="w-full px-6 py-4 text-left focus:outline-none flex justify-between items-center">
-                                    <span class="text-lg font-medium text-gray-900">Can I download the generated data?</span>
+                                    <span class="text-lg font-medium text-gray-900" data-i18n="faq.questions.usage.download.title">Can I download the generated data?</span>
                                     <span>
                                         <i class="fas fa-plus text-indigo-500 faq-icon-plus"></i>
                                         <i class="fas fa-minus text-indigo-500 faq-icon-minus"></i>
                                     </span>
                                 </button>
                                 <div class="px-6 pb-4 faq-answer">
-                                    <p class="text-gray-500">Yes, you can download the generated data in CSV (Comma-Separated Values) format, which can be easily imported into spreadsheet applications like Microsoft Excel or Google Sheets, as well as databases and other software systems.</p>
-                                    <p class="text-gray-500 mt-2">You can also copy the generated data directly to your clipboard for immediate use in other applications.</p>
+                                    <p class="text-gray-500" data-i18n="faq.questions.usage.download.answer">Yes, you can download the generated data in CSV (Comma-Separated Values) format, which can be easily imported into spreadsheet applications like Microsoft Excel or Google Sheets, as well as databases and other software systems.</p>
+                                    <p class="text-gray-500 mt-2" data-i18n="faq.questions.usage.download.note">You can also copy the generated data directly to your clipboard for immediate use in other applications.</p>
                                 </div>
                             </div>
                         </div>
@@ -287,48 +287,48 @@
                     
                     <!-- Privacy & Security -->
                     <div id="privacy" class="mb-12">
-                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Privacy & Security</h2>
+                        <h2 class="text-2xl font-bold text-gray-900 mb-6" data-i18n="faq.categories.privacy">Privacy & Security</h2>
                         
                         <div class="space-y-4">
                             <div class="bg-white shadow-lg rounded-lg overflow-hidden faq-item">
                                 <button class="w-full px-6 py-4 text-left focus:outline-none flex justify-between items-center">
-                                    <span class="text-lg font-medium text-gray-900">Is the generated information real?</span>
+                                    <span class="text-lg font-medium text-gray-900" data-i18n="faq.questions.privacy.real.title">Is the generated information real?</span>
                                     <span>
                                         <i class="fas fa-plus text-indigo-500 faq-icon-plus"></i>
                                         <i class="fas fa-minus text-indigo-500 faq-icon-minus"></i>
                                     </span>
                                 </button>
                                 <div class="px-6 pb-4 faq-answer">
-                                    <p class="text-gray-500">No, all information generated by AddressGen is completely fictional. While the data follows the correct formats and conventions for each country (such as postal code patterns, phone number formats, etc.), it does not correspond to real individuals, addresses, or credit cards.</p>
-                                    <p class="text-gray-500 mt-2">Our algorithms ensure that the generated data looks realistic but does not match actual people or places, protecting privacy and preventing accidental misuse.</p>
+                                    <p class="text-gray-500" data-i18n="faq.questions.privacy.real.answer">No, all information generated by AddressGen is completely fictional. While the data follows the correct formats and conventions for each country (such as postal code patterns, phone number formats, etc.), it does not correspond to real individuals, addresses, or credit cards.</p>
+                                    <p class="text-gray-500 mt-2" data-i18n="faq.questions.privacy.real.note">Our algorithms ensure that the generated data looks realistic but does not match actual people or places, protecting privacy and preventing accidental misuse.</p>
                                 </div>
                             </div>
                             
                             <div class="bg-white shadow-lg rounded-lg overflow-hidden faq-item">
                                 <button class="w-full px-6 py-4 text-left focus:outline-none flex justify-between items-center">
-                                    <span class="text-lg font-medium text-gray-900">Are the credit card numbers valid?</span>
+                                    <span class="text-lg font-medium text-gray-900" data-i18n="faq.questions.privacy.valid.title">Are the credit card numbers valid?</span>
                                     <span>
                                         <i class="fas fa-plus text-indigo-500 faq-icon-plus"></i>
                                         <i class="fas fa-minus text-indigo-500 faq-icon-minus"></i>
                                     </span>
                                 </button>
                                 <div class="px-6 pb-4 faq-answer">
-                                    <p class="text-gray-500">The credit card numbers generated by our system pass the Luhn algorithm check (the standard validation algorithm used by credit card companies), which means they have valid formats and check digits. However, they are not connected to actual bank accounts and cannot be used for real transactions.</p>
-                                    <p class="text-gray-500 mt-2">These numbers are specifically designed for testing payment systems, forms, and software without using real credit card information.</p>
+                                    <p class="text-gray-500" data-i18n="faq.questions.privacy.valid.answer">The credit card numbers generated by our system pass the Luhn algorithm check (the standard validation algorithm used by credit card companies), which means they have valid formats and check digits. However, they are not connected to actual bank accounts and cannot be used for real transactions.</p>
+                                    <p class="text-gray-500 mt-2" data-i18n="faq.questions.privacy.valid.note">These numbers are specifically designed for testing payment systems, forms, and software without using real credit card information.</p>
                                 </div>
                             </div>
                             
                             <div class="bg-white shadow-lg rounded-lg overflow-hidden faq-item">
                                 <button class="w-full px-6 py-4 text-left focus:outline-none flex justify-between items-center">
-                                    <span class="text-lg font-medium text-gray-900">Do you store the generated information?</span>
+                                    <span class="text-lg font-medium text-gray-900" data-i18n="faq.questions.privacy.store.title">Do you store the generated information?</span>
                                     <span>
                                         <i class="fas fa-plus text-indigo-500 faq-icon-plus"></i>
                                         <i class="fas fa-minus text-indigo-500 faq-icon-minus"></i>
                                     </span>
                                 </button>
                                 <div class="px-6 pb-4 faq-answer">
-                                    <p class="text-gray-500">No, we do not store any of the information generated by our service. All data is created on-demand when you request it and is not saved on our servers after it's delivered to you.</p>
-                                    <p class="text-gray-500 mt-2">This approach ensures maximum privacy and security, as the generated data exists only on your device after generation.</p>
+                                    <p class="text-gray-500" data-i18n="faq.questions.privacy.store.answer">No, we do not store any of the information generated by our service. All data is created on-demand when you request it and is not saved on our servers after it's delivered to you.</p>
+                                    <p class="text-gray-500 mt-2" data-i18n="faq.questions.privacy.store.note">This approach ensures maximum privacy and security, as the generated data exists only on your device after generation.</p>
                                 </div>
                             </div>
                         </div>
@@ -336,68 +336,68 @@
                     
                     <!-- Technical Details -->
                     <div id="technical" class="mb-12">
-                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Technical Details</h2>
+                        <h2 class="text-2xl font-bold text-gray-900 mb-6" data-i18n="faq.categories.technical">Technical Details</h2>
                         
                         <div class="space-y-4">
                             <div class="bg-white shadow-lg rounded-lg overflow-hidden faq-item">
                                 <button class="w-full px-6 py-4 text-left focus:outline-none flex justify-between items-center">
-                                    <span class="text-lg font-medium text-gray-900">How are the addresses generated?</span>
+                                    <span class="text-lg font-medium text-gray-900" data-i18n="faq.questions.technical.how.title">How are the addresses generated?</span>
                                     <span>
                                         <i class="fas fa-plus text-indigo-500 faq-icon-plus"></i>
                                         <i class="fas fa-minus text-indigo-500 faq-icon-minus"></i>
                                     </span>
                                 </button>
                                 <div class="px-6 pb-4 faq-answer">
-                                    <p class="text-gray-500">Our address generation system uses a combination of algorithms and databases of common street names, cities, states/provinces, and postal code patterns for each supported country. The system ensures that:</p>
+                                    <p class="text-gray-500" data-i18n="faq.questions.technical.how.answer">Our address generation system uses a combination of algorithms and databases of common street names, cities, states/provinces, and postal code patterns for each supported country. The system ensures that:</p>
                                     <ul class="list-disc pl-5 mt-2 text-gray-500 space-y-1">
-                                        <li>Street numbers are within realistic ranges</li>
-                                        <li>Street names sound natural and follow country-specific patterns</li>
-                                        <li>Cities are paired with their correct states/provinces</li>
-                                        <li>Postal codes match the correct format for the region</li>
-                                        <li>All components together form a plausible (though fictional) address</li>
+                                        <li data-i18n="faq.questions.technical.how.list.0">Street numbers are within realistic ranges</li>
+                                        <li data-i18n="faq.questions.technical.how.list.1">Street names sound natural and follow country-specific patterns</li>
+                                        <li data-i18n="faq.questions.technical.how.list.2">Cities are paired with their correct states/provinces</li>
+                                        <li data-i18n="faq.questions.technical.how.list.3">Postal codes match the correct format for the region</li>
+                                        <li data-i18n="faq.questions.technical.how.list.4">All components together form a plausible (though fictional) address</li>
                                     </ul>
                                 </div>
                             </div>
                             
                             <div class="bg-white shadow-lg rounded-lg overflow-hidden faq-item">
                                 <button class="w-full px-6 py-4 text-left focus:outline-none flex justify-between items-center">
-                                    <span class="text-lg font-medium text-gray-900">Is there an API available?</span>
+                                    <span class="text-lg font-medium text-gray-900" data-i18n="faq.questions.technical.api.title">Is there an API available?</span>
                                     <span>
                                         <i class="fas fa-plus text-indigo-500 faq-icon-plus"></i>
                                         <i class="fas fa-minus text-indigo-500 faq-icon-minus"></i>
                                     </span>
                                 </button>
                                 <div class="px-6 pb-4 faq-answer">
-                                    <p class="text-gray-500">Yes, we offer a RESTful API that allows developers to integrate our address generation capabilities directly into their applications, testing frameworks, or development environments.</p>
-                                    <p class="text-gray-500 mt-2">The API supports all the same features as the web interface, including:</p>
+                                    <p class="text-gray-500" data-i18n="faq.questions.technical.api.answer">Yes, we offer a RESTful API that allows developers to integrate our address generation capabilities directly into their applications, testing frameworks, or development environments.</p>
+                                    <p class="text-gray-500 mt-2" data-i18n="faq.questions.technical.api.note">The API supports all the same features as the web interface, including:</p>
                                     <ul class="list-disc pl-5 mt-2 text-gray-500 space-y-1">
-                                        <li>Selecting specific countries</li>
-                                        <li>Choosing which information types to generate</li>
-                                        <li>Generating multiple records in a single request</li>
-                                        <li>Receiving data in JSON or CSV format</li>
+                                        <li data-i18n="faq.questions.technical.api.list.0">Selecting specific countries</li>
+                                        <li data-i18n="faq.questions.technical.api.list.1">Choosing which information types to generate</li>
+                                        <li data-i18n="faq.questions.technical.api.list.2">Generating multiple records in a single request</li>
+                                        <li data-i18n="faq.questions.technical.api.list.3">Receiving data in JSON or CSV format</li>
                                     </ul>
-                                    <p class="text-gray-500 mt-2">For API documentation and access keys, please visit our developer portal or contact our support team.</p>
+                                    <p class="text-gray-500 mt-2" data-i18n="faq.questions.technical.api.note">For API documentation and access keys, please visit our developer portal or contact our support team.</p>
                                 </div>
                             </div>
                             
                             <div class="bg-white shadow-lg rounded-lg overflow-hidden faq-item">
                                 <button class="w-full px-6 py-4 text-left focus:outline-none flex justify-between items-center">
-                                    <span class="text-lg font-medium text-gray-900">What are the rate limits?</span>
+                                    <span class="text-lg font-medium text-gray-900" data-i18n="faq.questions.technical.rate.title">What are the rate limits?</span>
                                     <span>
                                         <i class="fas fa-plus text-indigo-500 faq-icon-plus"></i>
                                         <i class="fas fa-minus text-indigo-500 faq-icon-minus"></i>
                                     </span>
                                 </button>
                                 <div class="px-6 pb-4 faq-answer">
-                                    <p class="text-gray-500">Our service has the following rate limits:</p>
+                                    <p class="text-gray-500" data-i18n="faq.questions.technical.rate.answer">Our service has the following rate limits:</p>
                                     <ul class="list-disc pl-5 mt-2 text-gray-500 space-y-1">
-                                        <li><strong>Web Interface:</strong> Up to 100 records per generation, with a maximum of 1,000 records per day for free users</li>
-                                        <li><strong>API - Free Tier:</strong> 100 requests per day, maximum 100 records per request</li>
-                                        <li><strong>API - Basic Tier:</strong> 1,000 requests per day, maximum 500 records per request</li>
-                                        <li><strong>API - Professional Tier:</strong> 10,000 requests per day, maximum 1,000 records per request</li>
-                                        <li><strong>API - Enterprise Tier:</strong> Custom limits based on your needs</li>
+                                        <li data-i18n="faq.questions.technical.rate.list.0"><strong>Web Interface:</strong> Up to 100 records per generation, with a maximum of 1,000 records per day for free users</li>
+                                        <li data-i18n="faq.questions.technical.rate.list.1"><strong>API - Free Tier:</strong> 100 requests per day, maximum 100 records per request</li>
+                                        <li data-i18n="faq.questions.technical.rate.list.2"><strong>API - Basic Tier:</strong> 1,000 requests per day, maximum 500 records per request</li>
+                                        <li data-i18n="faq.questions.technical.rate.list.3"><strong>API - Professional Tier:</strong> 10,000 requests per day, maximum 1,000 records per request</li>
+                                        <li data-i18n="faq.questions.technical.rate.list.4"><strong>API - Enterprise Tier:</strong> Custom limits based on your needs</li>
                                     </ul>
-                                    <p class="text-gray-500 mt-2">If you need higher limits, please contact us to discuss custom solutions.</p>
+                                    <p class="text-gray-500 mt-2" data-i18n="faq.questions.technical.rate.note">If you need higher limits, please contact us to discuss custom solutions.</p>
                                 </div>
                             </div>
                         </div>
@@ -405,61 +405,61 @@
                     
                     <!-- Billing & Pricing -->
                     <div id="billing" class="mb-12">
-                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Billing & Pricing</h2>
+                        <h2 class="text-2xl font-bold text-gray-900 mb-6" data-i18n="faq.categories.billing">Billing & Pricing</h2>
                         
                         <div class="space-y-4">
                             <div class="bg-white shadow-lg rounded-lg overflow-hidden faq-item">
                                 <button class="w-full px-6 py-4 text-left focus:outline-none flex justify-between items-center">
-                                    <span class="text-lg font-medium text-gray-900">Is AddressGen free to use?</span>
+                                    <span class="text-lg font-medium text-gray-900" data-i18n="faq.questions.billing.free.title">Is AddressGen free to use?</span>
                                     <span>
                                         <i class="fas fa-plus text-indigo-500 faq-icon-plus"></i>
                                         <i class="fas fa-minus text-indigo-500 faq-icon-minus"></i>
                                     </span>
                                 </button>
                                 <div class="px-6 pb-4 faq-answer">
-                                    <p class="text-gray-500">Yes, the basic web interface of AddressGen is free to use with certain limitations:</p>
+                                    <p class="text-gray-500" data-i18n="faq.questions.billing.free.answer">Yes, the basic web interface of AddressGen is free to use with certain limitations:</p>
                                     <ul class="list-disc pl-5 mt-2 text-gray-500 space-y-1">
-                                        <li>Up to 100 records per generation</li>
-                                        <li>Maximum of 1,000 records per day</li>
-                                        <li>Access to all supported countries</li>
-                                        <li>All information types available</li>
-                                        <li>CSV download capability</li>
+                                        <li data-i18n="faq.questions.billing.free.list.0">Up to 100 records per generation</li>
+                                        <li data-i18n="faq.questions.billing.free.list.1">Maximum of 1,000 records per day</li>
+                                        <li data-i18n="faq.questions.billing.free.list.2">Access to all supported countries</li>
+                                        <li data-i18n="faq.questions.billing.free.list.3">All information types available</li>
+                                        <li data-i18n="faq.questions.billing.free.list.4">CSV download capability</li>
                                     </ul>
-                                    <p class="text-gray-500 mt-2">For higher volume needs or API access, we offer paid subscription plans.</p>
+                                    <p class="text-gray-500 mt-2" data-i18n="faq.questions.billing.free.note">For higher volume needs or API access, we offer paid subscription plans.</p>
                                 </div>
                             </div>
                             
                             <div class="bg-white shadow-lg rounded-lg overflow-hidden faq-item">
                                 <button class="w-full px-6 py-4 text-left focus:outline-none flex justify-between items-center">
-                                    <span class="text-lg font-medium text-gray-900">What subscription plans are available?</span>
+                                    <span class="text-lg font-medium text-gray-900" data-i18n="faq.questions.billing.plans.title">What subscription plans are available?</span>
                                     <span>
                                         <i class="fas fa-plus text-indigo-500 faq-icon-plus"></i>
                                         <i class="fas fa-minus text-indigo-500 faq-icon-minus"></i>
                                     </span>
                                 </button>
                                 <div class="px-6 pb-4 faq-answer">
-                                    <p class="text-gray-500">We offer several subscription plans to meet different needs:</p>
+                                    <p class="text-gray-500" data-i18n="faq.questions.billing.plans.answer">We offer several subscription plans to meet different needs:</p>
                                     <ul class="list-disc pl-5 mt-2 text-gray-500 space-y-1">
-                                        <li><strong>Free:</strong> Basic web access with limited daily generations</li>
-                                        <li><strong>Basic ($9.99/month):</strong> Increased limits and basic API access</li>
-                                        <li><strong>Professional ($29.99/month):</strong> Higher limits, full API access, and priority support</li>
-                                        <li><strong>Enterprise (Custom pricing):</strong> Custom limits, dedicated support, and SLA guarantees</li>
+                                        <li data-i18n="faq.questions.billing.plans.list.0"><strong>Free:</strong> Basic web access with limited daily generations</li>
+                                        <li data-i18n="faq.questions.billing.plans.list.1"><strong>Basic ($9.99/month):</strong> Increased limits and basic API access</li>
+                                        <li data-i18n="faq.questions.billing.plans.list.2"><strong>Professional ($29.99/month):</strong> Higher limits, full API access, and priority support</li>
+                                        <li data-i18n="faq.questions.billing.plans.list.3"><strong>Enterprise (Custom pricing):</strong> Custom limits, dedicated support, and SLA guarantees</li>
                                     </ul>
-                                    <p class="text-gray-500 mt-2">All paid plans are billed monthly with the option for annual billing at a discount. Visit our pricing page for detailed feature comparisons.</p>
+                                    <p class="text-gray-500 mt-2" data-i18n="faq.questions.billing.plans.note">All paid plans are billed monthly with the option for annual billing at a discount. Visit our pricing page for detailed feature comparisons.</p>
                                 </div>
                             </div>
                             
                             <div class="bg-white shadow-lg rounded-lg overflow-hidden faq-item">
                                 <button class="w-full px-6 py-4 text-left focus:outline-none flex justify-between items-center">
-                                    <span class="text-lg font-medium text-gray-900">Do you offer refunds?</span>
+                                    <span class="text-lg font-medium text-gray-900" data-i18n="faq.questions.billing.refund.title">Do you offer refunds?</span>
                                     <span>
                                         <i class="fas fa-plus text-indigo-500 faq-icon-plus"></i>
                                         <i class="fas fa-minus text-indigo-500 faq-icon-minus"></i>
                                     </span>
                                 </button>
                                 <div class="px-6 pb-4 faq-answer">
-                                    <p class="text-gray-500">Yes, we offer a 14-day money-back guarantee for all new subscriptions. If you're not satisfied with our service within the first 14 days, you can request a full refund with no questions asked.</p>
-                                    <p class="text-gray-500 mt-2">For refund requests after the initial 14-day period, please contact our support team to discuss your specific situation.</p>
+                                    <p class="text-gray-500" data-i18n="faq.questions.billing.refund.answer">Yes, we offer a 14-day money-back guarantee for all new subscriptions. If you're not satisfied with our service within the first 14 days, you can request a full refund with no questions asked.</p>
+                                    <p class="text-gray-500 mt-2" data-i18n="faq.questions.billing.refund.note">For refund requests after the initial 14-day period, please contact our support team to discuss your specific situation.</p>
                                 </div>
                             </div>
                         </div>
