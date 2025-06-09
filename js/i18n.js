@@ -239,7 +239,11 @@ const resources = {
             'faq.questions.billing.plans.note': 'All paid plans are billed monthly with the option for annual billing at a discount. Visit our pricing page for detailed feature comparisons.',
             'faq.questions.billing.refund.title': 'Do you offer refunds?',
             'faq.questions.billing.refund.answer': 'Yes, we offer a 14-day money-back guarantee for all new subscriptions. If you\'re not satisfied with our service within the first 14 days, you can request a full refund with no questions asked.',
-            'faq.questions.billing.refund.note': 'For refund requests after the initial 14-day period, please contact our support team to discuss your specific situation.'
+            'faq.questions.billing.refund.note': 'For refund requests after the initial 14-day period, please contact our support team to discuss your specific situation.',
+
+            // Copy messages
+            'copy.success': 'Copied to clipboard!',
+            'copy.error': 'Failed to copy!'
         }
     },
     'zh-CN': {
@@ -294,8 +298,8 @@ const resources = {
             'generator.button': '生成信息',
             'generator.results.title': '生成的信息',
             'generator.results.copy': '复制全部',
-            'generator.results.download': '下载 CSV',
-            'generator.results.generateMore': '生成更多',
+            'generator.results.download': '下载CSV',
+            'generator.results.generateMore': '再次生成',
             
             // Results Sections
             'generator.results.basicInfo': '基本信息',
@@ -305,8 +309,8 @@ const resources = {
             
             // Field Labels
             'generator.fields.fullName': '姓名',
-            'generator.fields.email': '电子邮箱',
-            'generator.fields.phone': '电话号码',
+            'generator.fields.email': '邮箱',
+            'generator.fields.phone': '电话',
             'generator.fields.dob': '出生日期',
             'generator.fields.country': '国家',
             'generator.fields.streetAddress': '街道地址',
@@ -475,7 +479,11 @@ const resources = {
             'faq.questions.billing.plans.note': '所有付费计划按月计费，可选择年度计费享受折扣。访问我们的定价页面查看详细的功能比较。',
             'faq.questions.billing.refund.title': '提供退款吗？',
             'faq.questions.billing.refund.answer': '是的，我们为所有新订阅提供 14 天退款保证。如果您在前 14 天内对我们的服务不满意，可以无条件要求全额退款。',
-            'faq.questions.billing.refund.note': '对于初始 14 天期限后的退款请求，请联系我们的支持团队讨论您的具体情况。'
+            'faq.questions.billing.refund.note': '对于初始 14 天期限后的退款请求，请联系我们的支持团队讨论您的具体情况。',
+
+            // Copy messages
+            'copy.success': '复制成功！',
+            'copy.error': '复制失败！'
         }
     }
 };
@@ -519,11 +527,10 @@ function updatePageText() {
 
 // 切换语言
 function changeLanguage(lang) {
-    i18next.changeLanguage(lang, (err, t) => {
-        if (err) return console.log('something went wrong loading', err);
-        localStorage.setItem('language', lang);
-        updatePageText();
-    });
+    // 先保存语言设置
+    localStorage.setItem('language', lang);
+    // 直接刷新页面
+    window.location.reload();
 }
 
 // 初始化语言选择器
@@ -552,4 +559,34 @@ function initializeLanguageSelector() {
             }
         });
     }
+}
+
+// 复制到剪贴板并显示提示
+function copyToClipboard(element) {
+    const text = element.querySelector('p:last-child').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+        showToast(i18next.t('copy.success'));
+    }).catch(err => {
+        showToast(i18next.t('copy.error'));
+        console.error('复制失败:', err);
+    });
+}
+
+// 显示 Toast 提示
+function showToast(message) {
+    // 创建 toast 元素
+    const toast = document.createElement('div');
+    toast.className = 'fixed bottom-4 right-4 bg-gray-800 text-white px-6 py-3 rounded-lg shadow-lg transform transition-all duration-300 translate-y-0 opacity-100';
+    toast.textContent = message;
+    
+    // 添加到页面
+    document.body.appendChild(toast);
+    
+    // 2秒后移除
+    setTimeout(() => {
+        toast.classList.add('translate-y-2', 'opacity-0');
+        setTimeout(() => {
+            document.body.removeChild(toast);
+        }, 300);
+    }, 2000);
 } 

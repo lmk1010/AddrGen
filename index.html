@@ -64,6 +64,22 @@
         .select-wrapper:hover::after {
             transform: translateY(-50%) rotate(180deg);
         }
+        
+        /* 复制提示框样式 */
+        .copy-tooltip {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            white-space: nowrap;
+            pointer-events: none;
+            transition: opacity 0.2s ease-in-out;
+        }
+        
+        [onclick="copyToClipboard(this)"] {
+            position: relative;
+        }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -255,115 +271,99 @@
                         </div>
                     </div>
                     
-                    <!-- Sample Generated Data -->
-                    <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                    <!-- Results Content -->
+                    <div class="bg-gray-50 p-6 rounded-lg space-y-8">
                         <!-- Basic Information -->
-                        <div class="mb-6 pb-6 border-b border-gray-200">
-                            <h3 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
+                        <div class="space-y-4">
+                            <h3 class="text-lg font-medium text-gray-900 flex items-center">
                                 <i class="fas fa-user-circle text-indigo-600 mr-2"></i>
                                 <span data-i18n="generator.results.basicInfo">Basic Information</span>
                             </h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.fullName">Full Name</p>
-                                    <p class="mt-1 text-lg text-gray-900">John A. Smith</p>
+                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600"></p>
+                                    <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
                                 </div>
-                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
+                                <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.email">Email</p>
-                                    <p class="mt-1 text-lg text-gray-900">john.smith@example.com</p>
+                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600"></p>
+                                    <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
                                 </div>
-                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
+                                <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.phone">Phone Number</p>
-                                    <p class="mt-1 text-lg text-gray-900">(212) 555-1234</p>
+                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600"></p>
                                 </div>
-                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
+                                <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.dob">Date of Birth</p>
-                                    <p class="mt-1 text-lg text-gray-900">1985-06-15</p>
+                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600"></p>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Address Information -->
-                        <div class="mb-6 pb-6 border-b border-gray-200">
-                            <h3 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
+                        <div class="space-y-4">
+                            <h3 class="text-lg font-medium text-gray-900 flex items-center">
                                 <i class="fas fa-map-marker-alt text-indigo-600 mr-2"></i>
                                 <span data-i18n="generator.results.addressInfo">Address Information</span>
                             </h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.country">Country</p>
-                                    <p class="mt-1 text-lg text-gray-900">United States</p>
-                                </div>
-                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.streetAddress">Street Address</p>
-                                    <p class="mt-1 text-lg text-gray-900" data-field="streetAddress">3551 Indian Queen Lane</p>
+                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600"></p>
                                 </div>
-                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
+                                <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.city">City</p>
-                                    <p class="mt-1 text-lg text-gray-900" data-field="city">Philadelphia</p>
+                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600"></p>
                                 </div>
-                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
+                                <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.stateCode">State Code</p>
-                                    <p class="mt-1 text-lg text-gray-900" data-field="stateCode">PA</p>
+                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600"></p>
                                 </div>
-                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
+                                <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.stateName">State Name</p>
-                                    <p class="mt-1 text-lg text-gray-900" data-field="stateName">Pennsylvania</p>
+                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600"></p>
                                 </div>
-                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
+                                <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.zipCode">ZIP Code</p>
-                                    <p class="mt-1 text-lg text-gray-900" data-field="zipCode">19129</p>
+                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600"></p>
+                                </div>
+                                <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
+                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.country">Country</p>
+                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600"></p>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Credit Card Information -->
-                        <div class="mb-6 pb-6 border-b border-gray-200">
-                            <h3 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
+                        <div class="space-y-4">
+                            <h3 class="text-lg font-medium text-gray-900 flex items-center">
                                 <i class="fas fa-credit-card text-indigo-600 mr-2"></i>
                                 <span data-i18n="generator.results.creditCardInfo">Credit Card Information</span>
                             </h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.cardType">Card Type</p>
-                                    <p class="mt-1 text-lg text-gray-900">MasterCard</p>
+                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600"></p>
                                 </div>
-                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
+                                <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.cardNumber">Card Number</p>
-                                    <p class="mt-1 text-lg text-gray-900">5728 1295 2846 9556</p>
+                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600"></p>
                                 </div>
-                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
+                                <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.cvv">CVV</p>
-                                    <p class="mt-1 text-lg text-gray-900">841</p>
+                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600"></p>
                                 </div>
-                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
+                                <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.expiryDate">Expiry Date</p>
-                                    <p class="mt-1 text-lg text-gray-900">10/2028</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Employment Information -->
-                        <div>
-                            <h3 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
-                                <i class="fas fa-briefcase text-indigo-600 mr-2"></i>
-                                <span data-i18n="generator.results.employmentInfo">Employment Information</span>
-                            </h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.occupation">Occupation</p>
-                                    <p class="mt-1 text-lg text-gray-900">Software Engineer</p>
-                                </div>
-                                <div class="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.company">Company</p>
-                                    <p class="mt-1 text-lg text-gray-900">Tech Solutions Inc.</p>
+                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600"></p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
                     <!-- Generate More Button -->
-                    <div class="flex justify-center mt-6">
+                    <div class="flex justify-center mt-8">
                         <button type="button" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" id="generate-more-btn">
                             <i class="fas fa-sync-alt mr-2"></i> <span data-i18n="generator.results.generateMore">Generate More</span>
                         </button>
@@ -497,24 +497,20 @@
                 const country = document.querySelector('.country-option.selected').getAttribute('data-country');
                 const state = document.getElementById('state-select').value;
                 const city = document.getElementById('city-select').value;
-                const quantity = document.querySelector('input[type="number"]').value;
                 
-                // Show loading state
-                this.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> <span data-i18n="generator.button">Generating...</span>';
-                this.disabled = true;
+                // 获取当前选中的信息类型
+                const infoTypes = [];
+                document.querySelectorAll('input[name="info_type"]:checked').forEach(checkbox => {
+                    infoTypes.push(checkbox.value);
+                });
                 
-                // Simulate API call
-                setTimeout(() => {
-                    // Reset button state
-                    this.innerHTML = '<i class="fas fa-magic mr-2"></i> <span data-i18n="generator.button">Generate Information</span>';
-                    this.disabled = false;
-                    
-                    // Show results section
-                    document.getElementById('results').classList.remove('hidden');
-                    
-                    // Scroll to results
-                    document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
-                }, 1500);
+                // 如果没有选中任何类型，默认生成所有类型
+                if (infoTypes.length === 0) {
+                    infoTypes.push('address', 'identity', 'credit_card');
+                }
+                
+                // 生成新的信息
+                generateInformation(country, state, city, infoTypes);
             });
 
             // Generate more button click handler
