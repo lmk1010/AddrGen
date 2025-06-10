@@ -369,783 +369,263 @@ function initStateCitySelection() {
 }
 
 /**
- * Generate address and identity information based on selected country and types
+ * 生成信息
+ * @param {string} country 国家
+ * @param {string} state 州/省
+ * @param {string} city 城市
+ * @param {Array} infoTypes 信息类型
  */
 function generateInformation(country, state, city, infoTypes) {
-    // 如果没有提供 infoTypes，则默认生成所有类型
-    if (!infoTypes || infoTypes.length === 0) {
-        infoTypes = ['address', 'identity', 'credit_card'];
+    // 显示加载状态
+    const generateBtn = document.getElementById('generate-btn');
+    const originalBtnText = generateBtn.innerHTML;
+    generateBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>生成中...';
+    generateBtn.disabled = true;
+
+    // 使用 Promise.all 并行生成数据
+    const promises = [];
+    const results = {
+        identity: null,
+        address: null,
+        creditCard: null
+    };
+
+    if (infoTypes.includes('identity')) {
+        promises.push(
+            new Promise(resolve => {
+                results.identity = generateMockIdentity(country);
+                resolve();
+            })
+        );
     }
-    
-    // Show loading state
-    const generateButton = document.getElementById('generate-btn');
-    if (generateButton) {
-        const originalButtonText = generateButton.innerHTML;
-        generateButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
-        generateButton.disabled = true;
+
+    if (infoTypes.includes('address')) {
+        promises.push(
+            new Promise(resolve => {
+                results.address = generateMockAddress(country, state, city);
+                resolve();
+            })
+        );
     }
-    
-    // 处理随机州/省和城市
-    if (state === 'random') {
-        const stateData = getStateData(country);
-        const randomState = getRandomElement(stateData);
-        state = randomState.code;
+
+    if (infoTypes.includes('credit_card')) {
+        promises.push(
+            new Promise(resolve => {
+                results.creditCard = generateMockCreditCard(country);
+                resolve();
+            })
+        );
     }
-    
-    if (city === 'random') {
-        const cityData = getCityData(country, state);
-        city = getRandomElement(cityData);
-    }
-    
-    // In a real application, this would make an API call to a backend service
-    // For demo purposes, we'll simulate an API call with setTimeout and generate mock data
-    setTimeout(() => {
-        // Reset button state
-        if (generateButton) {
-            generateButton.innerHTML = '<i class="fas fa-magic mr-2"></i> <span data-i18n="generator.button">Generate Information</span>';
-            generateButton.disabled = false;
-        }
-        
-        // Generate mock data based on country and info types
-        const results = {};
-        
-        if (infoTypes.includes('address')) {
-            results.address = generateMockAddress(country, state, city);
-        }
-        
-        if (infoTypes.includes('identity')) {
-            results.identity = generateMockIdentity(country);
-        }
-        
-        if (infoTypes.includes('credit_card')) {
-            results.creditCard = generateMockCreditCard(country);
-        }
-        
-        // Display the results
+
+    // 等待所有数据生成完成
+    Promise.all(promises).then(() => {
+        // 显示结果
         displayResults(results);
         
-        // Show success message
-        showAlert('Information generated successfully!', 'success');
-        
-    }, 1500); // Simulate API delay
-}
-
-/**
- * 获取州/省数据
- */
-function getStateData(country) {
-    const stateData = {
-        'us': [
-            { code: 'AL', name: 'Alabama' },
-            { code: 'AK', name: 'Alaska' },
-            { code: 'AZ', name: 'Arizona' },
-            { code: 'AR', name: 'Arkansas' },
-            { code: 'CA', name: 'California' },
-            { code: 'CO', name: 'Colorado' },
-            { code: 'CT', name: 'Connecticut' },
-            { code: 'DE', name: 'Delaware' },
-            { code: 'FL', name: 'Florida' },
-            { code: 'GA', name: 'Georgia' },
-            { code: 'HI', name: 'Hawaii' },
-            { code: 'ID', name: 'Idaho' },
-            { code: 'IL', name: 'Illinois' },
-            { code: 'IN', name: 'Indiana' },
-            { code: 'IA', name: 'Iowa' },
-            { code: 'KS', name: 'Kansas' },
-            { code: 'KY', name: 'Kentucky' },
-            { code: 'LA', name: 'Louisiana' },
-            { code: 'ME', name: 'Maine' },
-            { code: 'MD', name: 'Maryland' },
-            { code: 'MA', name: 'Massachusetts' },
-            { code: 'MI', name: 'Michigan' },
-            { code: 'MN', name: 'Minnesota' },
-            { code: 'MS', name: 'Mississippi' },
-            { code: 'MO', name: 'Missouri' },
-            { code: 'MT', name: 'Montana' },
-            { code: 'NE', name: 'Nebraska' },
-            { code: 'NV', name: 'Nevada' },
-            { code: 'NH', name: 'New Hampshire' },
-            { code: 'NJ', name: 'New Jersey' },
-            { code: 'NM', name: 'New Mexico' },
-            { code: 'NY', name: 'New York' },
-            { code: 'NC', name: 'North Carolina' },
-            { code: 'ND', name: 'North Dakota' },
-            { code: 'OH', name: 'Ohio' },
-            { code: 'OK', name: 'Oklahoma' },
-            { code: 'OR', name: 'Oregon' },
-            { code: 'PA', name: 'Pennsylvania' },
-            { code: 'RI', name: 'Rhode Island' },
-            { code: 'SC', name: 'South Carolina' },
-            { code: 'SD', name: 'South Dakota' },
-            { code: 'TN', name: 'Tennessee' },
-            { code: 'TX', name: 'Texas' },
-            { code: 'UT', name: 'Utah' },
-            { code: 'VT', name: 'Vermont' },
-            { code: 'VA', name: 'Virginia' },
-            { code: 'WA', name: 'Washington' },
-            { code: 'WV', name: 'West Virginia' },
-            { code: 'WI', name: 'Wisconsin' },
-            { code: 'WY', name: 'Wyoming' }
-        ],
-        'uk': [
-            { code: 'ENG', name: 'England' },
-            { code: 'SCT', name: 'Scotland' },
-            { code: 'WLS', name: 'Wales' },
-            { code: 'NIR', name: 'Northern Ireland' }
-        ],
-        'hk': [
-            { code: 'HK', name: 'Hong Kong Island' },
-            { code: 'KL', name: 'Kowloon' },
-            { code: 'NT', name: 'New Territories' }
-        ]
-    };
-    
-    return stateData[country.toLowerCase()] || stateData['us'];
-}
-
-/**
- * 获取城市数据
- */
-function getCityData(country, state) {
-    const cityData = {
-        'us': {
-            'AL': ['Birmingham', 'Montgomery', 'Mobile', 'Huntsville', 'Tuscaloosa'],
-            'AK': ['Anchorage', 'Fairbanks', 'Juneau', 'Wasilla', 'Sitka'],
-            'AZ': ['Phoenix', 'Tucson', 'Mesa', 'Scottsdale', 'Glendale'],
-            'AR': ['Little Rock', 'Fort Smith', 'Fayetteville', 'Springdale', 'Jonesboro'],
-            'CA': ['Los Angeles', 'San Diego', 'San Jose', 'San Francisco', 'Fresno', 'Sacramento', 'Long Beach', 'Oakland', 'Anaheim', 'Bakersfield'],
-            'CO': ['Denver', 'Colorado Springs', 'Aurora', 'Fort Collins', 'Lakewood'],
-            'CT': ['Bridgeport', 'New Haven', 'Stamford', 'Hartford', 'Waterbury'],
-            'DE': ['Wilmington', 'Dover', 'Newark', 'Middletown', 'Smyrna'],
-            'FL': ['Jacksonville', 'Miami', 'Tampa', 'Orlando', 'St. Petersburg', 'Hialeah', 'Fort Lauderdale', 'Tallahassee', 'Cape Coral', 'Port St. Lucie'],
-            'GA': ['Atlanta', 'Augusta', 'Columbus', 'Macon', 'Savannah'],
-            'HI': ['Honolulu', 'Pearl City', 'Hilo', 'Kailua', 'Waipahu'],
-            'ID': ['Boise', 'Meridian', 'Nampa', 'Idaho Falls', 'Pocatello'],
-            'IL': ['Chicago', 'Aurora', 'Rockford', 'Joliet', 'Naperville', 'Springfield', 'Peoria', 'Elgin', 'Waukegan', 'Champaign'],
-            'IN': ['Indianapolis', 'Fort Wayne', 'Evansville', 'South Bend', 'Carmel'],
-            'IA': ['Des Moines', 'Cedar Rapids', 'Davenport', 'Sioux City', 'Iowa City'],
-            'KS': ['Wichita', 'Overland Park', 'Kansas City', 'Topeka', 'Olathe'],
-            'KY': ['Lexington', 'Louisville', 'Bowling Green', 'Owensboro', 'Covington'],
-            'LA': ['New Orleans', 'Baton Rouge', 'Shreveport', 'Lafayette', 'Lake Charles'],
-            'ME': ['Portland', 'Lewiston', 'Bangor', 'South Portland', 'Auburn'],
-            'MD': ['Baltimore', 'Rockville', 'Germantown', 'Frederick', 'Gaithersburg'],
-            'MA': ['Boston', 'Worcester', 'Springfield', 'Cambridge', 'Lowell'],
-            'MI': ['Detroit', 'Grand Rapids', 'Warren', 'Sterling Heights', 'Lansing'],
-            'MN': ['Minneapolis', 'St. Paul', 'Rochester', 'Duluth', 'Bloomington'],
-            'MS': ['Jackson', 'Gulfport', 'Hattiesburg', 'Biloxi', 'Meridian'],
-            'MO': ['Kansas City', 'St. Louis', 'Springfield', 'Columbia', 'Independence'],
-            'MT': ['Billings', 'Missoula', 'Great Falls', 'Bozeman', 'Butte'],
-            'NE': ['Omaha', 'Lincoln', 'Bellevue', 'Grand Island', 'Kearney'],
-            'NV': ['Las Vegas', 'Reno', 'Henderson', 'North Las Vegas', 'Sparks'],
-            'NH': ['Manchester', 'Nashua', 'Concord', 'Dover', 'Rochester'],
-            'NJ': ['Newark', 'Jersey City', 'Paterson', 'Elizabeth', 'Edison'],
-            'NM': ['Albuquerque', 'Las Cruces', 'Rio Rancho', 'Santa Fe', 'Roswell'],
-            'NY': ['New York City', 'Buffalo', 'Rochester', 'Yonkers', 'Syracuse', 'Albany', 'New Rochelle', 'Mount Vernon', 'Schenectady', 'Utica'],
-            'NC': ['Charlotte', 'Raleigh', 'Greensboro', 'Durham', 'Winston-Salem'],
-            'ND': ['Fargo', 'Bismarck', 'Grand Forks', 'Minot', 'West Fargo'],
-            'OH': ['Columbus', 'Cleveland', 'Cincinnati', 'Toledo', 'Akron', 'Dayton', 'Parma', 'Canton', 'Lorain', 'Hamilton'],
-            'OK': ['Oklahoma City', 'Tulsa', 'Norman', 'Broken Arrow', 'Lawton'],
-            'OR': ['Portland', 'Salem', 'Eugene', 'Gresham', 'Hillsboro'],
-            'PA': ['Philadelphia', 'Pittsburgh', 'Allentown', 'Erie', 'Reading'],
-            'RI': ['Providence', 'Warwick', 'Cranston', 'Pawtucket', 'East Providence'],
-            'SC': ['Columbia', 'Charleston', 'North Charleston', 'Mount Pleasant', 'Rock Hill'],
-            'SD': ['Sioux Falls', 'Rapid City', 'Aberdeen', 'Brookings', 'Watertown'],
-            'TN': ['Nashville', 'Memphis', 'Knoxville', 'Chattanooga', 'Clarksville'],
-            'TX': ['Houston', 'San Antonio', 'Dallas', 'Austin', 'Fort Worth', 'El Paso', 'Arlington', 'Corpus Christi', 'Plano', 'Laredo'],
-            'UT': ['Salt Lake City', 'West Valley City', 'Provo', 'West Jordan', 'Orem'],
-            'VT': ['Burlington', 'South Burlington', 'Rutland', 'Barre', 'Montpelier'],
-            'VA': ['Virginia Beach', 'Norfolk', 'Chesapeake', 'Richmond', 'Newport News'],
-            'WA': ['Seattle', 'Spokane', 'Tacoma', 'Vancouver', 'Bellevue'],
-            'WV': ['Charleston', 'Huntington', 'Morgantown', 'Parkersburg', 'Wheeling'],
-            'WI': ['Milwaukee', 'Madison', 'Green Bay', 'Kenosha', 'Racine'],
-            'WY': ['Cheyenne', 'Casper', 'Laramie', 'Gillette', 'Rock Springs']
-        },
-        'uk': {
-            'ENG': ['London', 'Manchester', 'Birmingham', 'Liverpool', 'Leeds'],
-            'SCT': ['Edinburgh', 'Glasgow', 'Aberdeen', 'Dundee', 'Inverness'],
-            'WLS': ['Cardiff', 'Swansea', 'Newport', 'Bangor', 'St Davids'],
-            'NIR': ['Belfast', 'Derry', 'Lisburn', 'Newry', 'Bangor']
-        },
-        'hk': {
-            'HK': ['Central', 'Wan Chai', 'Causeway Bay', 'North Point', 'Quarry Bay'],
-            'KL': ['Tsim Sha Tsui', 'Mong Kok', 'Yau Ma Tei', 'Jordan', 'Hung Hom'],
-            'NT': ['Sha Tin', 'Tsuen Wan', 'Tuen Mun', 'Yuen Long', 'Tai Po']
-        }
-    };
-    
-    // 如果选择了随机州/省，则返回所有城市
-    if (state === 'random') {
-        const allCities = [];
-        if (cityData[country]) {
-            Object.values(cityData[country]).forEach(cities => {
-                allCities.push(...cities);
-            });
-        }
-        return allCities;
-    }
-    
-    return cityData[country.toLowerCase()]?.[state] || [];
-}
-
-/**
- * Generate mock address data based on country
- */
-function generateMockAddress(country, state, city) {
-    const addresses = {
-        'us': {
-            street: `${Math.floor(Math.random() * 9999) + 1} ${getRandomElement([
-                'Main Street', 'Oak Avenue', 'Maple Drive', 'Washington Boulevard', 'Lincoln Road',
-                'Jefferson Street', 'Park Avenue', 'Broadway', 'Sunset Boulevard', 'Wilshire Boulevard'
-            ])}`,
-            city: city || getRandomElement([
-                'New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix',
-                'Philadelphia', 'San Antonio', 'San Diego', 'Dallas', 'San Jose'
-            ]),
-            state: state || getRandomElement([
-                'NY', 'CA', 'IL', 'TX', 'AZ', 'PA', 'FL', 'OH', 'MI', 'GA'
-            ]),
-            zipCode: `${Math.floor(Math.random() * 90000) + 10000}`,
-            country: 'United States'
-        },
-        'uk': {
-            street: `${Math.floor(Math.random() * 999) + 1} ${getRandomElement([
-                'High Street', 'Station Road', 'London Road', 'Church Street', 'Victoria Road',
-                'Green Lane', 'Manor Road', 'Church Lane', 'Park Road', 'Queen Street'
-            ])}`,
-            city: city || getRandomElement([
-                'London', 'Birmingham', 'Manchester', 'Glasgow', 'Liverpool',
-                'Bristol', 'Edinburgh', 'Leeds', 'Sheffield', 'Cardiff'
-            ]),
-            county: getRandomElement([
-                'Greater London', 'West Midlands', 'Greater Manchester', 'Merseyside', 'South Yorkshire',
-                'West Yorkshire', 'Tyne and Wear', 'Essex', 'Kent', 'Lancashire'
-            ]),
-            postcode: `${getRandomElement(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'])}${getRandomElement(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'])}${Math.floor(Math.random() * 90) + 10} ${Math.floor(Math.random() * 9) + 1}${getRandomElement(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'])}${getRandomElement(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'])}`,
-            country: 'United Kingdom'
-        },
-        'hk': {
-            building: `${getRandomElement([
-                'Central Plaza', 'Jardine House', 'Pacific Place', 'Times Square', 'IFC',
-                'Landmark', 'Exchange Square', 'Admiralty Centre', 'Lippo Centre', 'Ocean Centre'
-            ])}`,
-            street: getRandomElement([
-                'Queen\'s Road Central', 'Des Voeux Road Central', 'Nathan Road', 'Hennessy Road', 'Connaught Road',
-                'Canton Road', 'Gloucester Road', 'Argyle Street', 'Mong Kok Road', 'Tsim Sha Tsui East'
-            ]),
-            district: getRandomElement([
-                'Central', 'Wan Chai', 'Causeway Bay', 'Tsim Sha Tsui', 'Mong Kok',
-                'Yau Ma Tei', 'North Point', 'Quarry Bay', 'Tai Koo', 'Kennedy Town'
-            ]),
-            region: getRandomElement(['Hong Kong Island', 'Kowloon', 'New Territories']),
-            country: 'Hong Kong SAR'
-        }
-    };
-    
-    return addresses[country.toLowerCase()] || addresses['us'];
-}
-
-/**
- * 生成更好的随机数
- * @param {number} min 最小值
- * @param {number} max 最大值
- * @returns {number} 随机数
- */
-function getBetterRandom(min, max) {
-    // 使用多个随机源来增加随机性
-    const timestamp = new Date().getTime();
-    const random1 = Math.random();
-    const random2 = Math.random();
-    const random3 = Math.random();
-    
-    // 组合多个随机源
-    const combinedRandom = (timestamp * random1 * random2 * random3) % (max - min + 1);
-    
-    // 确保结果在范围内
-    return Math.floor(combinedRandom) + min;
-}
-
-/**
- * 从数组中获取随机元素，确保更好的随机性
- * @param {Array} array 源数组
- * @returns {*} 随机元素
- */
-function getRandomElement(array) {
-    // 使用多个随机源来增加随机性
-    const timestamp = new Date().getTime();
-    const random1 = Math.random();
-    const random2 = Math.random();
-    const random3 = Math.random();
-    
-    // 组合多个随机源
-    const combinedRandom = (timestamp * random1 * random2 * random3) % array.length;
-    
-    // 确保结果在范围内
-    return array[Math.floor(combinedRandom)];
-}
-
-/**
- * Generate mock identity data based on country
- */
-function generateMockIdentity(country) {
-    // 扩展的名字数据库
-    const names = {
-        'us': {
-            first: [
-                // 男性名字
-                'James', 'John', 'Robert', 'Michael', 'William', 'David', 'Richard', 'Joseph', 'Thomas', 'Charles',
-                'Christopher', 'Daniel', 'Matthew', 'Anthony', 'Donald', 'Mark', 'Paul', 'Steven', 'Andrew', 'Kenneth',
-                'Joshua', 'Kevin', 'Brian', 'George', 'Edward', 'Ronald', 'Timothy', 'Jason', 'Jeffrey', 'Ryan',
-                // 女性名字
-                'Mary', 'Patricia', 'Jennifer', 'Linda', 'Elizabeth', 'Barbara', 'Susan', 'Jessica', 'Sarah', 'Karen',
-                'Lisa', 'Nancy', 'Betty', 'Margaret', 'Sandra', 'Ashley', 'Kimberly', 'Emily', 'Donna', 'Michelle',
-                'Dorothy', 'Carol', 'Amanda', 'Melissa', 'Deborah', 'Stephanie', 'Rebecca', 'Sharon', 'Laura', 'Cynthia'
-            ],
-            last: [
-                'Smith', 'Johnson', 'Williams', 'Jones', 'Brown', 'Davis', 'Miller', 'Wilson', 'Moore', 'Taylor',
-                'Anderson', 'Thomas', 'Jackson', 'White', 'Harris', 'Martin', 'Thompson', 'Garcia', 'Martinez', 'Robinson',
-                'Clark', 'Rodriguez', 'Lewis', 'Lee', 'Walker', 'Hall', 'Allen', 'Young', 'Hernandez', 'King',
-                'Wright', 'Lopez', 'Hill', 'Scott', 'Green', 'Adams', 'Baker', 'Gonzalez', 'Nelson', 'Carter'
-            ]
-        },
-        'uk': {
-            first: [
-                // 男性名字
-                'Oliver', 'Jack', 'Harry', 'Jacob', 'Charlie', 'Thomas', 'George', 'Oscar', 'James', 'William',
-                'Noah', 'Leo', 'Arthur', 'Muhammad', 'Henry', 'Theo', 'Finley', 'Archie', 'Alfie', 'Logan',
-                // 女性名字
-                'Olivia', 'Amelia', 'Isla', 'Ava', 'Emily', 'Isabella', 'Mia', 'Poppy', 'Ella', 'Lily',
-                'Sophia', 'Grace', 'Freya', 'Charlotte', 'Aurora', 'Violet', 'Daisy', 'Alice', 'Florence', 'Sienna'
-            ],
-            last: [
-                'Smith', 'Jones', 'Williams', 'Taylor', 'Brown', 'Davies', 'Evans', 'Wilson', 'Thomas', 'Roberts',
-                'Johnson', 'Lewis', 'Walker', 'Robinson', 'Wood', 'Thompson', 'White', 'Watson', 'Jackson', 'Wright',
-                'Green', 'Harris', 'Cooper', 'King', 'Lee', 'Martin', 'Clarke', 'James', 'Morgan', 'Hughes'
-            ]
-        },
-        'hk': {
-            first: [
-                // 男性名字
-                'Ming', 'Wei', 'Jian', 'Hui', 'Xin', 'Yan', 'Ling', 'Fang', 'Yu', 'Xiang',
-                'Jun', 'Tao', 'Kai', 'Long', 'Feng', 'Lei', 'Yang', 'Bin', 'Peng', 'Jie',
-                // 女性名字
-                'Li', 'Na', 'Mei', 'Ying', 'Jie', 'Xia', 'Hong', 'Zhen', 'Juan', 'Fei',
-                'Yan', 'Hui', 'Xia', 'Jing', 'Min', 'Ying', 'Xiu', 'Fang', 'Yan', 'Hui'
-            ],
-            last: [
-                'Wong', 'Chan', 'Lam', 'Leung', 'Li', 'Ho', 'Ng', 'Cheung', 'Tang', 'Yuen',
-                'Cheng', 'Lau', 'Kwok', 'Chow', 'Yip', 'Tsang', 'Pang', 'Luk', 'Yau', 'Hui',
-                'Lee', 'Yeung', 'Wong', 'Chan', 'Lam', 'Leung', 'Li', 'Ho', 'Ng', 'Cheung'
-            ]
-        }
-    };
-
-    // 获取随机名字，确保每次都是新的随机选择
-    const firstName = getRandomElement(names[country.toLowerCase()]?.first || names['us'].first);
-    const lastName = getRandomElement(names[country.toLowerCase()]?.last || names['us'].last);
-
-    // 添加调试信息
-    console.log('生成身份信息:', {
-        country,
-        firstName,
-        lastName,
-        randomIndex1: Math.random(),
-        randomIndex2: Math.random(),
-        timestamp: new Date().getTime()
+        // 恢复按钮状态
+        generateBtn.innerHTML = originalBtnText;
+        generateBtn.disabled = false;
     });
-
-    // 生成更真实的出生日期（18-70岁之间）
-    const now = new Date();
-    const minAge = 18;
-    const maxAge = 70;
-    const minYear = now.getFullYear() - maxAge;
-    const maxYear = now.getFullYear() - minAge;
-    const birthYear = getBetterRandom(minYear, maxYear);
-    const birthMonth = getBetterRandom(1, 12);
-    const daysInMonth = new Date(birthYear, birthMonth, 0).getDate();
-    const birthDay = getBetterRandom(1, daysInMonth);
-    const dob = `${birthYear}-${birthMonth.toString().padStart(2, '0')}-${birthDay.toString().padStart(2, '0')}`;
-
-    // 生成更真实的邮箱地址
-    const emailDomains = [
-        'gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'icloud.com',
-        'aol.com', 'protonmail.com', 'mail.com', 'zoho.com', 'yandex.com'
-    ];
-    const emailPrefixes = [
-        firstName.toLowerCase(),
-        lastName.toLowerCase(),
-        `${firstName.toLowerCase()}.${lastName.toLowerCase()}`,
-        `${firstName.toLowerCase()}_${lastName.toLowerCase()}`,
-        `${firstName.toLowerCase()}${lastName.toLowerCase()}`,
-        `${firstName.toLowerCase()}${getBetterRandom(100, 999)}`,
-        `${lastName.toLowerCase()}${getBetterRandom(100, 999)}`
-    ];
-    const email = `${getRandomElement(emailPrefixes)}@${getRandomElement(emailDomains)}`;
-
-    // 生成更真实的电话号码
-    let phoneNumber;
-    switch (country.toLowerCase()) {
-        case 'us':
-            // 美国区号列表
-            const areaCodes = ['212', '213', '312', '323', '415', '516', '617', '646', '718', '917'];
-            const areaCode = getRandomElement(areaCodes);
-            phoneNumber = `(${areaCode}) ${getBetterRandom(100, 999)}-${getBetterRandom(1000, 9999)}`;
-            break;
-        case 'uk':
-            // 英国区号列表
-            const ukAreaCodes = ['20', '29', '113', '114', '115', '116', '117', '118', '121', '131'];
-            const ukAreaCode = getRandomElement(ukAreaCodes);
-            phoneNumber = `+44 ${ukAreaCode} ${getBetterRandom(1000, 9999)} ${getBetterRandom(1000, 9999)}`;
-            break;
-        case 'hk':
-            // 香港手机号格式
-            phoneNumber = `+852 ${getBetterRandom(1000, 9999)} ${getBetterRandom(1000, 9999)}`;
-            break;
-        default:
-            phoneNumber = `+1 ${getBetterRandom(100, 999)}-${getBetterRandom(100, 999)}-${getBetterRandom(1000, 9999)}`;
-    }
-
-    // 生成ID号码
-    let idNumber;
-    switch (country.toLowerCase()) {
-        case 'us':
-            // 美国社会安全号码格式：XXX-XX-XXXX
-            idNumber = `${getBetterRandom(100, 999)}-${getBetterRandom(10, 99)}-${getBetterRandom(1000, 9999)}`;
-            break;
-        case 'uk':
-            // 英国国民保险号码格式：AA 12 34 56 A
-            const validPrefixes = ['A', 'B', 'C', 'E', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'W', 'X', 'Y', 'Z'];
-            idNumber = `${getRandomElement(validPrefixes)}${getRandomElement(validPrefixes)} ${getBetterRandom(10, 99)} ${getBetterRandom(10, 99)} ${getBetterRandom(10, 99)} ${getRandomElement(['A', 'B', 'C', 'D'])}`;
-            break;
-        case 'hk':
-            // 香港身份证格式：X123456(A)
-            idNumber = `${getRandomElement(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'])}${getBetterRandom(100000, 999999)}(${getBetterRandom(0, 9)})`;
-            break;
-        default:
-            idNumber = `ID-${getBetterRandom(1000000, 9999999)}`;
-    }
-
-    return {
-        firstName,
-        lastName,
-        fullName: `${firstName} ${lastName}`,
-        dateOfBirth: dob,
-        age: now.getFullYear() - birthYear,
-        idNumber,
-        phoneNumber,
-        email
-    };
 }
 
 /**
- * Generate mock credit card data based on country
- */
-function generateMockCreditCard(country) {
-    // Credit card types and their starting digits
-    const cardTypes = [
-        { name: 'Visa', prefix: '4', length: 16 },
-        { name: 'MasterCard', prefix: '5', length: 16 },
-        { name: 'American Express', prefix: '3', length: 15 },
-        { name: 'Discover', prefix: '6', length: 16 }
-    ];
-    
-    // Select a random card type
-    const cardType = getRandomElement(cardTypes);
-    
-    // Generate card number
-    let cardNumber = cardType.prefix;
-    for (let i = cardType.prefix.length; i < cardType.length; i++) {
-        cardNumber += Math.floor(Math.random() * 10);
-    }
-    
-    // Format card number for display
-    let formattedCardNumber = '';
-    for (let i = 0; i < cardNumber.length; i++) {
-        if (i > 0 && i % 4 === 0) {
-            formattedCardNumber += ' ';
-        }
-        formattedCardNumber += cardNumber[i];
-    }
-    
-    // Generate expiry date (between 1 and 5 years from now)
-    const now = new Date();
-    const expiryYear = now.getFullYear() + Math.floor(Math.random() * 5) + 1;
-    const expiryMonth = Math.floor(Math.random() * 12) + 1;
-    const expiryDate = `${expiryMonth.toString().padStart(2, '0')}/${expiryYear.toString().slice(-2)}`;
-    
-    // Generate CVV
-    const cvv = cardType.name === 'American Express' ? 
-        Math.floor(Math.random() * 9000) + 1000 : // 4 digits for Amex
-        Math.floor(Math.random() * 900) + 100;    // 3 digits for others
-    
-    // Generate cardholder name based on identity
-    const identity = generateMockIdentity(country);
-    const cardholderName = identity.fullName.toUpperCase();
-    
-    return {
-        cardType: cardType.name,
-        cardNumber: formattedCardNumber,
-        cardholderName,
-        expiryDate,
-        cvv: cvv.toString()
-    };
-}
-
-/**
- * Display the generated results in the results section
+ * 显示生成的结果
+ * @param {Object} results 生成的结果
  */
 function displayResults(results) {
     const resultsSection = document.getElementById('results');
-    
     if (!resultsSection) return;
-    
-    // 显示结果部分
+
+    // 显示结果区域
     resultsSection.classList.remove('hidden');
-    
-    // 获取结果内容区域
-    const resultsContent = resultsSection.querySelector('.bg-gray-50');
-    if (!resultsContent) return;
-    
-    // 清除之前的结果
-    resultsContent.innerHTML = '';
-    
+
+    // 使用 DocumentFragment 优化 DOM 操作
+    const fragment = document.createDocumentFragment();
+    const resultsContent = document.createElement('div');
+    resultsContent.className = 'bg-gray-50 p-4 rounded-lg';
+
     // 创建两列布局容器
     const twoColumnContainer = document.createElement('div');
-    twoColumnContainer.className = 'grid grid-cols-1 md:grid-cols-2 gap-8';
-    
+    twoColumnContainer.className = 'grid grid-cols-1 md:grid-cols-2 gap-4';
+
     // 左侧列 - 地址信息
-    const leftColumn = document.createElement('div');
     if (results.address) {
-        leftColumn.innerHTML = `
-            <div class="bg-white rounded-lg shadow p-6">
-                <h3 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
-                    <i class="fas fa-map-marker-alt text-indigo-600 mr-2"></i>
-                    <span data-i18n="generator.results.addressInfo">Address Information</span>
-                </h3>
-                <div class="space-y-4">
-                    ${formatAddressForDisplay(results.address)}
-                </div>
+        const addressCard = document.createElement('div');
+        addressCard.className = 'bg-white rounded-lg shadow p-4';
+        addressCard.innerHTML = `
+            <h3 class="text-lg font-medium text-gray-900 mb-3 flex items-center">
+                <i class="fas fa-map-marker-alt text-indigo-600 mr-2"></i>
+                <span data-i18n="generator.results.addressInfo">地址信息</span>
+            </h3>
+            <div class="space-y-2">
+                ${formatAddressForDisplay(results.address)}
             </div>
         `;
+        twoColumnContainer.appendChild(addressCard);
     }
-    
+
     // 右侧列 - 基本信息
-    const rightColumn = document.createElement('div');
     if (results.identity) {
-        rightColumn.innerHTML = `
-            <div class="bg-white rounded-lg shadow p-6">
-                <h3 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
-                    <i class="fas fa-user-circle text-indigo-600 mr-2"></i>
-                    <span data-i18n="generator.results.basicInfo">Basic Information</span>
-                </h3>
-                <div class="space-y-4">
-                    ${formatIdentityForDisplay(results.identity)}
-                </div>
+        const identityCard = document.createElement('div');
+        identityCard.className = 'bg-white rounded-lg shadow p-4';
+        identityCard.innerHTML = `
+            <h3 class="text-lg font-medium text-gray-900 mb-3 flex items-center">
+                <i class="fas fa-user-circle text-indigo-600 mr-2"></i>
+                <span data-i18n="generator.results.basicInfo">基本信息</span>
+            </h3>
+            <div class="space-y-2">
+                ${formatIdentityForDisplay(results.identity)}
             </div>
         `;
+        twoColumnContainer.appendChild(identityCard);
     }
-    
-    // 将两列添加到容器中
-    twoColumnContainer.appendChild(leftColumn);
-    twoColumnContainer.appendChild(rightColumn);
-    
-    // 将容器添加到结果内容区域
+
     resultsContent.appendChild(twoColumnContainer);
-    
-    // 如果有信用卡信息，添加到底部
+
+    // 信用卡信息（如果有）
     if (results.creditCard) {
-        const creditCardDiv = document.createElement('div');
-        creditCardDiv.className = 'mt-8';
-        creditCardDiv.innerHTML = `
-            <div class="bg-white rounded-lg shadow p-6">
-                <h3 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
+        const creditCardSection = document.createElement('div');
+        creditCardSection.className = 'mt-4';
+        creditCardSection.innerHTML = `
+            <div class="bg-white rounded-lg shadow p-4">
+                <h3 class="text-lg font-medium text-gray-900 mb-3 flex items-center">
                     <i class="fas fa-credit-card text-indigo-600 mr-2"></i>
-                    <span data-i18n="generator.results.creditCardInfo">Credit Card Information</span>
+                    <span data-i18n="generator.results.creditCardInfo">信用卡信息</span>
                 </h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
                     ${formatCreditCardForDisplay(results.creditCard)}
                 </div>
             </div>
         `;
-        resultsContent.appendChild(creditCardDiv);
+        resultsContent.appendChild(creditCardSection);
     }
 
-    // 更新新添加元素的国际化文本
-    document.querySelectorAll('[data-i18n]').forEach(element => {
-        const key = element.getAttribute('data-i18n');
-        if (key) {
-            element.textContent = i18next.t(key);
-        }
-    });
+    fragment.appendChild(resultsContent);
+
+    // 一次性更新 DOM
+    const existingContent = resultsSection.querySelector('.bg-gray-50');
+    if (existingContent) {
+        existingContent.replaceWith(fragment);
+    } else {
+        resultsSection.querySelector('.px-4').appendChild(fragment);
+    }
+
+    // 初始化复制按钮
+    initCopyButtons();
+
+    // 滚动到结果区域
+    resultsSection.scrollIntoView({ behavior: 'smooth' });
 }
 
 /**
- * Format identity information for display
+ * 格式化身份信息用于显示
+ * @param {Object} identity 身份信息
+ * @returns {string} HTML字符串
  */
 function formatIdentityForDisplay(identity) {
     return `
-        <dl class="grid grid-cols-1 gap-x-3 gap-y-3 sm:grid-cols-2">
-            <div class="cursor-pointer group hover:bg-white p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                <dt class="text-sm font-medium text-gray-500">Full Name</dt>
-                <dd class="mt-1 text-sm text-gray-900 group-hover:text-indigo-600">${identity.fullName}</dd>
-                <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-            </div>
-            <div class="cursor-pointer group hover:bg-white p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                <dt class="text-sm font-medium text-gray-500">Date of Birth</dt>
-                <dd class="mt-1 text-sm text-gray-900 group-hover:text-indigo-600">${identity.dateOfBirth} (Age: ${identity.age})</dd>
-                <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-            </div>
-            <div class="cursor-pointer group hover:bg-white p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                <dt class="text-sm font-medium text-gray-500">ID Number</dt>
-                <dd class="mt-1 text-sm text-gray-900 group-hover:text-indigo-600">${identity.idNumber}</dd>
-                <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-            </div>
-            <div class="cursor-pointer group hover:bg-white p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                <dt class="text-sm font-medium text-gray-500">Phone Number</dt>
-                <dd class="mt-1 text-sm text-gray-900 group-hover:text-indigo-600">${identity.phoneNumber}</dd>
-                <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-            </div>
-            <div class="cursor-pointer group hover:bg-white p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md sm:col-span-2" onclick="copyToClipboard(this)">
-                <dt class="text-sm font-medium text-gray-500">Email</dt>
-                <dd class="mt-1 text-sm text-gray-900 group-hover:text-indigo-600">${identity.email}</dd>
-                <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-            </div>
-        </dl>
+        <div class="cursor-pointer group hover:bg-gray-50 p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
+            <p class="text-sm font-medium text-gray-500">姓名</p>
+            <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600">${identity.fullName}</p>
+        </div>
+        <div class="cursor-pointer group hover:bg-gray-50 p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
+            <p class="text-sm font-medium text-gray-500">邮箱</p>
+            <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600">${identity.email}</p>
+        </div>
+        <div class="cursor-pointer group hover:bg-gray-50 p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
+            <p class="text-sm font-medium text-gray-500">电话</p>
+            <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600">${identity.phoneNumber}</p>
+        </div>
+        <div class="cursor-pointer group hover:bg-gray-50 p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
+            <p class="text-sm font-medium text-gray-500">出生日期</p>
+            <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600">${identity.dateOfBirth}</p>
+        </div>
     `;
 }
 
 /**
- * Format address information for display
+ * 格式化地址信息用于显示
+ * @param {Object} address 地址信息
+ * @returns {string} HTML字符串
  */
 function formatAddressForDisplay(address) {
-    let html = '<dl class="grid grid-cols-1 gap-x-3 gap-y-3 sm:grid-cols-2">';
+    let html = '';
     
-    // 美国地址
-    if (address.country === 'United States') {
+    if (address.street) {
         html += `
-            <div class="cursor-pointer group hover:bg-white p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md sm:col-span-2" onclick="copyToClipboard(this)">
-                <dt class="text-sm font-medium text-gray-500">Street Address</dt>
-                <dd class="mt-1 text-sm text-gray-900 group-hover:text-indigo-600">${address.street}</dd>
-                <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-            </div>
-            <div class="cursor-pointer group hover:bg-white p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                <dt class="text-sm font-medium text-gray-500">City</dt>
-                <dd class="mt-1 text-sm text-gray-900 group-hover:text-indigo-600">${address.city}</dd>
-                <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-            </div>
-            <div class="cursor-pointer group hover:bg-white p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                <dt class="text-sm font-medium text-gray-500">State</dt>
-                <dd class="mt-1 text-sm text-gray-900 group-hover:text-indigo-600">${address.state}</dd>
-                <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-            </div>
-            <div class="cursor-pointer group hover:bg-white p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                <dt class="text-sm font-medium text-gray-500">ZIP Code</dt>
-                <dd class="mt-1 text-sm text-gray-900 group-hover:text-indigo-600">${address.zipCode}</dd>
-                <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-            </div>
-            <div class="cursor-pointer group hover:bg-white p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                <dt class="text-sm font-medium text-gray-500">Country</dt>
-                <dd class="mt-1 text-sm text-gray-900 group-hover:text-indigo-600">${address.country}</dd>
-                <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-            </div>
-        `;
-    }
-    // 英国地址
-    else if (address.country === 'United Kingdom') {
-        html += `
-            <div class="cursor-pointer group hover:bg-white p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md sm:col-span-2" onclick="copyToClipboard(this)">
-                <dt class="text-sm font-medium text-gray-500">Street Address</dt>
-                <dd class="mt-1 text-sm text-gray-900 group-hover:text-indigo-600">${address.street}</dd>
-                <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-            </div>
-            <div class="cursor-pointer group hover:bg-white p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                <dt class="text-sm font-medium text-gray-500">City</dt>
-                <dd class="mt-1 text-sm text-gray-900 group-hover:text-indigo-600">${address.city}</dd>
-                <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-            </div>
-            <div class="cursor-pointer group hover:bg-white p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                <dt class="text-sm font-medium text-gray-500">County</dt>
-                <dd class="mt-1 text-sm text-gray-900 group-hover:text-indigo-600">${address.county}</dd>
-                <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-            </div>
-            <div class="cursor-pointer group hover:bg-white p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                <dt class="text-sm font-medium text-gray-500">Postcode</dt>
-                <dd class="mt-1 text-sm text-gray-900 group-hover:text-indigo-600">${address.postcode}</dd>
-                <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-            </div>
-            <div class="cursor-pointer group hover:bg-white p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                <dt class="text-sm font-medium text-gray-500">Country</dt>
-                <dd class="mt-1 text-sm text-gray-900 group-hover:text-indigo-600">${address.country}</dd>
-                <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-            </div>
-        `;
-    }
-    // 香港地址
-    else if (address.country === 'Hong Kong SAR') {
-        html += `
-            <div class="cursor-pointer group hover:bg-white p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md sm:col-span-2" onclick="copyToClipboard(this)">
-                <dt class="text-sm font-medium text-gray-500">Building</dt>
-                <dd class="mt-1 text-sm text-gray-900 group-hover:text-indigo-600">${address.building}</dd>
-                <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-            </div>
-            <div class="cursor-pointer group hover:bg-white p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md sm:col-span-2" onclick="copyToClipboard(this)">
-                <dt class="text-sm font-medium text-gray-500">Street</dt>
-                <dd class="mt-1 text-sm text-gray-900 group-hover:text-indigo-600">${address.street}</dd>
-                <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-            </div>
-            <div class="cursor-pointer group hover:bg-white p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                <dt class="text-sm font-medium text-gray-500">District</dt>
-                <dd class="mt-1 text-sm text-gray-900 group-hover:text-indigo-600">${address.district}</dd>
-                <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-            </div>
-            <div class="cursor-pointer group hover:bg-white p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                <dt class="text-sm font-medium text-gray-500">Region</dt>
-                <dd class="mt-1 text-sm text-gray-900 group-hover:text-indigo-600">${address.region}</dd>
-                <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-            </div>
-            <div class="cursor-pointer group hover:bg-white p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                <dt class="text-sm font-medium text-gray-500">Country/Region</dt>
-                <dd class="mt-1 text-sm text-gray-900 group-hover:text-indigo-600">${address.country}</dd>
-                <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
+            <div class="cursor-pointer group hover:bg-gray-50 p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
+                <p class="text-sm font-medium text-gray-500">街道地址</p>
+                <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600">${address.street}</p>
             </div>
         `;
     }
     
-    html += '</dl>';
+    if (address.city) {
+        html += `
+            <div class="cursor-pointer group hover:bg-gray-50 p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
+                <p class="text-sm font-medium text-gray-500">城市</p>
+                <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600">${address.city}</p>
+            </div>
+        `;
+    }
+    
+    if (address.state) {
+        html += `
+            <div class="cursor-pointer group hover:bg-gray-50 p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
+                <p class="text-sm font-medium text-gray-500">州/省</p>
+                <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600">${address.state}</p>
+            </div>
+        `;
+    }
+    
+    if (address.zipCode) {
+        html += `
+            <div class="cursor-pointer group hover:bg-gray-50 p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
+                <p class="text-sm font-medium text-gray-500">邮编</p>
+                <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600">${address.zipCode}</p>
+            </div>
+        `;
+    }
+    
+    if (address.country) {
+        html += `
+            <div class="cursor-pointer group hover:bg-gray-50 p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
+                <p class="text-sm font-medium text-gray-500">国家</p>
+                <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600">${address.country}</p>
+            </div>
+        `;
+    }
+    
     return html;
 }
 
 /**
- * Format credit card information for display
+ * 格式化信用卡信息用于显示
+ * @param {Object} creditCard 信用卡信息
+ * @returns {string} HTML字符串
  */
 function formatCreditCardForDisplay(creditCard) {
     return `
-        <dl class="grid grid-cols-1 gap-x-3 gap-y-3 sm:grid-cols-2">
-            <div class="cursor-pointer group hover:bg-white p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                <dt class="text-sm font-medium text-gray-500">Card Type</dt>
-                <dd class="mt-1 text-sm text-gray-900 group-hover:text-indigo-600">${creditCard.cardType}</dd>
-                <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-            </div>
-            <div class="cursor-pointer group hover:bg-white p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                <dt class="text-sm font-medium text-gray-500">Card Number</dt>
-                <dd class="mt-1 text-sm text-gray-900 group-hover:text-indigo-600">${creditCard.cardNumber}</dd>
-                <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-            </div>
-            <div class="cursor-pointer group hover:bg-white p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                <dt class="text-sm font-medium text-gray-500">Cardholder Name</dt>
-                <dd class="mt-1 text-sm text-gray-900 group-hover:text-indigo-600">${creditCard.cardholderName}</dd>
-                <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-            </div>
-            <div class="cursor-pointer group hover:bg-white p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                <dt class="text-sm font-medium text-gray-500">Expiry Date</dt>
-                <dd class="mt-1 text-sm text-gray-900 group-hover:text-indigo-600">${creditCard.expiryDate}</dd>
-                <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-            </div>
-            <div class="cursor-pointer group hover:bg-white p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                <dt class="text-sm font-medium text-gray-500">CVV</dt>
-                <dd class="mt-1 text-sm text-gray-900 group-hover:text-indigo-600">${creditCard.cvv}</dd>
-                <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-            </div>
-        </dl>
+        <div class="cursor-pointer group hover:bg-gray-50 p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
+            <p class="text-sm font-medium text-gray-500">卡类型</p>
+            <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600">${creditCard.cardType}</p>
+        </div>
+        <div class="cursor-pointer group hover:bg-gray-50 p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
+            <p class="text-sm font-medium text-gray-500">卡号</p>
+            <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600">${creditCard.cardNumber}</p>
+        </div>
+        <div class="cursor-pointer group hover:bg-gray-50 p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
+            <p class="text-sm font-medium text-gray-500">持卡人</p>
+            <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600">${creditCard.cardholderName}</p>
+        </div>
+        <div class="cursor-pointer group hover:bg-gray-50 p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
+            <p class="text-sm font-medium text-gray-500">过期日期</p>
+            <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600">${creditCard.expiryDate}</p>
+        </div>
+        <div class="cursor-pointer group hover:bg-gray-50 p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
+            <p class="text-sm font-medium text-gray-500">CVV</p>
+            <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600">${creditCard.cvv}</p>
+        </div>
     `;
 }
 
@@ -1538,4 +1018,176 @@ function copyAllToClipboard() {
         showToast('复制失败，请重试', 'error');
         console.error('复制失败:', err);
     });
+}
+
+/**
+ * 生成更好的随机数
+ * @param {number} min 最小值
+ * @param {number} max 最大值
+ * @returns {number} 随机数
+ */
+function getBetterRandom(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+/**
+ * 从数组中获取随机元素
+ * @param {Array} array 源数组
+ * @returns {*} 随机元素
+ */
+function getRandomElement(array) {
+    return array[Math.floor(Math.random() * array.length)];
+}
+
+/**
+ * 生成模拟身份信息
+ * @param {string} country 国家
+ * @returns {Object} 身份信息
+ */
+function generateMockIdentity(country) {
+    const names = {
+        'us': {
+            first: ['James', 'John', 'Robert', 'Michael', 'William', 'David', 'Richard', 'Joseph', 'Thomas', 'Charles',
+                   'Mary', 'Patricia', 'Jennifer', 'Linda', 'Elizabeth', 'Barbara', 'Susan', 'Jessica', 'Sarah', 'Karen'],
+            last: ['Smith', 'Johnson', 'Williams', 'Jones', 'Brown', 'Davis', 'Miller', 'Wilson', 'Moore', 'Taylor']
+        },
+        'uk': {
+            first: ['Oliver', 'Jack', 'Harry', 'Jacob', 'Charlie', 'Thomas', 'George', 'Oscar', 'James', 'William',
+                   'Olivia', 'Amelia', 'Isla', 'Ava', 'Emily', 'Isabella', 'Mia', 'Poppy', 'Ella', 'Lily'],
+            last: ['Smith', 'Jones', 'Williams', 'Taylor', 'Brown', 'Davies', 'Evans', 'Wilson', 'Thomas', 'Roberts']
+        },
+        'hk': {
+            first: ['Ming', 'Wei', 'Jian', 'Hui', 'Xin', 'Yan', 'Ling', 'Fang', 'Yu', 'Xiang',
+                   'Li', 'Na', 'Mei', 'Ying', 'Jie', 'Xia', 'Hong', 'Zhen', 'Juan', 'Fei'],
+            last: ['Wong', 'Chan', 'Lam', 'Leung', 'Li', 'Ho', 'Ng', 'Cheung', 'Tang', 'Yuen']
+        }
+    };
+
+    const countryData = names[country.toLowerCase()] || names['us'];
+    const firstName = getRandomElement(countryData.first);
+    const lastName = getRandomElement(countryData.last);
+
+    // 生成出生日期（18-70岁之间）
+    const now = new Date();
+    const birthYear = getBetterRandom(now.getFullYear() - 70, now.getFullYear() - 18);
+    const birthMonth = getBetterRandom(1, 12);
+    const daysInMonth = new Date(birthYear, birthMonth, 0).getDate();
+    const birthDay = getBetterRandom(1, daysInMonth);
+    const dob = `${birthYear}-${birthMonth.toString().padStart(2, '0')}-${birthDay.toString().padStart(2, '0')}`;
+
+    // 生成邮箱
+    const emailDomains = ['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'icloud.com'];
+    const email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}@${getRandomElement(emailDomains)}`;
+
+    // 生成电话号码
+    let phoneNumber;
+    switch (country.toLowerCase()) {
+        case 'us':
+            phoneNumber = `(${getBetterRandom(100, 999)}) ${getBetterRandom(100, 999)}-${getBetterRandom(1000, 9999)}`;
+            break;
+        case 'uk':
+            phoneNumber = `+44 ${getBetterRandom(1000, 9999)} ${getBetterRandom(100000, 999999)}`;
+            break;
+        case 'hk':
+            phoneNumber = `+852 ${getBetterRandom(1000, 9999)} ${getBetterRandom(1000, 9999)}`;
+            break;
+        default:
+            phoneNumber = `+1 ${getBetterRandom(100, 999)}-${getBetterRandom(100, 999)}-${getBetterRandom(1000, 9999)}`;
+    }
+
+    return {
+        firstName,
+        lastName,
+        fullName: `${firstName} ${lastName}`,
+        dateOfBirth: dob,
+        age: now.getFullYear() - birthYear,
+        phoneNumber,
+        email
+    };
+}
+
+/**
+ * 生成模拟地址信息
+ * @param {string} country 国家
+ * @param {string} state 州/省
+ * @param {string} city 城市
+ * @returns {Object} 地址信息
+ */
+function generateMockAddress(country, state, city) {
+    const addresses = {
+        'us': {
+            street: `${getBetterRandom(1, 9999)} ${getRandomElement(['Main St', 'Oak Ave', 'Maple Dr', 'Washington Blvd', 'Lincoln Rd'])}`,
+            city: city || getRandomElement(['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix']),
+            state: state || getRandomElement(['NY', 'CA', 'IL', 'TX', 'AZ']),
+            zipCode: `${getBetterRandom(10000, 99999)}`,
+            country: 'United States'
+        },
+        'uk': {
+            street: `${getBetterRandom(1, 999)} ${getRandomElement(['High St', 'Station Rd', 'London Rd', 'Church St', 'Victoria Rd'])}`,
+            city: city || getRandomElement(['London', 'Birmingham', 'Manchester', 'Glasgow', 'Liverpool']),
+            county: getRandomElement(['Greater London', 'West Midlands', 'Greater Manchester', 'Merseyside', 'South Yorkshire']),
+            postcode: `${getRandomElement(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'])}${getBetterRandom(10, 99)} ${getBetterRandom(1, 9)}${getRandomElement(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'])}${getRandomElement(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'])}`,
+            country: 'United Kingdom'
+        },
+        'hk': {
+            building: getRandomElement(['Central Plaza', 'Jardine House', 'Pacific Place', 'Times Square', 'IFC']),
+            street: getRandomElement(['Queen\'s Road Central', 'Des Voeux Road Central', 'Nathan Road', 'Hennessy Road', 'Connaught Road']),
+            district: getRandomElement(['Central', 'Wan Chai', 'Causeway Bay', 'Tsim Sha Tsui', 'Mong Kok']),
+            region: getRandomElement(['Hong Kong Island', 'Kowloon', 'New Territories']),
+            country: 'Hong Kong SAR'
+        }
+    };
+
+    return addresses[country.toLowerCase()] || addresses['us'];
+}
+
+/**
+ * 生成模拟信用卡信息
+ * @param {string} country 国家
+ * @returns {Object} 信用卡信息
+ */
+function generateMockCreditCard(country) {
+    const cardTypes = [
+        { name: 'Visa', prefix: '4', length: 16 },
+        { name: 'MasterCard', prefix: '5', length: 16 },
+        { name: 'American Express', prefix: '3', length: 15 },
+        { name: 'Discover', prefix: '6', length: 16 }
+    ];
+    
+    const cardType = getRandomElement(cardTypes);
+    let cardNumber = cardType.prefix;
+    for (let i = cardType.prefix.length; i < cardType.length; i++) {
+        cardNumber += Math.floor(Math.random() * 10);
+    }
+    
+    // 格式化卡号
+    let formattedCardNumber = '';
+    for (let i = 0; i < cardNumber.length; i++) {
+        if (i > 0 && i % 4 === 0) {
+            formattedCardNumber += ' ';
+        }
+        formattedCardNumber += cardNumber[i];
+    }
+    
+    // 生成过期日期（1-5年后）
+    const now = new Date();
+    const expiryYear = now.getFullYear() + getBetterRandom(1, 5);
+    const expiryMonth = getBetterRandom(1, 12);
+    const expiryDate = `${expiryMonth.toString().padStart(2, '0')}/${expiryYear.toString().slice(-2)}`;
+    
+    // 生成CVV
+    const cvv = cardType.name === 'American Express' ? 
+        getBetterRandom(1000, 9999).toString() : 
+        getBetterRandom(100, 999).toString();
+    
+    // 生成持卡人姓名
+    const identity = generateMockIdentity(country);
+    
+    return {
+        cardType: cardType.name,
+        cardNumber: formattedCardNumber,
+        cardholderName: identity.fullName.toUpperCase(),
+        expiryDate,
+        cvv
+    };
 }
