@@ -194,7 +194,7 @@
                     
                     <!-- Country Selection -->
                     <div class="mb-8">
-                        <h3 class="text-lg font-medium text-gray-900 mb-4" data-i18n="generator.country.title">Select Country</h3>
+                        <h3 class="text-lg font-medium text-gray-900 mb-4" data-i18n="generator.country.title">选择国家或区域</h3>
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                             <div class="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-indigo-400 hover:ring-1 hover:ring-indigo-500 cursor-pointer country-option selected" data-country="us">
                                 <div class="flex-shrink-0">
@@ -219,11 +219,23 @@
                                     <i class="fas fa-check-circle text-indigo-600"></i>
                                 </div>
                             </div>
+                            
+                            <div class="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-indigo-400 hover:ring-1 hover:ring-indigo-500 cursor-pointer country-option" data-country="hk">
+                                <div class="flex-shrink-0">
+                                    <img class="h-10 w-10 rounded-full" src="https://flagcdn.com/w80/hk.png" alt="Hong Kong Flag">
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-medium text-gray-900" data-i18n="country.hk">香港特别行政区</p>
+                                </div>
+                                <div class="flex-shrink-0 hidden">
+                                    <i class="fas fa-check-circle text-indigo-600"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <!-- State and City Selection -->
-                    <div class="mb-8">
+                    <div class="mb-8" id="state-city-selection">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- State Selection -->
                             <div>
@@ -539,6 +551,9 @@
             // 初始化表单
             initGeneratorForm();
             
+            // 初始化国家选择功能
+            initCountrySelection();
+            
             // Mobile menu toggle
             document.getElementById('mobile-menu-button').addEventListener('click', function() {
                 const mobileMenu = document.getElementById('mobile-menu');
@@ -564,6 +579,69 @@
                 }).catch(err => {
                     console.error('复制失败:', err);
                 });
+            }
+
+            // 初始化国家选择功能
+            function initCountrySelection() {
+                const countryOptions = document.querySelectorAll('.country-option');
+                const stateCitySelection = document.getElementById('state-city-selection');
+                
+                countryOptions.forEach(option => {
+                    option.addEventListener('click', function() {
+                        // 移除所有选中状态
+                        countryOptions.forEach(opt => {
+                            opt.classList.remove('selected');
+                            // 找到选中标志的容器并隐藏
+                            const iconContainer = opt.querySelector('.flex-shrink-0:last-child');
+                            if (iconContainer) {
+                                iconContainer.classList.add('hidden');
+                            }
+                        });
+                        
+                        // 添加当前选中状态
+                        this.classList.add('selected');
+                        // 显示当前选项的选中标志
+                        const currentIconContainer = this.querySelector('.flex-shrink-0:last-child');
+                        if (currentIconContainer) {
+                            currentIconContainer.classList.remove('hidden');
+                        }
+                        
+                        // 获取选中的国家
+                        const selectedCountry = this.getAttribute('data-country');
+                        
+                        // 如果选择香港，隐藏州/城市选择器
+                        if (selectedCountry === 'hk') {
+                            stateCitySelection.style.display = 'none';
+                        } else {
+                            stateCitySelection.style.display = 'block';
+                            // 更新州和城市选项
+                            updateStateOptions(selectedCountry);
+                        }
+                    });
+                });
+                
+                // 初始化默认选中的国家
+                const defaultSelected = document.querySelector('.country-option.selected');
+                if (defaultSelected) {
+                    const selectedCountry = defaultSelected.getAttribute('data-country');
+                    if (selectedCountry !== 'hk') {
+                        updateStateOptions(selectedCountry);
+                    }
+                }
+            }
+
+            // 更新州/省选项
+            function updateStateOptions(country) {
+                const stateSelect = document.getElementById('state-select');
+                const citySelect = document.getElementById('city-select');
+                
+                // 使用scripts.js中的函数来更新州和城市选项
+                if (window.updateStatesForCountry) {
+                    window.updateStatesForCountry(country);
+                }
+                
+                // 清空城市选择
+                citySelect.innerHTML = '<option value="random">🎲 Random City</option>';
             }
 
             // 将复制功能绑定到所有可复制的元素

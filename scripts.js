@@ -248,11 +248,6 @@ function initStateCitySelection() {
             { code: 'SCT', name: 'Scotland' },
             { code: 'WLS', name: 'Wales' },
             { code: 'NIR', name: 'Northern Ireland' }
-        ],
-        'hk': [
-            { code: 'HK', name: 'Hong Kong Island' },
-            { code: 'KL', name: 'Kowloon' },
-            { code: 'NT', name: 'New Territories' }
         ]
     };
 
@@ -315,36 +310,39 @@ function initStateCitySelection() {
             'SCT': ['Edinburgh', 'Glasgow', 'Aberdeen', 'Dundee', 'Inverness'],
             'WLS': ['Cardiff', 'Swansea', 'Newport', 'Bangor', 'St Davids'],
             'NIR': ['Belfast', 'Derry', 'Lisburn', 'Newry', 'Bangor']
-        },
-        'hk': {
-            'HK': ['Central', 'Wan Chai', 'Causeway Bay', 'North Point', 'Quarry Bay'],
-            'KL': ['Tsim Sha Tsui', 'Mong Kok', 'Yau Ma Tei', 'Jordan', 'Hung Hom'],
-            'NT': ['Sha Tin', 'Tsuen Wan', 'Tuen Mun', 'Yuen Long', 'Tai Po']
         }
     };
 
-    // 初始化默认选择美国
-    const defaultCountry = 'us';
-    updateStates(defaultCountry);
-
-    // Update states when country changes
-    document.querySelectorAll('.country-option').forEach(option => {
-        option.addEventListener('click', function() {
-            const country = this.getAttribute('data-country');
-            updateStates(country);
-            // Clear city selection
-            citySelect.innerHTML = '<option value="random">🎲 Random City</option>';
-        });
-    });
+    // 初始化时检查当前选中的国家，而不是硬编码美国
+    const selectedCountryElement = document.querySelector('.country-option.selected');
+    if (selectedCountryElement) {
+        const selectedCountry = selectedCountryElement.getAttribute('data-country');
+        // 只有当选择的不是香港时才更新州选择器
+        if (selectedCountry !== 'hk') {
+            updateStates(selectedCountry);
+        }
+    }
 
     // Update cities when state changes
     stateSelect.addEventListener('change', function() {
-        const country = document.querySelector('.country-option.selected').getAttribute('data-country');
-        const state = this.value;
-        updateCities(country, state);
+        const selectedCountryOption = document.querySelector('.country-option.selected');
+        if (selectedCountryOption) {
+            const country = selectedCountryOption.getAttribute('data-country');
+            const state = this.value;
+            updateCities(country, state);
+        }
     });
 
+    // 暴露updateStates和updateCities函数供HTML中的逻辑使用
+    window.updateStatesForCountry = updateStates;
+    window.updateCitiesForCountry = updateCities;
+
     function updateStates(country) {
+        // 香港不需要州选择器
+        if (country === 'hk') {
+            return;
+        }
+        
         stateSelect.innerHTML = '<option value="random">🎲 Random State</option>';
         const states = stateData[country];
         if (states) {
@@ -358,6 +356,11 @@ function initStateCitySelection() {
     }
 
     function updateCities(country, state) {
+        // 香港不需要城市选择器
+        if (country === 'hk') {
+            return;
+        }
+        
         citySelect.innerHTML = '<option value="random">🎲 Random City</option>';
         if (state === 'random') {
             // 如果选择了随机州/省，则显示所有城市
