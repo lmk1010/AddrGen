@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="blog.creditCard.title">信用卡号码生成：工作原理 - AddressGen</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+        .article-content {
+            line-height: 1.8;
+        }
+        .article-content h2 {
+            @apply text-2xl font-semibold text-gray-900 mt-8 mb-4;
+        }
+        .article-content h3 {
+            @apply text-xl font-semibold text-gray-900 mt-6 mb-3;
+        }
+        .article-content p {
+            @apply mb-4;
+        }
+        .article-content ul {
+            @apply list-disc list-inside mb-4 pl-4;
+        }
+        .article-content li {
+            @apply mb-2;
+        }
+        .article-content .code-box {
+            @apply bg-gray-900 text-green-400 rounded-lg p-4 my-4 font-mono text-sm overflow-x-auto;
+        }
+        .article-content .warning-box {
+            @apply bg-red-50 border border-red-200 rounded-lg p-4 my-4;
+        }
+        .article-content .info-box {
+            @apply bg-blue-50 border border-blue-200 rounded-lg p-4 my-4;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-md fixed w-full z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <span class="text-2xl font-bold text-indigo-600">AddressGen</span>
+                    </div>
+                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                        <a href="index.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" data-i18n="nav.home">
+                            Home
+                        </a>
+                        <a href="blog.html" class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" data-i18n="nav.blog">
+                            Blog
+                        </a>
+                        <a href="faq.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" data-i18n="nav.faq">
+                            FAQ
+                        </a>
+                        <a href="about.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" data-i18n="nav.about">
+                            About
+                        </a>
+                        <a href="feedback.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" data-i18n="nav.feedback">
+                            Feedback
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                    <!-- Language Selector -->
+                    <div class="ml-3 relative">
+                        <button id="lang-button" class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
+                            <span class="px-2 py-1 rounded-md text-gray-700 bg-gray-100 hover:bg-gray-200">
+                                <i class="fas fa-globe mr-1"></i> <span id="current-lang">English</span>
+                            </span>
+                        </button>
+                        <div id="lang-dropdown" class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onclick="changeLanguage('en')">English</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onclick="changeLanguage('zh-CN')">简体中文</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="-mr-2 flex items-center sm:hidden">
+                    <!-- Mobile menu button -->
+                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500" aria-expanded="false" id="mobile-menu-button">
+                        <span class="sr-only">Open main menu</span>
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div class="sm:hidden hidden" id="mobile-menu">
+            <div class="pt-2 pb-3 space-y-1">
+                <a href="index.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium" data-i18n="nav.home">Home</a>
+                <a href="blog.html" class="bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium" data-i18n="nav.blog">Blog</a>
+                <a href="faq.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium" data-i18n="nav.faq">FAQ</a>
+                <a href="about.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium" data-i18n="nav.about">About</a>
+                <a href="feedback.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium" data-i18n="nav.feedback">Feedback</a>
+                <div class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
+                    <span class="font-medium text-gray-500" data-i18n="language">Language:</span>
+                    <div class="mt-1 flex space-x-2">
+                        <a href="#" class="text-sm text-gray-700 hover:text-indigo-500" onclick="changeLanguage('en')">English</a>
+                        <a href="#" class="text-sm text-gray-700 hover:text-indigo-500" onclick="changeLanguage('zh-CN')">简体中文</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pt-16 pb-12">
+        <!-- Article Header -->
+        <div class="bg-white shadow-sm">
+            <div class="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <nav class="flex justify-center" aria-label="面包屑">
+                        <ol class="flex items-center space-x-2">
+                            <li>
+                                <a href="index.html" class="text-gray-400 hover:text-gray-500" data-i18n="nav.home">首页</a>
+                            </li>
+                            <li>
+                                <i class="fas fa-chevron-right text-gray-400 text-sm"></i>
+                            </li>
+                            <li>
+                                <a href="blog.html" class="text-gray-400 hover:text-gray-500" data-i18n="nav.blog">博客</a>
+                            </li>
+                            <li>
+                                <i class="fas fa-chevron-right text-gray-400 text-sm"></i>
+                            </li>
+                            <li>
+                                <span class="text-gray-500" data-i18n="blog.security">安全</span>
+                            </li>
+                        </ol>
+                    </nav>
+                    <h1 class="mt-4 text-4xl font-extrabold text-gray-900 sm:text-5xl" data-i18n="blog.creditCardGeneration">信用卡号码生成：工作原理</h1>
+                    <div class="mt-6 flex items-center justify-center space-x-6">
+                        <div class="flex items-center">
+                            <img class="h-12 w-12 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="作者">
+                            <div class="ml-3 text-left">
+                                <p class="text-sm font-medium text-gray-900">Alex Chen</p>
+                                <p class="text-sm text-gray-500">安全算法专家</p>
+                            </div>
+                        </div>
+                        <div class="text-sm text-gray-500">
+                            <span>2023年4月15日</span>
+                            <span class="mx-2">•</span>
+                            <span data-i18n="blog.minutesRead">10分钟阅读</span>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex justify-center space-x-4">
+                        <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-red-100 text-red-800" data-i18n="blog.security">
+                            安全
+                        </span>
+                        <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-purple-100 text-purple-800" data-i18n="blog.categories.creditCardSecurity">
+                            信用卡安全
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Article Content -->
+        <div class="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                <img class="w-full h-96 object-cover" src="images/credit_card.svg" alt="信用卡">
+                
+                <div class="p-8">
+                    <div class="article-content text-gray-700">
+                        <div class="warning-box">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-exclamation-triangle text-red-500"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h3 class="text-sm font-medium text-red-800" data-i18n="blog.creditCard.warning.title">重要声明</h3>
+                                    <div class="mt-2 text-sm text-red-700" data-i18n="blog.creditCard.warning.content">
+                                        本文介绍的信用卡号码生成技术仅供教育和测试目的。生成的号码完全虚构，不能用于任何实际交易。任何非法使用都将承担法律责任。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="text-xl text-gray-600 font-light leading-relaxed" data-i18n="blog.creditCard.intro">
+                            信用卡号码的生成并非随机过程，而是遵循严格的数学算法和行业标准。理解Luhn算法的工作原理，有助于开发者创建有效的测试数据，同时确保系统的安全性和合规性。
+                        </p>
+
+                        <h2 data-i18n="blog.creditCard.structure.title">信用卡号码结构</h2>
+                        <p data-i18n="blog.creditCard.structure.intro">
+                            每个信用卡号码都包含多个重要组成部分，每个部分都有特定的含义和功能：
+                        </p>
+
+                        <h3 data-i18n="blog.creditCard.structure.components.title">号码组成部分</h3>
+                        <ul data-i18n="blog.creditCard.structure.components.list">
+                            <li><strong>发行人识别号码（IIN）：</strong>前6位数字，标识发卡机构</li>
+                            <li><strong>账户识别符：</strong>中间的数字，唯一标识持卡人账户</li>
+                            <li><strong>校验位：</strong>最后一位数字，用于验证号码的有效性</li>
+                        </ul>
+
+                        <div class="info-box">
+                            <h4 class="font-semibold mb-2" data-i18n="blog.creditCard.structure.example.title">信用卡号码示例分析：</h4>
+                            <div class="font-mono text-sm bg-white p-3 rounded border">
+                                <div class="mb-2">4532 1234 5678 9012</div>
+                                <div class="text-xs space-y-1">
+                                    <div><span class="text-blue-600">4532 12</span> - 发行人识别号码 (Visa)</div>
+                                    <div><span class="text-green-600">34 5678 901</span> - 账户识别符</div>
+                                    <div><span class="text-red-600">2</span> - 校验位</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 data-i18n="blog.creditCard.brands.title">主要信用卡品牌识别</h3>
+                        <p data-i18n="blog.creditCard.brands.intro">
+                            不同的信用卡品牌有不同的IIN范围和号码长度：
+                        </p>
+
+                        <ul data-i18n="blog.creditCard.brands.list">
+                            <li><strong>Visa：</strong>以4开头，16位数字</li>
+                            <li><strong>MasterCard：</strong>以5开头（51-55）或2开头（2221-2720），16位数字</li>
+                            <li><strong>American Express：</strong>以34或37开头，15位数字</li>
+                            <li><strong>Discover：</strong>以6开头（6011, 622126-622925, 644-649, 65），16位数字</li>
+                            <li><strong>JCB：</strong>以35开头（3528-3589），16位数字</li>
+                        </ul>
+
+                        <h2 data-i18n="blog.creditCard.luhn.title">Luhn算法详解</h2>
+                        <p data-i18n="blog.creditCard.luhn.intro">
+                            Luhn算法（也称为模10算法）是由IBM的Hans Peter Luhn于1954年发明的校验和算法，用于验证信用卡号码的有效性。
+                        </p>
+
+                        <h3 data-i18n="blog.creditCard.luhn.howItWorks.title">算法工作原理</h3>
+                        <p data-i18n="blog.creditCard.luhn.howItWorks.intro">
+                            Luhn算法的验证过程包括以下步骤：
+                        </p>
+
+                        <ol class="list-decimal list-inside space-y-2" data-i18n="blog.creditCard.luhn.steps">
+                            <li>从右到左，对偶数位数字进行双倍处理</li>
+                            <li>如果双倍后的数字大于9，则将两位数字相加</li>
+                            <li>将所有数字相加得到总和</li>
+                            <li>如果总和能被10整除，则号码有效</li>
+                        </ol>
+
+                        <div class="code-box">
+                            <div data-i18n="blog.creditCard.luhn.example.title" class="text-white mb-2"># Luhn算法验证示例: 4532123456789012</div>
+                            <div class="space-y-1">
+                                <div>原始号码: 4 5 3 2 1 2 3 4 5 6 7 8 9 0 1 2</div>
+                                <div>位置标记: 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6</div>
+                                <div>双倍偶数位: 4 1 3 4 1 4 3 8 5 2 7 6 9 0 1 2</div>
+                                <div>           (5×2=10→1+0=1, 2×2=4, 2×2=4, 4×2=8, 6×2=12→1+2=3, 8×2=16→1+6=7, 0×2=0)</div>
+                                <div>总和: 4+1+3+4+1+4+3+8+5+2+7+6+9+0+1+2 = 60</div>
+                                <div>验证: 60 % 10 = 0 ✓ (有效)</div>
+                            </div>
+                        </div>
+
+                        <h3 data-i18n="blog.creditCard.luhn.implementation.title">算法实现</h3>
+                        <p data-i18n="blog.creditCard.luhn.implementation.intro">
+                            以下是Luhn算法的JavaScript实现：
+                        </p>
+
+                        <div class="code-box">
+                            <pre><code>function validateCreditCard(cardNumber) {
+    // 移除空格和非数字字符
+    const cleanNumber = cardNumber.replace(/\D/g, '');
+    
+    let sum = 0;
+    let isEven = false;
+    
+    // 从右到左遍历
+    for (let i = cleanNumber.length - 1; i >= 0; i--) {
+        let digit = parseInt(cleanNumber[i]);
+        
+        if (isEven) {
+            digit *= 2;
+            if (digit > 9) {
+                digit -= 9;
+            }
+        }
+        
+        sum += digit;
+        isEven = !isEven;
+    }
+    
+    return (sum % 10) === 0;
+}
+
+// 使用示例
+console.log(validateCreditCard("4532123456789012")); // true
+console.log(validateCreditCard("1234567890123456")); // false</code></pre>
+                        </div>
+
+                        <h2 data-i18n="blog.creditCard.generation.title">安全的测试号码生成</h2>
+                        <p data-i18n="blog.creditCard.generation.intro">
+                            在生成用于测试的信用卡号码时，必须遵循严格的安全准则：
+                        </p>
+
+                        <h3 data-i18n="blog.creditCard.generation.principles.title">生成原则</h3>
+                        <ul data-i18n="blog.creditCard.generation.principles.list">
+                            <li><strong>完全虚构：</strong>确保生成的号码不对应任何真实账户</li>
+                            <li><strong>符合格式：</strong>遵循正确的IIN范围和长度要求</li>
+                            <li><strong>通过验证：</strong>满足Luhn算法校验</li>
+                            <li><strong>明确标识：</strong>清楚标明仅供测试使用</li>
+                            <li><strong>定期更新：</strong>避免长期使用相同的测试数据</li>
+                        </ul>
+
+                        <h3 data-i18n="blog.creditCard.generation.testNumbers.title">标准测试号码</h3>
+                        <p data-i18n="blog.creditCard.generation.testNumbers.intro">
+                            支付行业提供了一些标准的测试号码，安全且被广泛接受：
+                        </p>
+
+                        <div class="info-box">
+                            <h4 class="font-semibold mb-3" data-i18n="blog.creditCard.generation.testNumbers.examples.title">常用测试号码：</h4>
+                            <div class="space-y-2 text-sm font-mono">
+                                <div><strong>Visa:</strong> 4111 1111 1111 1111</div>
+                                <div><strong>Visa:</strong> 4012 8888 8888 1881</div>
+                                <div><strong>MasterCard:</strong> 5555 5555 5555 4444</div>
+                                <div><strong>MasterCard:</strong> 5105 1051 0510 5100</div>
+                                <div><strong>American Express:</strong> 3782 822463 10005</div>
+                                <div><strong>American Express:</strong> 3714 496353 98431</div>
+                                <div><strong>Discover:</strong> 6011 1111 1111 1117</div>
+                                <div><strong>JCB:</strong> 3530 1113 3330 0000</div>
+                            </div>
+                        </div>
+
+                        <h2 data-i18n="blog.creditCard.security.title">安全考虑和最佳实践</h2>
+                        <p data-i18n="blog.creditCard.security.intro">
+                            在处理信用卡信息时，即使是测试数据，也需要遵循严格的安全准则：
+                        </p>
+
+                        <h3 data-i18n="blog.creditCard.security.dataHandling.title">数据处理安全</h3>
+                        <ul data-i18n="blog.creditCard.security.dataHandling.list">
+                            <li><strong>加密传输：</strong>使用HTTPS加密所有数据传输</li>
+                            <li><strong>不记录敏感信息：</strong>避免在日志中记录信用卡号码</li>
+                            <li><strong>最小权限原则：</strong>限制对测试数据的访问权限</li>
+                            <li><strong>定期清理：</strong>定期清理测试环境中的敏感数据</li>
+                            <li><strong>PCI DSS合规：</strong>遵循支付卡行业数据安全标准</li>
+                        </ul>
+
+                        <h3 data-i18n="blog.creditCard.security.development.title">开发环境安全</h3>
+                        <ul data-i18n="blog.creditCard.security.development.list">
+                            <li><strong>环境隔离：</strong>测试环境与生产环境完全分离</li>
+                            <li><strong>访问控制：</strong>实施严格的访问控制机制</li>
+                            <li><strong>审计跟踪：</strong>记录所有数据访问和操作</li>
+                            <li><strong>定期审查：</strong>定期审查安全措施的有效性</li>
+                        </ul>
+
+                        <div class="warning-box">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-shield-alt text-red-500"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h3 class="text-sm font-medium text-red-800" data-i18n="blog.creditCard.security.reminder.title">安全提醒</h3>
+                                    <div class="mt-2 text-sm text-red-700" data-i18n="blog.creditCard.security.reminder.content">
+                                        永远不要在生产环境中使用真实的信用卡号码进行测试。即使是有效的测试号码，也应该在安全的环境中使用，并确保不会被恶意利用。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h2 data-i18n="blog.creditCard.testing.title">测试场景和应用</h2>
+                        <p data-i18n="blog.creditCard.testing.intro">
+                            生成的信用卡号码在软件测试中有多种应用场景：
+                        </p>
+
+                        <h3 data-i18n="blog.creditCard.testing.scenarios.title">常见测试场景</h3>
+                        <ul data-i18n="blog.creditCard.testing.scenarios.list">
+                            <li><strong>支付流程测试：</strong>验证支付表单和处理逻辑</li>
+                            <li><strong>输入验证测试：</strong>测试号码格式验证功能</li>
+                            <li><strong>用户界面测试：</strong>验证信用卡输入界面的交互</li>
+                            <li><strong>性能测试：</strong>使用大量测试数据进行压力测试</li>
+                            <li><strong>安全测试：</strong>验证安全措施的有效性</li>
+                        </ul>
+
+                        <h3 data-i18n="blog.creditCard.testing.automation.title">自动化测试集成</h3>
+                        <p data-i18n="blog.creditCard.testing.automation.content">
+                            在自动化测试中，可以动态生成符合要求的测试信用卡号码，提高测试覆盖率和效率。AddressGen提供的API可以轻松集成到你的测试框架中。
+                        </p>
+
+                        <h2 data-i18n="blog.creditCard.conclusion.title">总结</h2>
+                        <p data-i18n="blog.creditCard.conclusion.content">
+                            理解信用卡号码的生成原理和Luhn算法对于开发安全的支付系统至关重要。通过使用正确的测试方法和工具，开发者可以在确保安全性的前提下，创建高质量的支付相关应用程序。AddressGen提供的信用卡生成功能遵循所有行业标准，为你的测试需求提供可靠的支持。
+                        </p>
+
+                        <p data-i18n="blog.creditCard.conclusion.cta">
+                            立即使用AddressGen生成安全、合规的测试信用卡数据，为你的支付系统开发提供强有力的支持。
+                        </p>
+                    </div>
+
+                    <!-- Article Actions -->
+                    <div class="mt-8 pt-8 border-t border-gray-200">
+                        <div class="flex items-center justify-between">
+                            <div class="flex space-x-4">
+                                <button class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    <i class="fas fa-heart mr-2"></i>
+                                    <span data-i18n="blog.actions.like">喜欢</span>
+                                </button>
+                                <button class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    <i class="fas fa-share mr-2"></i>
+                                    <span data-i18n="blog.actions.share">分享</span>
+                                </button>
+                            </div>
+                            <a href="blog.html" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                <i class="fas fa-arrow-left mr-2"></i>
+                                <span data-i18n="blog.actions.backToBlog">返回博客</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Articles -->
+            <div class="mt-12">
+                <h3 class="text-2xl font-bold text-gray-900 mb-6" data-i18n="blog.relatedArticles">相关文章</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                        <img class="w-full h-48 object-cover" src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="数据隐私">
+                        <div class="p-6">
+                            <h4 class="text-lg font-semibold text-gray-900 mb-2" data-i18n="blog.whyDataPrivacyMatters">为什么数据隐私在地址生成中很重要</h4>
+                            <p class="text-gray-600 text-sm mb-4" data-i18n="blog.dataPrivacyDesc">在当今的数字世界中，保护个人信息比以往任何时候都更加重要。</p>
+                            <a href="blog-data-privacy.html" class="text-indigo-600 hover:text-indigo-500 font-medium text-sm" data-i18n="blog.readMore">阅读更多 <i class="fas fa-arrow-right ml-1"></i></a>
+                        </div>
+                    </div>
+                    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                        <img class="w-full h-48 object-cover" src="images/data_testing.svg" alt="数据测试">
+                        <div class="p-6">
+                            <h4 class="text-lg font-semibold text-gray-900 mb-2" data-i18n="blog.testingBestPractices">在测试中使用生成数据的最佳实践</h4>
+                            <p class="text-gray-600 text-sm mb-4" data-i18n="blog.testingBestPracticesDesc">在软件测试工作流程中有效使用随机生成的地址信息的技巧和策略。</p>
+                            <a href="blog-testing-practices.html" class="text-indigo-600 hover:text-indigo-500 font-medium text-sm" data-i18n="blog.readMore">阅读更多 <i class="fas fa-arrow-right ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white">
+        <div class="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
+            <nav class="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="页脚">
+                <div class="px-5 py-2">
+                    <a href="index.html" class="text-base text-gray-500 hover:text-gray-900" data-i18n="nav.home">Home</a>
+                </div>
+                <div class="px-5 py-2">
+                    <a href="blog.html" class="text-base text-gray-500 hover:text-gray-900" data-i18n="nav.blog">Blog</a>
+                </div>
+                <div class="px-5 py-2">
+                    <a href="faq.html" class="text-base text-gray-500 hover:text-gray-900" data-i18n="nav.faq">FAQ</a>
+                </div>
+                <div class="px-5 py-2">
+                    <a href="about.html" class="text-base text-gray-500 hover:text-gray-900" data-i18n="nav.about">About</a>
+                </div>
+                <div class="px-5 py-2">
+                    <a href="feedback.html" class="text-base text-gray-500 hover:text-gray-900" data-i18n="nav.feedback">Feedback</a>
+                </div>
+            </nav>
+            <p class="mt-8 text-center text-base text-gray-400" data-i18n="footer.copyright">&copy; 2023 AddressGen. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/i18n.js"></script>
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Language dropdown toggle
+        document.getElementById('lang-button').addEventListener('click', function() {
+            const dropdown = document.getElementById('lang-dropdown');
+            dropdown.classList.toggle('hidden');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const button = document.getElementById('lang-button');
+            const dropdown = document.getElementById('lang-dropdown');
+            
+            if (!button.contains(event.target) && !dropdown.contains(event.target)) {
+                dropdown.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html> 

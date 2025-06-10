@@ -181,7 +181,7 @@
                     </div>
                 </div>
                 <div class="md:w-1/2 flex justify-center">
-                    <img src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Address Generation" class="rounded-lg shadow-xl max-w-full h-auto" style="max-height: 400px;">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Digital Location Technology" class="rounded-lg shadow-xl max-w-full h-auto" style="max-height: 400px;">
                 </div>
             </div>
         </div>
@@ -582,43 +582,85 @@
                     return;
                 }
 
-                let csvContent = "Category,Field,Value\n";
+                let csvContent = '';
                 
                 // 检查是否为批量数据
                 if (generatedData.batchData) {
-                    // 批量数据处理
+                    // 批量数据处理 - 使用表格格式
+                    csvContent = "序号,基本信息,地址信息,信用卡信息\n";
+                    
                     generatedData.batchData.forEach((item, index) => {
-                        const recordPrefix = `Record ${index + 1}`;
+                        // 序号
+                        const rowNumber = index + 1;
                         
-                        // 添加基本信息
+                        // 基本信息
+                        let basicInfo = '';
                         if (item.identity) {
-                            Object.entries(item.identity).forEach(([field, value]) => {
-                                if (value) {
-                                    csvContent += `${recordPrefix} - Basic Information,${field},${value}\n`;
-                                }
-                            });
+                            const parts = [];
+                            if (item.identity.fullName) parts.push(item.identity.fullName);
+                            if (item.identity.email) parts.push(item.identity.email);
+                            if (item.identity.phoneNumber) parts.push(item.identity.phoneNumber);
+                            if (item.identity.dateOfBirth) parts.push(`生日: ${item.identity.dateOfBirth}`);
+                            basicInfo = parts.join('\n');
                         }
                         
-                        // 添加地址信息
+                        // 地址信息
+                        let addressInfo = '';
                         if (item.address) {
-                            Object.entries(item.address).forEach(([field, value]) => {
-                                if (value) {
-                                    csvContent += `${recordPrefix} - Address Information,${field},${value}\n`;
-                                }
-                            });
+                            const parts = [];
+                            
+                            // 处理街道地址
+                            let street = '';
+                            if (item.address.building && item.address.street) {
+                                street = `${item.address.building}, ${item.address.street}`;
+                            } else if (item.address.street) {
+                                street = item.address.street;
+                            }
+                            if (street) parts.push(street);
+                            
+                            // 处理城市/州/邮编
+                            const city = item.address.city || item.address.district || '';
+                            const state = item.address.state || item.address.county || item.address.region || '';
+                            const zip = item.address.zipCode || item.address.postcode || '';
+                            
+                            if (city && state && zip) {
+                                parts.push(`${city}, ${state} ${zip}`);
+                            } else if (city && state) {
+                                parts.push(`${city}, ${state}`);
+                            } else if (city) {
+                                parts.push(city);
+                            }
+                            
+                            if (item.address.country) parts.push(item.address.country);
+                            
+                            addressInfo = parts.join('\n');
                         }
                         
-                        // 添加信用卡信息
+                        // 信用卡信息
+                        let cardInfo = '';
                         if (item.creditCard) {
-                            Object.entries(item.creditCard).forEach(([field, value]) => {
-                                if (value) {
-                                    csvContent += `${recordPrefix} - Credit Card Information,${field},${value}\n`;
-                                }
-                            });
+                            const parts = [];
+                            if (item.creditCard.cardType) parts.push(item.creditCard.cardType);
+                            if (item.creditCard.cardNumber) parts.push(item.creditCard.cardNumber);
+                            if (item.creditCard.expiryDate) parts.push(`Exp: ${item.creditCard.expiryDate}`);
+                            if (item.creditCard.cvv) parts.push(`CVV: ${item.creditCard.cvv}`);
+                            cardInfo = parts.join('\n');
                         }
+                        
+                        // 构建CSV行（用引号包围包含换行符的字段）
+                        const escapeCsvField = (field) => {
+                            if (field.includes('\n') || field.includes(',') || field.includes('"')) {
+                                return `"${field.replace(/"/g, '""')}"`;
+                            }
+                            return field;
+                        };
+                        
+                        csvContent += `${rowNumber},${escapeCsvField(basicInfo)},${escapeCsvField(addressInfo)},${escapeCsvField(cardInfo)}\n`;
                     });
                 } else {
                     // 单条数据处理（原有逻辑）
+                    csvContent = "Category,Field,Value\n";
+                    
                     // 添加基本信息
                     if (generatedData.identity) {
                         Object.entries(generatedData.identity).forEach(([field, value]) => {
@@ -654,7 +696,13 @@
                 const link = document.createElement('a');
                 const url = URL.createObjectURL(blob);
                 link.setAttribute('href', url);
-                link.setAttribute('download', `random_info_${new Date().toISOString().slice(0,10)}.csv`);
+                
+                // 根据数据类型设置文件名
+                const fileName = generatedData.batchData 
+                    ? `batch_random_info_${generatedData.batchData.length}records_${new Date().toISOString().slice(0,10)}.csv`
+                    : `random_info_${new Date().toISOString().slice(0,10)}.csv`;
+                    
+                link.setAttribute('download', fileName);
                 link.style.visibility = 'hidden';
                 
                 // 添加到文档并触发点击

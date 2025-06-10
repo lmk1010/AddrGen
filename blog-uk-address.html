@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="blog.ukAddress.title">了解英国地址格式 - AddressGen</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+        .article-content {
+            line-height: 1.8;
+        }
+        .article-content h2 {
+            @apply text-2xl font-semibold text-gray-900 mt-8 mb-4;
+        }
+        .article-content h3 {
+            @apply text-xl font-semibold text-gray-900 mt-6 mb-3;
+        }
+        .article-content p {
+            @apply mb-4;
+        }
+        .article-content ul {
+            @apply list-disc list-inside mb-4 pl-4;
+        }
+        .article-content li {
+            @apply mb-2;
+        }
+        .article-content .example-box {
+            @apply bg-gray-50 border border-gray-200 rounded-lg p-4 my-4;
+        }
+        .article-content table {
+            @apply w-full border-collapse;
+        }
+        .article-content th, .article-content td {
+            @apply border border-gray-300 px-4 py-2 text-left;
+        }
+        .article-content th {
+            @apply bg-gray-100 font-semibold;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-md fixed w-full z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <span class="text-2xl font-bold text-indigo-600">AddressGen</span>
+                    </div>
+                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                        <a href="index.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" data-i18n="nav.home">
+                            Home
+                        </a>
+                        <a href="blog.html" class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" data-i18n="nav.blog">
+                            Blog
+                        </a>
+                        <a href="faq.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" data-i18n="nav.faq">
+                            FAQ
+                        </a>
+                        <a href="about.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" data-i18n="nav.about">
+                            About
+                        </a>
+                        <a href="feedback.html" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" data-i18n="nav.feedback">
+                            Feedback
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                    <!-- Language Selector -->
+                    <div class="ml-3 relative">
+                        <button id="lang-button" class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
+                            <span class="px-2 py-1 rounded-md text-gray-700 bg-gray-100 hover:bg-gray-200">
+                                <i class="fas fa-globe mr-1"></i> <span id="current-lang">English</span>
+                            </span>
+                        </button>
+                        <div id="lang-dropdown" class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onclick="changeLanguage('en')">English</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onclick="changeLanguage('zh-CN')">简体中文</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="-mr-2 flex items-center sm:hidden">
+                    <!-- Mobile menu button -->
+                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500" aria-expanded="false" id="mobile-menu-button">
+                        <span class="sr-only">Open main menu</span>
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div class="sm:hidden hidden" id="mobile-menu">
+            <div class="pt-2 pb-3 space-y-1">
+                <a href="index.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium" data-i18n="nav.home">Home</a>
+                <a href="blog.html" class="bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium" data-i18n="nav.blog">Blog</a>
+                <a href="faq.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium" data-i18n="nav.faq">FAQ</a>
+                <a href="about.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium" data-i18n="nav.about">About</a>
+                <a href="feedback.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium" data-i18n="nav.feedback">Feedback</a>
+                <div class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
+                    <span class="font-medium text-gray-500" data-i18n="language">Language:</span>
+                    <div class="mt-1 flex space-x-2">
+                        <a href="#" class="text-sm text-gray-700 hover:text-indigo-500" onclick="changeLanguage('en')">English</a>
+                        <a href="#" class="text-sm text-gray-700 hover:text-indigo-500" onclick="changeLanguage('zh-CN')">简体中文</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pt-16 pb-12">
+        <!-- Article Header -->
+        <div class="bg-white shadow-sm">
+            <div class="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <nav class="flex justify-center" aria-label="面包屑">
+                        <ol class="flex items-center space-x-2">
+                            <li>
+                                <a href="index.html" class="text-gray-400 hover:text-gray-500" data-i18n="nav.home">首页</a>
+                            </li>
+                            <li>
+                                <i class="fas fa-chevron-right text-gray-400 text-sm"></i>
+                            </li>
+                            <li>
+                                <a href="blog.html" class="text-gray-400 hover:text-gray-500" data-i18n="nav.blog">博客</a>
+                            </li>
+                            <li>
+                                <i class="fas fa-chevron-right text-gray-400 text-sm"></i>
+                            </li>
+                            <li>
+                                <span class="text-gray-500" data-i18n="blog.guide">指南</span>
+                            </li>
+                        </ol>
+                    </nav>
+                    <h1 class="mt-4 text-4xl font-extrabold text-gray-900 sm:text-5xl" data-i18n="blog.ukAddressFormat">了解英国地址格式</h1>
+                    <div class="mt-6 flex items-center justify-center space-x-6">
+                        <div class="flex items-center">
+                            <img class="h-12 w-12 rounded-full" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="作者">
+                            <div class="ml-3 text-left">
+                                <p class="text-sm font-medium text-gray-900">James Wilson</p>
+                                <p class="text-sm text-gray-500">地址格式专家</p>
+                            </div>
+                        </div>
+                        <div class="text-sm text-gray-500">
+                            <span>2023年4月28日</span>
+                            <span class="mx-2">•</span>
+                            <span data-i18n="blog.minutesRead">6分钟阅读</span>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex justify-center space-x-4">
+                        <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800" data-i18n="blog.guide">
+                            指南
+                        </span>
+                        <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-blue-100 text-blue-800" data-i18n="blog.categories.addressFormat">
+                            地址格式
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Article Content -->
+        <div class="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                <img class="w-full h-96 object-cover" src="images/uk_address.svg" alt="英国地址">
+                
+                <div class="p-8">
+                    <div class="article-content text-gray-700">
+                        <p class="text-xl text-gray-600 font-light leading-relaxed" data-i18n="blog.ukAddress.intro">
+                            英国的地址系统有着悠久的历史和独特的结构。理解英国地址格式对于正确生成测试数据和确保应用程序的国际兼容性至关重要。本文将深入解析英国地址的各个组成部分。
+                        </p>
+
+                        <h2 data-i18n="blog.ukAddress.basicStructure.title">英国地址基本结构</h2>
+                        <p data-i18n="blog.ukAddress.basicStructure.content">
+                            英国地址通常包含以下几个主要部分，按从具体到一般的顺序排列：
+                        </p>
+
+                        <div class="example-box">
+                            <h4 class="font-semibold mb-2" data-i18n="blog.ukAddress.example.title">标准英国地址示例：</h4>
+                            <div class="font-mono text-sm">
+                                Mr. John Smith<br>
+                                123 High Street<br>
+                                Apartment 4B<br>
+                                LONDON<br>
+                                SW1A 1AA<br>
+                                United Kingdom
+                            </div>
+                        </div>
+
+                        <h3 data-i18n="blog.ukAddress.components.title">地址组成部分详解</h3>
+
+                        <h4 data-i18n="blog.ukAddress.components.name.title">1. 收件人姓名</h4>
+                        <p data-i18n="blog.ukAddress.components.name.content">
+                            第一行通常是收件人的全名，包括称谓（Mr.、Mrs.、Ms.、Dr. 等）。在商业地址中，这里可能是公司名称。
+                        </p>
+
+                        <h4 data-i18n="blog.ukAddress.components.street.title">2. 街道地址</h4>
+                        <p data-i18n="blog.ukAddress.components.street.content">
+                            街道地址包含门牌号和街道名称。英国的街道名称通常以Street、Road、Avenue、Lane等结尾。门牌号可能包含字母，如"123A"。
+                        </p>
+
+                        <h4 data-i18n="blog.ukAddress.components.secondary.title">3. 二级地址信息</h4>
+                        <p data-i18n="blog.ukAddress.components.secondary.content">
+                            如果适用，这里包含公寓号、楼层或其他详细信息，如"Flat 2"、"2nd Floor"等。
+                        </p>
+
+                        <h4 data-i18n="blog.ukAddress.components.locality.title">4. 地区/城市</h4>
+                        <p data-i18n="blog.ukAddress.components.locality.content">
+                            这通常是城市、镇或村庄的名称。在大城市中，可能还包含区域名称。
+                        </p>
+
+                        <h2 data-i18n="blog.ukAddress.postcode.title">英国邮政编码系统</h2>
+                        <p data-i18n="blog.ukAddress.postcode.intro">
+                            英国邮政编码（Postcode）是地址系统中的关键部分，具有独特的格式和逻辑：
+                        </p>
+
+                        <h3 data-i18n="blog.ukAddress.postcode.format.title">邮政编码格式</h3>
+                        <p data-i18n="blog.ukAddress.postcode.format.content">
+                            英国邮政编码由两部分组成，用空格分隔：
+                        </p>
+
+                        <ul data-i18n="blog.ukAddress.postcode.parts">
+                            <li><strong>外部代码（Outward Code）：</strong>1-2个字母 + 1-2个数字 + 可选字母</li>
+                            <li><strong>内部代码（Inward Code）：</strong>1个数字 + 2个字母</li>
+                        </ul>
+
+                        <div class="example-box">
+                            <h4 class="font-semibold mb-2" data-i18n="blog.ukAddress.postcode.examples.title">邮政编码示例：</h4>
+                            <table class="w-full">
+                                <thead>
+                                    <tr>
+                                        <th data-i18n="blog.ukAddress.postcode.examples.format">格式</th>
+                                        <th data-i18n="blog.ukAddress.postcode.examples.example">示例</th>
+                                        <th data-i18n="blog.ukAddress.postcode.examples.area">区域</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>AA9A 9AA</td>
+                                        <td>SW1A 1AA</td>
+                                        <td>伦敦西南部</td>
+                                    </tr>
+                                    <tr>
+                                        <td>A9A 9AA</td>
+                                        <td>M1A 1AA</td>
+                                        <td>曼彻斯特</td>
+                                    </tr>
+                                    <tr>
+                                        <td>A9 9AA</td>
+                                        <td>M1 1AA</td>
+                                        <td>曼彻斯特</td>
+                                    </tr>
+                                    <tr>
+                                        <td>AA9 9AA</td>
+                                        <td>DN55 1PT</td>
+                                        <td>唐卡斯特</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3 data-i18n="blog.ukAddress.postcode.special.title">特殊邮政编码</h3>
+                        <p data-i18n="blog.ukAddress.postcode.special.content">
+                            一些著名地址有特殊的邮政编码：
+                        </p>
+
+                        <ul data-i18n="blog.ukAddress.postcode.special.examples">
+                            <li><strong>SW1A 1AA</strong> - 白金汉宫</li>
+                            <li><strong>SW1A 2AA</strong> - 唐宁街10号</li>
+                            <li><strong>EC4M 8AD</strong> - 英格兰银行</li>
+                            <li><strong>SE1 9RT</strong> - 莎士比亚环球剧院</li>
+                        </ul>
+
+                        <h2 data-i18n="blog.ukAddress.regions.title">英国地区差异</h2>
+                        <p data-i18n="blog.ukAddress.regions.intro">
+                            英国包含四个构成国，各自有一些地址格式的特点：
+                        </p>
+
+                        <h3 data-i18n="blog.ukAddress.regions.england.title">英格兰（England）</h3>
+                        <p data-i18n="blog.ukAddress.regions.england.content">
+                            使用标准的英国地址格式。大城市如伦敦、曼彻斯特、伯明翰等通常包含区域信息。
+                        </p>
+
+                        <h3 data-i18n="blog.ukAddress.regions.scotland.title">苏格兰（Scotland）</h3>
+                        <p data-i18n="blog.ukAddress.regions.scotland.content">
+                            苏格兰地址可能包含"SCOTLAND"作为最后一行。城市名称如爱丁堡、格拉斯哥在地址中占据重要位置。
+                        </p>
+
+                        <h3 data-i18n="blog.ukAddress.regions.wales.title">威尔士（Wales）</h3>
+                        <p data-i18n="blog.ukAddress.regions.wales.content">
+                            威尔士地址可能包含威尔士语和英语双语地名。邮政编码通常以"CF"、"LL"、"SA"等开头。
+                        </p>
+
+                        <h3 data-i18n="blog.ukAddress.regions.ni.title">北爱尔兰（Northern Ireland）</h3>
+                        <p data-i18n="blog.ukAddress.regions.ni.content">
+                            北爱尔兰使用"BT"开头的邮政编码。地址格式与英格兰相似，但可能包含县名。
+                        </p>
+
+                        <h2 data-i18n="blog.ukAddress.generation.title">生成真实的英国地址</h2>
+                        <p data-i18n="blog.ukAddress.generation.intro">
+                            在为测试目的生成英国地址时，需要注意以下要点：
+                        </p>
+
+                        <h3 data-i18n="blog.ukAddress.generation.streetNames.title">常见街道名称</h3>
+                        <ul data-i18n="blog.ukAddress.generation.streetNames.list">
+                            <li>High Street - 最常见的街道名称</li>
+                            <li>Church Lane - 教会相关街道</li>
+                            <li>Victoria Road - 以维多利亚女王命名</li>
+                            <li>Mill Lane - 磨坊小径</li>
+                            <li>Station Road - 车站路</li>
+                            <li>King's Road - 国王路</li>
+                            <li>Queen's Avenue - 女王大道</li>
+                        </ul>
+
+                        <h3 data-i18n="blog.ukAddress.generation.validation.title">地址验证要点</h3>
+                        <ul data-i18n="blog.ukAddress.generation.validation.rules">
+                            <li>邮政编码必须符合正确的格式规则</li>
+                            <li>门牌号可以包含数字和字母</li>
+                            <li>街道类型要与地区相匹配</li>
+                            <li>城市名称要与邮政编码区域对应</li>
+                            <li>避免使用真实存在的具体地址</li>
+                        </ul>
+
+                        <h2 data-i18n="blog.ukAddress.best_practices.title">最佳实践建议</h2>
+                        <p data-i18n="blog.ukAddress.best_practices.intro">
+                            在应用程序中处理英国地址时，建议遵循以下最佳实践：
+                        </p>
+
+                        <ul data-i18n="blog.ukAddress.best_practices.list">
+                            <li><strong>灵活的字段长度：</strong>为地址字段预留足够的字符空间</li>
+                            <li><strong>邮政编码验证：</strong>实施严格的邮政编码格式验证</li>
+                            <li><strong>大小写处理：</strong>邮政编码通常使用大写字母</li>
+                            <li><strong>国际化支持：</strong>考虑威尔士语等本地语言</li>
+                            <li><strong>地址标准化：</strong>统一地址格式以便于处理</li>
+                        </ul>
+
+                        <h2 data-i18n="blog.ukAddress.conclusion.title">总结</h2>
+                        <p data-i18n="blog.ukAddress.conclusion.content">
+                            理解英国地址格式的复杂性对于开发国际化应用程序至关重要。通过正确实施英国地址格式规则，你可以确保应用程序为英国用户提供最佳体验。AddressGen的英国地址生成器遵循所有这些规则，为你的测试需求提供准确、真实的地址数据。
+                        </p>
+
+                        <p data-i18n="blog.ukAddress.conclusion.cta">
+                            现在就尝试使用AddressGen生成符合标准的英国地址，为你的项目提供高质量的测试数据。
+                        </p>
+                    </div>
+
+                    <!-- Article Actions -->
+                    <div class="mt-8 pt-8 border-t border-gray-200">
+                        <div class="flex items-center justify-between">
+                            <div class="flex space-x-4">
+                                <button class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    <i class="fas fa-heart mr-2"></i>
+                                    <span data-i18n="blog.actions.like">喜欢</span>
+                                </button>
+                                <button class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    <i class="fas fa-share mr-2"></i>
+                                    <span data-i18n="blog.actions.share">分享</span>
+                                </button>
+                            </div>
+                            <a href="blog.html" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                <i class="fas fa-arrow-left mr-2"></i>
+                                <span data-i18n="blog.actions.backToBlog">返回博客</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Articles -->
+            <div class="mt-12">
+                <h3 class="text-2xl font-bold text-gray-900 mb-6" data-i18n="blog.relatedArticles">相关文章</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                        <img class="w-full h-48 object-cover" src="images/hong_kong.svg" alt="香港">
+                        <div class="p-6">
+                            <h4 class="text-lg font-semibold text-gray-900 mb-2" data-i18n="blog.hkAddressSystem">香港地址系统详解</h4>
+                            <p class="text-gray-600 text-sm mb-4" data-i18n="blog.hkAddressSystemDesc">探索香港地址的独特特点，以及我们的生成器如何创建真实可信的示例。</p>
+                            <a href="blog-hk-address.html" class="text-indigo-600 hover:text-indigo-500 font-medium text-sm" data-i18n="blog.readMore">阅读更多 <i class="fas fa-arrow-right ml-1"></i></a>
+                        </div>
+                    </div>
+                    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                        <img class="w-full h-48 object-cover" src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="数据隐私">
+                        <div class="p-6">
+                            <h4 class="text-lg font-semibold text-gray-900 mb-2" data-i18n="blog.whyDataPrivacyMatters">为什么数据隐私在地址生成中很重要</h4>
+                            <p class="text-gray-600 text-sm mb-4" data-i18n="blog.dataPrivacyDesc">在当今的数字世界中，保护个人信息比以往任何时候都更加重要。</p>
+                            <a href="blog-data-privacy.html" class="text-indigo-600 hover:text-indigo-500 font-medium text-sm" data-i18n="blog.readMore">阅读更多 <i class="fas fa-arrow-right ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white">
+        <div class="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
+            <nav class="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="页脚">
+                <div class="px-5 py-2">
+                    <a href="index.html" class="text-base text-gray-500 hover:text-gray-900" data-i18n="nav.home">Home</a>
+                </div>
+                <div class="px-5 py-2">
+                    <a href="blog.html" class="text-base text-gray-500 hover:text-gray-900" data-i18n="nav.blog">Blog</a>
+                </div>
+                <div class="px-5 py-2">
+                    <a href="faq.html" class="text-base text-gray-500 hover:text-gray-900" data-i18n="nav.faq">FAQ</a>
+                </div>
+                <div class="px-5 py-2">
+                    <a href="about.html" class="text-base text-gray-500 hover:text-gray-900" data-i18n="nav.about">About</a>
+                </div>
+                <div class="px-5 py-2">
+                    <a href="feedback.html" class="text-base text-gray-500 hover:text-gray-900" data-i18n="nav.feedback">Feedback</a>
+                </div>
+            </nav>
+            <p class="mt-8 text-center text-base text-gray-400" data-i18n="footer.copyright">&copy; 2023 AddressGen. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/i18n.js"></script>
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Language dropdown toggle
+        document.getElementById('lang-button').addEventListener('click', function() {
+            const dropdown = document.getElementById('lang-dropdown');
+            dropdown.classList.toggle('hidden');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const button = document.getElementById('lang-button');
+            const dropdown = document.getElementById('lang-dropdown');
+            
+            if (!button.contains(event.target) && !dropdown.contains(event.target)) {
+                dropdown.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html> 
