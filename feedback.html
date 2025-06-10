@@ -6,12 +6,29 @@
     <title data-i18n="feedback.title">Feedback - AddressGen</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
         }
         .dropdown:hover .dropdown-menu {
             display: block;
+        }
+        /* 添加加载状态样式 */
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        .success-message {
+            background-color: #d1fae5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+        .error-message {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
         }
     </style>
 </head>
@@ -96,6 +113,10 @@
                     <p class="mt-6 text-xl max-w-3xl mx-auto" data-i18n="feedback.subtitle">
                         We value your feedback and suggestions. Help us improve AddressGen by sharing your thoughts.
                     </p>
+                    <p class="mt-4 text-lg text-indigo-200 max-w-2xl mx-auto">
+                        <i class="fas fa-shield-alt mr-2"></i>
+                        每个IP地址每天限制提交一次反馈，感谢您的理解与配合
+                    </p>
                 </div>
             </div>
         </div>
@@ -103,38 +124,63 @@
         <!-- Feedback Form -->
         <div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
             <div class="max-w-3xl mx-auto">
+                <!-- 用户提示信息 -->
+                <div class="mb-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-info-circle text-blue-400 mt-1"></i>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-blue-800">反馈提交说明</h3>
+                            <div class="mt-2 text-sm text-blue-700">
+                                <ul class="list-disc pl-5 space-y-1">
+                                    <li>为了防止垃圾邮件，每个IP地址每天只能提交一次反馈</li>
+                                    <li>请确保您的反馈内容准确完整，提交后当天无法再次修改</li>
+                                    <li>我们会认真查看每一条反馈，并尽快回复您</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 状态消息区域 -->
+                <div id="status-message" class="hidden mb-6 p-4 rounded-md"></div>
+                
                 <form id="feedback-form" class="space-y-6">
                     <div>
                         <label for="name" class="block text-sm font-medium text-gray-700" data-i18n="feedback.form.name">Name</label>
                         <div class="mt-1">
-                            <input type="text" name="name" id="name" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Your name" data-i18n-placeholder="feedback.form.placeholder.name">
+                            <input type="text" name="name" id="name" required class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Your name" data-i18n-placeholder="feedback.form.placeholder.name">
                         </div>
                     </div>
 
                     <div>
                         <label for="email" class="block text-sm font-medium text-gray-700" data-i18n="feedback.form.email">Email</label>
                         <div class="mt-1">
-                            <input type="email" name="email" id="email" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="your.email@example.com" data-i18n-placeholder="feedback.form.placeholder.email">
+                            <input type="email" name="email" id="email" required class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="your.email@example.com" data-i18n-placeholder="feedback.form.placeholder.email">
                         </div>
                     </div>
 
                     <div>
                         <label for="subject" class="block text-sm font-medium text-gray-700" data-i18n="feedback.form.subject">Subject</label>
                         <div class="mt-1">
-                            <input type="text" name="subject" id="subject" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="What is this regarding?" data-i18n-placeholder="feedback.form.placeholder.subject">
+                            <input type="text" name="subject" id="subject" required class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="What is this regarding?" data-i18n-placeholder="feedback.form.placeholder.subject">
                         </div>
                     </div>
 
                     <div>
                         <label for="message" class="block text-sm font-medium text-gray-700" data-i18n="feedback.form.message">Message</label>
                         <div class="mt-1">
-                            <textarea id="message" name="message" rows="4" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Tell us what you think..." data-i18n-placeholder="feedback.form.placeholder.message"></textarea>
+                            <textarea id="message" name="message" rows="4" required class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Tell us what you think..." data-i18n-placeholder="feedback.form.placeholder.message"></textarea>
                         </div>
                     </div>
 
                     <div>
-                        <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" data-i18n="feedback.form.submit">
-                            Submit Feedback
+                        <button type="submit" id="submit-btn" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" data-i18n="feedback.form.submit">
+                            <span id="submit-text">Submit Feedback</span>
+                            <span id="loading-spinner" class="hidden ml-2">
+                                <i class="fas fa-spinner fa-spin"></i>
+                            </span>
                         </button>
                     </div>
                 </form>
@@ -175,11 +221,243 @@
     <!-- JavaScript -->
     <script src="js/i18n.js"></script>
     <script>
-        // Mobile menu toggle
-        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+        // 等待DOM完全加载
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化 EmailJS
+            if (typeof emailjs !== 'undefined') {
+                emailjs.init("FrgVrzets8zHdLcMX");
+            } else {
+                console.error('EmailJS library not loaded');
+            }
+
+            // 获取用户IP地址
+            let userIP = null;
+            
+            async function getUserIP() {
+                try {
+                    const response = await fetch('https://api.ipify.org?format=json');
+                    const data = await response.json();
+                    userIP = data.ip;
+                    console.log('User IP:', userIP);
+                    
+                    // 检查今天是否已经发送过反馈
+                    checkDailyLimit();
+                } catch (error) {
+                    console.error('获取IP失败:', error);
+                    // 如果获取IP失败，使用备用方案
+                    try {
+                        const response2 = await fetch('https://httpbin.org/ip');
+                        const data2 = await response2.json();
+                        userIP = data2.origin;
+                        checkDailyLimit();
+                    } catch (error2) {
+                        console.error('备用IP获取也失败:', error2);
+                        userIP = 'unknown';
+                        checkDailyLimit();
+                    }
+                }
+            }
+            
+            function checkDailyLimit() {
+                const today = new Date().toDateString();
+                const storageKey = `feedback_${userIP}_${today}`;
+                const hasSubmittedToday = localStorage.getItem(storageKey);
+                
+                if (hasSubmittedToday) {
+                    showLimitMessage();
+                    disableForm();
+                }
+            }
+            
+            function showLimitMessage() {
+                const statusMessage = document.getElementById('status-message');
+                if (statusMessage) {
+                    statusMessage.innerHTML = `
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-check-circle text-yellow-600 text-xl"></i>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-sm font-medium text-yellow-800">今日反馈已提交</h3>
+                                <p class="text-sm text-yellow-700 mt-1">
+                                    您今天已经提交过反馈了。每个IP地址每天只能提交一次反馈，明天您可以再次提交新的反馈。感谢您的理解！
+                                </p>
+                            </div>
+                        </div>
+                    `;
+                    statusMessage.className = 'mb-6 p-4 rounded-md bg-yellow-50 border border-yellow-200';
+                    statusMessage.classList.remove('hidden');
+                }
+            }
+            
+            function disableForm() {
+                const feedbackForm = document.getElementById('feedback-form');
+                const submitBtn = document.getElementById('submit-btn');
+                
+                if (feedbackForm) {
+                    const inputs = feedbackForm.querySelectorAll('input, textarea, button');
+                    inputs.forEach(input => {
+                        input.disabled = true;
+                    });
+                }
+                
+                if (submitBtn) {
+                    submitBtn.textContent = '今日已提交';
+                    submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                }
+            }
+            
+            function markAsSubmittedToday() {
+                const today = new Date().toDateString();
+                const storageKey = `feedback_${userIP}_${today}`;
+                localStorage.setItem(storageKey, 'true');
+            }
+            
+            // 清理过期的localStorage数据（可选）
+            function cleanupOldData() {
+                const today = new Date().toDateString();
+                for (let i = localStorage.length - 1; i >= 0; i--) {
+                    const key = localStorage.key(i);
+                    if (key && key.startsWith('feedback_') && !key.includes(today)) {
+                        localStorage.removeItem(key);
+                    }
+                }
+            }
+            
+            // 获取IP地址
+            getUserIP();
+            cleanupOldData();
+
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenu.classList.toggle('hidden');
+            
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            // Language dropdown toggle
+            const langButton = document.getElementById('lang-button');
+            const langDropdown = document.getElementById('lang-dropdown');
+            
+            if (langButton && langDropdown) {
+                langButton.addEventListener('click', function() {
+                    langDropdown.classList.toggle('hidden');
+                });
+            }
+
+            // 表单提交处理
+            const feedbackForm = document.getElementById('feedback-form');
+            
+            if (feedbackForm) {
+                feedbackForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    
+                    // 再次检查每日限制
+                    const today = new Date().toDateString();
+                    const storageKey = `feedback_${userIP}_${today}`;
+                    const hasSubmittedToday = localStorage.getItem(storageKey);
+                    
+                    if (hasSubmittedToday) {
+                        showStatusMessage('您今天已经提交过反馈了，每个IP地址每天只能提交一次。', 'error');
+                        return;
+                    }
+                    
+                    try {
+                        const submitBtn = document.getElementById('submit-btn');
+                        const submitText = document.getElementById('submit-text');
+                        const loadingSpinner = document.getElementById('loading-spinner');
+                        const statusMessage = document.getElementById('status-message');
+                        
+                        // 显示加载状态
+                        if (submitBtn) submitBtn.classList.add('loading');
+                        if (submitText) submitText.textContent = 'Sending...';
+                        if (loadingSpinner) loadingSpinner.classList.remove('hidden');
+                        if (statusMessage) statusMessage.classList.add('hidden');
+                        
+                        // 收集表单数据
+                        const nameInput = document.getElementById('name');
+                        const emailInput = document.getElementById('email');
+                        const subjectInput = document.getElementById('subject');
+                        const messageInput = document.getElementById('message');
+                        
+                        const formData = {
+                            from_name: nameInput ? nameInput.value : '',
+                            from_email: emailInput ? emailInput.value : '',
+                            subject: subjectInput ? subjectInput.value : '',
+                            message: messageInput ? messageInput.value : '',
+                            user_ip: userIP, // 添加IP信息到邮件
+                            to_email: 'lmkbnb0@gmail.com'
+                        };
+                        
+                        // 发送邮件
+                        if (typeof emailjs !== 'undefined') {
+                            emailjs.send('service_ynu15lm', 'template_5gpty4a', formData)
+                                .then(function(response) {
+                                    // 成功后标记为已提交
+                                    markAsSubmittedToday();
+                                    showStatusMessage('感谢您的反馈！我们已收到您的消息，会尽快回复。今天您已达到提交限制。', 'success');
+                                    feedbackForm.reset();
+                                    
+                                    // 延迟禁用表单，让用户看到成功信息
+                                    setTimeout(() => {
+                                        disableForm();
+                                    }, 2000);
+                                }, function(error) {
+                                    // 失败
+                                    console.error('邮件发送失败:', error);
+                                    showStatusMessage('抱歉，发送失败。请稍后重试或直接联系我们。', 'error');
+                                })
+                                .finally(function() {
+                                    restoreButtonState();
+                                });
+                        } else {
+                            console.error('EmailJS not available');
+                            showStatusMessage('邮件服务不可用，请稍后重试。', 'error');
+                            restoreButtonState();
+                        }
+                        
+                        function restoreButtonState() {
+                            if (submitBtn) submitBtn.classList.remove('loading');
+                            if (submitText) submitText.textContent = 'Submit Feedback';
+                            if (loadingSpinner) loadingSpinner.classList.add('hidden');
+                        }
+                        
+                    } catch (error) {
+                        console.error('Form submission error:', error);
+                        showStatusMessage('提交时发生错误，请稍后重试。', 'error');
+                    }
+                });
+            }
         });
+
+        function showStatusMessage(message, type) {
+            const statusMessage = document.getElementById('status-message');
+            if (statusMessage) {
+                statusMessage.textContent = message;
+                statusMessage.className = `mb-6 p-4 rounded-md ${type === 'success' ? 'success-message' : 'error-message'}`;
+                statusMessage.classList.remove('hidden');
+                
+                // 3秒后自动隐藏成功消息
+                if (type === 'success') {
+                    setTimeout(() => {
+                        statusMessage.classList.add('hidden');
+                    }, 3000);
+                }
+            }
+        }
+
+        // 语言切换函数（如果需要）
+        function changeLanguage(lang) {
+            console.log('Changing language to:', lang);
+            // 这里可以添加语言切换逻辑
+            // 如果有i18n.js文件，可以调用相应的函数
+            if (typeof window.i18n !== 'undefined' && typeof window.i18n.changeLanguage === 'function') {
+                window.i18n.changeLanguage(lang);
+            }
+        }
     </script>
 </body>
 </html>
