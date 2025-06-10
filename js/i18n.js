@@ -77,6 +77,11 @@ const resources = {
             'footer.privacy': 'Privacy Policy',
             'footer.terms': 'Terms of Service',
             'footer.copyright': '© 2023 AddressGen. All rights reserved.',
+            'footer.nav.home': 'Home',
+            'footer.nav.blog': 'Blog',
+            'footer.nav.faq': 'FAQ',
+            'footer.nav.about': 'About',
+            'footer.nav.feedback': 'Feedback',
 
             // 首页内容
             'heroTitle': 'Generate Random Address Information',
@@ -94,7 +99,7 @@ const resources = {
 
             // Address Generator Section
             'generator.title': 'Address Generator',
-            'generator.country.title': 'Select Country',
+            'generator.country.title': 'Select Country/Region',
             'generator.state.title': 'Select State',
             'generator.city.title': 'Select City',
             'generator.quantity.title': 'Quantity',
@@ -175,6 +180,11 @@ const resources = {
             'feedback.form.placeholder.email': 'your.email@example.com',
             'feedback.form.placeholder.subject': 'What is this regarding?',
             'feedback.form.placeholder.message': 'Tell us what you think...',
+            'feedback.instructions.title': 'Feedback Submission Instructions',
+            'feedback.instructions.limit': 'To prevent spam, each IP address can only submit feedback once per day',
+            'feedback.instructions.complete': 'Please ensure your feedback is accurate and complete, as it cannot be modified on the same day after submission',
+            'feedback.instructions.response': 'We will carefully review each feedback and respond to you as soon as possible',
+            'feedback.ip.limit': 'Each IP address is limited to one feedback submission per day. Thank you for your understanding and cooperation',
 
             // FAQ Page
             'faq.title': 'Frequently Asked Questions',
@@ -597,16 +607,23 @@ const resources = {
             ],
             'blog.hkAddress.conclusion.title': 'Conclusion',
             'blog.hkAddress.conclusion.content': 'Although Hong Kong\'s address system is complex, it follows clear rules and patterns. Understanding these rules is crucial for creating accurate and realistic test data. AddressGen\'s Hong Kong address generator fully considers these characteristics and can generate high-quality test data that meets Hong Kong address standards.',
-            'blog.hkAddress.conclusion.cta': 'Start using AddressGen now to generate test data that meets Hong Kong address standards and provide the most realistic user experience for your applications.'
+            'blog.hkAddress.conclusion.cta': 'Start using AddressGen now to generate test data that meets Hong Kong address standards and provide the most realistic user experience for your applications.',
+
+            // Generator Batch Table Headers
+            'generator.batch.table.headers.index': 'Index',
+            'generator.batch.table.headers.basicInfo': 'Basic Information',
+            'generator.batch.table.headers.addressInfo': 'Address Information',
+            'generator.batch.table.headers.creditCardInfo': 'Credit Card Information',
+            'generator.batch.table.tip': 'Tip: Click any row to copy the complete information to clipboard'
         }
     },
-    'zh-CN': {
+    zh: {
         translation: {
             // 导航
             'nav.home': '首页',
             'nav.blog': '博客',
             'nav.faq': '常见问题',
-            'nav.about': '关于',
+            'nav.about': '关于我们',
             'nav.feedback': '反馈',
             
             // 页面标题
@@ -671,6 +688,11 @@ const resources = {
             'footer.privacy': '隐私政策',
             'footer.terms': '服务条款',
             'footer.copyright': '© 2023 AddressGen. 保留所有权利。',
+            'footer.nav.home': '首页',
+            'footer.nav.blog': '博客',
+            'footer.nav.faq': '常见问题',
+            'footer.nav.about': '关于我们',
+            'footer.nav.feedback': '反馈',
 
             // 首页内容
             'heroTitle': '生成随机地址信息',
@@ -688,7 +710,7 @@ const resources = {
 
             // Address Generator Section
             'generator.title': '地址生成器',
-            'generator.country.title': '选择国家',
+            'generator.country.title': '选择国家/区域',
             'generator.state.title': '选择州/省',
             'generator.city.title': '选择城市',
             'generator.quantity.title': '生成数量',
@@ -769,6 +791,11 @@ const resources = {
             'feedback.form.placeholder.email': '您的邮箱地址',
             'feedback.form.placeholder.subject': '这是关于什么的？',
             'feedback.form.placeholder.message': '请告诉我们您的想法...',
+            'feedback.instructions.title': '反馈提交说明',
+            'feedback.instructions.limit': '为了防止垃圾邮件，每个IP地址每天只能提交一次反馈',
+            'feedback.instructions.complete': '请确保您的反馈内容准确完整，提交后当天无法再次修改',
+            'feedback.instructions.response': '我们会认真查看每一条反馈，并尽快回复您',
+            'feedback.ip.limit': '每个IP地址每天限制提交一次反馈，感谢您的理解与配合',
 
             // FAQ Page
             'faq.title': '常见问题',
@@ -1191,7 +1218,14 @@ const resources = {
             ],
             'blog.hkAddress.conclusion.title': '总结',
             'blog.hkAddress.conclusion.content': '香港的地址系统虽然复杂，但遵循明确的规则和模式。理解这些规则对于创建准确、真实的测试数据至关重要。AddressGen的香港地址生成器充分考虑了这些特点，能够生成符合香港地址标准的高质量测试数据。',
-            'blog.hkAddress.conclusion.cta': '现在就使用AddressGen生成符合香港地址标准的测试数据，为你的应用程序提供最真实的用户体验。'
+            'blog.hkAddress.conclusion.cta': '现在就使用AddressGen生成符合香港地址标准的测试数据，为你的应用程序提供最真实的用户体验。',
+
+            // Generator Batch Table Headers
+            'generator.batch.table.headers.index': '序号',
+            'generator.batch.table.headers.basicInfo': '基本信息',
+            'generator.batch.table.headers.addressInfo': '地址信息',
+            'generator.batch.table.headers.creditCardInfo': '信用卡信息',
+            'generator.batch.table.tip': '提示：点击任意行可以复制该条记录的完整信息到剪贴板'
         }
     }
 };

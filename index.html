@@ -91,6 +91,33 @@
             position: relative;
             cursor: pointer;
         }
+
+        /* 数字输入框样式优化 */
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .quantity-btn {
+            transition: all 0.2s ease-in-out;
+        }
+        .quantity-btn:hover {
+            background-color: #f3f4f6;
+        }
+        .quantity-btn:active {
+            transform: scale(0.95);
+        }
+        #quantity-input {
+            transition: all 0.2s ease-in-out;
+        }
+        #quantity-input:focus {
+            outline: none;
+            border-color: #4F46E5;
+            box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
+        }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -181,7 +208,7 @@
                     </div>
                 </div>
                 <div class="md:w-1/2 flex justify-center">
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Digital Location Technology" class="rounded-lg shadow-xl max-w-full h-auto" style="max-height: 400px;">
+                    <img src="https://images.unsplash.com/photo-1543286386-713bdd548da4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Digital Location Technology" class="rounded-lg shadow-xl max-w-full h-auto" style="max-height: 400px;">
                 </div>
             </div>
         </div>
@@ -262,9 +289,23 @@
                     <!-- Generator Options -->
                     <div class="mb-8">
                         <h3 class="text-lg font-medium text-gray-900 mb-4" data-i18n="generator.quantity.title">Quantity</h3>
-                        <div class="flex items-center">
-                            <input type="number" min="1" max="100" value="1" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:w-32 sm:text-sm border-gray-300 rounded-md">
-                            <span class="ml-3 text-gray-500 text-sm" data-i18n="generator.quantity.max">Maximum: 100</span>
+                        <div class="flex items-center space-x-4">
+                            <div class="relative flex items-center">
+                                <button type="button" class="quantity-btn minus-btn px-3 py-2 border border-gray-300 rounded-l-md bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" onclick="decrementQuantity()">
+                                    <i class="fas fa-minus text-gray-600"></i>
+                                </button>
+                                <input type="number" 
+                                    id="quantity-input"
+                                    min="1" 
+                                    max="100" 
+                                    value="1" 
+                                    class="w-20 text-center border-t border-b border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block py-2 text-sm"
+                                    onchange="validateQuantity(this)">
+                                <button type="button" class="quantity-btn plus-btn px-3 py-2 border border-gray-300 rounded-r-md bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" onclick="incrementQuantity()">
+                                    <i class="fas fa-plus text-gray-600"></i>
+                                </button>
+                            </div>
+                            <span class="text-gray-500 text-sm" data-i18n="generator.quantity.max">Maximum: 100</span>
                         </div>
                     </div>
                     
@@ -405,7 +446,7 @@
                                 <div class="flex items-center">
                                     <i class="fas fa-info-circle text-blue-600 mr-2"></i>
                                     <p class="text-sm text-blue-800">
-                                        <span class="font-medium">提示：</span>点击任意行可以复制该条记录的完整信息到剪贴板
+                                        <span class="font-medium" data-i18n="generator.batch.table.tip">提示：点击任意行可以复制该条记录的完整信息到剪贴板</span>
                                     </p>
                                 </div>
                             </div>
@@ -413,10 +454,10 @@
                                 <table class="min-w-full divide-y divide-gray-200">
                                     <thead class="bg-gray-50">
                                         <tr>
-                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">序号</th>
-                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">基本信息</th>
-                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">地址信息</th>
-                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">信用卡信息</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="generator.batch.table.headers.index">序号</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="generator.batch.table.headers.basicInfo">基本信息</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="generator.batch.table.headers.addressInfo">地址信息</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="generator.batch.table.headers.creditCardInfo">信用卡信息</th>
                                         </tr>
                                     </thead>
                                     <tbody class="bg-white divide-y divide-gray-200" id="batch-results-body">
@@ -428,11 +469,11 @@
                     </div>
                     
                     <!-- Generate More Button -->
-                    <div class="flex justify-center mt-8">
+                    <!-- <div class="flex justify-center mt-8">
                         <button type="button" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" id="generate-more-btn">
                             <i class="fas fa-sync-alt mr-2"></i> <span data-i18n="generator.results.generateMore">Generate More</span>
                         </button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -503,25 +544,19 @@
         <div class="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
             <nav class="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
                 <div class="px-5 py-2">
-                    <a href="index.html" class="text-base text-gray-500 hover:text-gray-900">Home</a>
+                    <a href="index.html" class="text-base text-gray-500 hover:text-gray-900" data-i18n="footer.nav.home">Home</a>
                 </div>
                 <div class="px-5 py-2">
-                    <a href="blog.html" class="text-base text-gray-500 hover:text-gray-900">Blog</a>
+                    <a href="blog.html" class="text-base text-gray-500 hover:text-gray-900" data-i18n="footer.nav.blog">Blog</a>
                 </div>
                 <div class="px-5 py-2">
-                    <a href="faq.html" class="text-base text-gray-500 hover:text-gray-900">FAQ</a>
+                    <a href="faq.html" class="text-base text-gray-500 hover:text-gray-900" data-i18n="footer.nav.faq">FAQ</a>
                 </div>
                 <div class="px-5 py-2">
-                    <a href="about.html" class="text-base text-gray-500 hover:text-gray-900">About</a>
+                    <a href="about.html" class="text-base text-gray-500 hover:text-gray-900" data-i18n="footer.nav.about">About</a>
                 </div>
                 <div class="px-5 py-2">
-                    <a href="feedback.html" class="text-base text-gray-500 hover:text-gray-900">Feedback</a>
-                </div>
-                <div class="px-5 py-2">
-                    <a href="#" class="text-base text-gray-500 hover:text-gray-900">Privacy Policy</a>
-                </div>
-                <div class="px-5 py-2">
-                    <a href="#" class="text-base text-gray-500 hover:text-gray-900">Terms of Service</a>
+                    <a href="feedback.html" class="text-base text-gray-500 hover:text-gray-900" data-i18n="footer.nav.feedback">Feedback</a>
                 </div>
             </nav>
             <div class="mt-8 flex justify-center space-x-6">
@@ -538,7 +573,7 @@
                     <i class="fab fa-github text-xl"></i>
                 </a>
             </div>
-            <p class="mt-8 text-center text-base text-gray-400">&copy; 2023 AddressGen. All rights reserved.</p>
+            <p class="mt-8 text-center text-base text-gray-400">&copy; 2025 AddressGen. All rights reserved.</p>
         </div>
     </footer>
 
@@ -546,6 +581,37 @@
     <script src="js/i18n.js"></script>
     <script src="scripts.js"></script>
     <script>
+        // 数量输入相关函数 - 移到全局作用域
+        function validateQuantity(input) {
+            let value = parseInt(input.value);
+            if (isNaN(value) || value < 1) {
+                value = 1;
+            } else if (value > 100) {
+                value = 100;
+            }
+            input.value = value;
+        }
+
+        function incrementQuantity() {
+            const input = document.getElementById('quantity-input');
+            let value = parseInt(input.value);
+            if (value < 100) {
+                input.value = value + 1;
+                // 触发change事件
+                input.dispatchEvent(new Event('change'));
+            }
+        }
+
+        function decrementQuantity() {
+            const input = document.getElementById('quantity-input');
+            let value = parseInt(input.value);
+            if (value > 1) {
+                input.value = value - 1;
+                // 触发change事件
+                input.dispatchEvent(new Event('change'));
+            }
+        }
+
         // 等待 DOM 加载完成
         document.addEventListener('DOMContentLoaded', function() {
             // 初始化表单
@@ -558,6 +624,17 @@
             document.getElementById('mobile-menu-button').addEventListener('click', function() {
                 const mobileMenu = document.getElementById('mobile-menu');
                 mobileMenu.classList.toggle('hidden');
+            });
+
+            // 添加键盘事件支持
+            document.getElementById('quantity-input').addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    incrementQuantity();
+                } else if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    decrementQuantity();
+                }
             });
 
             // 复制功能
@@ -891,7 +968,7 @@
                 const country = document.querySelector('.country-option.selected').getAttribute('data-country');
                 const state = document.getElementById('state-select').value;
                 const city = document.getElementById('city-select').value;
-                const quantity = parseInt(document.querySelector('input[type="number"]').value) || 1;
+                const quantity = parseInt(document.getElementById('quantity-input').value) || 1;
                 
                 // 获取当前选中的信息类型
                 const infoTypes = [];
@@ -906,11 +983,6 @@
                 
                 // 生成新的信息
                 generateInformation(country, state, city, infoTypes, quantity);
-            });
-
-            // Generate more button click handler
-            document.getElementById('generate-more-btn').addEventListener('click', function() {
-                document.getElementById('generate-btn').click();
             });
 
             // 绑定下载按钮事件
@@ -1197,7 +1269,8 @@
                     cardCell.innerHTML = `
                         <div class="text-sm text-gray-900">${item.creditCard?.cardType || ''}</div>
                         <div class="text-sm text-gray-500">${item.creditCard?.cardNumber || ''}</div>
-                        <div class="text-sm text-gray-500">Exp: ${item.creditCard?.expiryDate || ''}</div>
+                        <div class="text-sm text-gray-500">${item.creditCard?.cvv || ''}</div>
+                        <div class="text-sm text-gray-500">${item.creditCard?.expiryDate || ''}</div>
                     `;
                     
                     row.appendChild(indexCell);
@@ -1206,63 +1279,6 @@
                     row.appendChild(cardCell);
                     
                     tbody.appendChild(row);
-                });
-                
-                // 保存批量数据用于CSV导出
-                window.generatedData = { batchData: data };
-            }
-
-            // 复制单行数据的函数
-            function copyRowData(item, rowNumber) {
-                let formattedText = `=== 记录 ${rowNumber} ===\n`;
-                
-                // 添加基本信息
-                if (item.identity) {
-                    formattedText += '\n--- 基本信息 ---\n';
-                    if (item.identity.fullName) formattedText += `姓名: ${item.identity.fullName}\n`;
-                    if (item.identity.email) formattedText += `邮箱: ${item.identity.email}\n`;
-                    if (item.identity.phoneNumber) formattedText += `电话: ${item.identity.phoneNumber}\n`;
-                    if (item.identity.dateOfBirth) formattedText += `出生日期: ${item.identity.dateOfBirth}\n`;
-                }
-                
-                // 添加地址信息
-                if (item.address) {
-                    formattedText += '\n--- 地址信息 ---\n';
-                    
-                    // 处理街道地址
-                    let street = '';
-                    if (item.address.building && item.address.street) {
-                        street = `${item.address.building}, ${item.address.street}`;
-                    } else if (item.address.street) {
-                        street = item.address.street;
-                    }
-                    if (street) formattedText += `街道地址: ${street}\n`;
-                    
-                    const city = item.address.city || item.address.district || '';
-                    const state = item.address.state || item.address.county || item.address.region || '';
-                    const zip = item.address.zipCode || item.address.postcode || '';
-                    
-                    if (city) formattedText += `城市: ${city}\n`;
-                    if (state) formattedText += `州/省: ${state}\n`;
-                    if (zip) formattedText += `邮编: ${zip}\n`;
-                    if (item.address.country) formattedText += `国家: ${item.address.country}\n`;
-                }
-                
-                // 添加信用卡信息
-                if (item.creditCard) {
-                    formattedText += '\n--- 信用卡信息 ---\n';
-                    if (item.creditCard.cardType) formattedText += `卡类型: ${item.creditCard.cardType}\n`;
-                    if (item.creditCard.cardNumber) formattedText += `卡号: ${item.creditCard.cardNumber}\n`;
-                    if (item.creditCard.expiryDate) formattedText += `有效期: ${item.creditCard.expiryDate}\n`;
-                    if (item.creditCard.cvv) formattedText += `CVV: ${item.creditCard.cvv}\n`;
-                }
-                
-                // 复制到剪贴板
-                navigator.clipboard.writeText(formattedText).then(() => {
-                    showToast(`记录 ${rowNumber} 已复制到剪贴板！`, 'success');
-                }).catch(err => {
-                    showToast('复制失败，请重试', 'error');
-                    console.error('复制失败:', err);
                 });
             }
         });
