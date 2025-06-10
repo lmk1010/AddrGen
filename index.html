@@ -283,104 +283,134 @@
                     </div>
                     
                     <!-- Results Content -->
-                    <div class="bg-gray-50 p-6 rounded-lg space-y-8">
-                        <!-- Basic Information -->
-                        <div class="space-y-4">
-                            <h3 class="text-lg font-medium text-gray-900 flex items-center">
-                                <i class="fas fa-user-circle text-indigo-600 mr-2"></i>
-                                <span data-i18n="generator.results.basicInfo">Basic Information</span>
-                            </h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.fullName">Full Name</p>
-                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
-                                    <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
+                    <div class="bg-gray-50 p-6 rounded-lg space-y-8" id="results-content">
+                        <!-- 单条信息展示 -->
+                        <div id="single-result" class="space-y-8">
+                            <!-- Basic Information -->
+                            <div class="space-y-4">
+                                <h3 class="text-lg font-medium text-gray-900 flex items-center">
+                                    <i class="fas fa-user-circle text-indigo-600 mr-2"></i>
+                                    <span data-i18n="generator.results.basicInfo">Basic Information</span>
+                                </h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
+                                        <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.fullName">Full Name</p>
+                                        <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
+                                        <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
+                                    </div>
+                                    <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
+                                        <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.email">Email</p>
+                                        <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
+                                        <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
+                                    </div>
+                                    <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
+                                        <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.phone">Phone Number</p>
+                                        <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
+                                        <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
+                                    </div>
+                                    <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
+                                        <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.dob">Date of Birth</p>
+                                        <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
+                                        <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
+                                    </div>
                                 </div>
-                                <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.email">Email</p>
-                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
-                                    <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
+                            </div>
+
+                            <!-- Address Information -->
+                            <div class="space-y-4">
+                                <h3 class="text-lg font-medium text-gray-900 flex items-center">
+                                    <i class="fas fa-map-marker-alt text-indigo-600 mr-2"></i>
+                                    <span data-i18n="generator.results.addressInfo">Address Information</span>
+                                </h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
+                                        <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.streetAddress">Street Address</p>
+                                        <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
+                                        <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
+                                    </div>
+                                    <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
+                                        <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.city">City</p>
+                                        <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
+                                        <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
+                                    </div>
+                                    <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
+                                        <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.stateCode">State Code</p>
+                                        <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
+                                        <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
+                                    </div>
+                                    <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
+                                        <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.stateName">State Name</p>
+                                        <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
+                                        <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
+                                    </div>
+                                    <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
+                                        <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.zipCode">ZIP Code</p>
+                                        <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
+                                        <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
+                                    </div>
+                                    <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
+                                        <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.country">Country</p>
+                                        <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
+                                        <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
+                                    </div>
                                 </div>
-                                <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.phone">Phone Number</p>
-                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
-                                    <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-                                </div>
-                                <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.dob">Date of Birth</p>
-                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
-                                    <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
+                            </div>
+
+                            <!-- Credit Card Information -->
+                            <div class="space-y-4">
+                                <h3 class="text-lg font-medium text-gray-900 flex items-center">
+                                    <i class="fas fa-credit-card text-indigo-600 mr-2"></i>
+                                    <span data-i18n="generator.results.creditCardInfo">Credit Card Information</span>
+                                </h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
+                                        <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.cardType">Card Type</p>
+                                        <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
+                                        <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
+                                    </div>
+                                    <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
+                                        <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.cardNumber">Card Number</p>
+                                        <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
+                                        <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
+                                    </div>
+                                    <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
+                                        <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.cvv">CVV</p>
+                                        <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
+                                        <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
+                                    </div>
+                                    <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
+                                        <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.expiryDate">Expiry Date</p>
+                                        <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
+                                        <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Address Information -->
-                        <div class="space-y-4">
-                            <h3 class="text-lg font-medium text-gray-900 flex items-center">
-                                <i class="fas fa-map-marker-alt text-indigo-600 mr-2"></i>
-                                <span data-i18n="generator.results.addressInfo">Address Information</span>
-                            </h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.streetAddress">Street Address</p>
-                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
-                                    <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-                                </div>
-                                <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.city">City</p>
-                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
-                                    <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-                                </div>
-                                <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.stateCode">State Code</p>
-                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
-                                    <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-                                </div>
-                                <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.stateName">State Name</p>
-                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
-                                    <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-                                </div>
-                                <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.zipCode">ZIP Code</p>
-                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
-                                    <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-                                </div>
-                                <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.country">Country</p>
-                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
-                                    <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
+                        <!-- 批量信息展示 -->
+                        <div id="batch-results" class="hidden">
+                            <div class="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                                <div class="flex items-center">
+                                    <i class="fas fa-info-circle text-blue-600 mr-2"></i>
+                                    <p class="text-sm text-blue-800">
+                                        <span class="font-medium">提示：</span>点击任意行可以复制该条记录的完整信息到剪贴板
+                                    </p>
                                 </div>
                             </div>
-                        </div>
-
-                        <!-- Credit Card Information -->
-                        <div class="space-y-4">
-                            <h3 class="text-lg font-medium text-gray-900 flex items-center">
-                                <i class="fas fa-credit-card text-indigo-600 mr-2"></i>
-                                <span data-i18n="generator.results.creditCardInfo">Credit Card Information</span>
-                            </h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.cardType">Card Type</p>
-                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
-                                    <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-                                </div>
-                                <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.cardNumber">Card Number</p>
-                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
-                                    <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-                                </div>
-                                <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.cvv">CVV</p>
-                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
-                                    <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-                                </div>
-                                <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
-                                    <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.expiryDate">Expiry Date</p>
-                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
-                                    <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
-                                </div>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">序号</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">基本信息</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">地址信息</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">信用卡信息</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200" id="batch-results-body">
+                                        <!-- 批量结果将在这里动态生成 -->
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -552,34 +582,69 @@
                     return;
                 }
 
-                // 转换为CSV格式
                 let csvContent = "Category,Field,Value\n";
                 
-                // 添加基本信息
-                if (generatedData.identity) {
-                    Object.entries(generatedData.identity).forEach(([field, value]) => {
-                        if (value) {
-                            csvContent += `Basic Information,${field},${value}\n`;
+                // 检查是否为批量数据
+                if (generatedData.batchData) {
+                    // 批量数据处理
+                    generatedData.batchData.forEach((item, index) => {
+                        const recordPrefix = `Record ${index + 1}`;
+                        
+                        // 添加基本信息
+                        if (item.identity) {
+                            Object.entries(item.identity).forEach(([field, value]) => {
+                                if (value) {
+                                    csvContent += `${recordPrefix} - Basic Information,${field},${value}\n`;
+                                }
+                            });
+                        }
+                        
+                        // 添加地址信息
+                        if (item.address) {
+                            Object.entries(item.address).forEach(([field, value]) => {
+                                if (value) {
+                                    csvContent += `${recordPrefix} - Address Information,${field},${value}\n`;
+                                }
+                            });
+                        }
+                        
+                        // 添加信用卡信息
+                        if (item.creditCard) {
+                            Object.entries(item.creditCard).forEach(([field, value]) => {
+                                if (value) {
+                                    csvContent += `${recordPrefix} - Credit Card Information,${field},${value}\n`;
+                                }
+                            });
                         }
                     });
-                }
-                
-                // 添加地址信息
-                if (generatedData.address) {
-                    Object.entries(generatedData.address).forEach(([field, value]) => {
-                        if (value) {
-                            csvContent += `Address Information,${field},${value}\n`;
-                        }
-                    });
-                }
-                
-                // 添加信用卡信息
-                if (generatedData.creditCard) {
-                    Object.entries(generatedData.creditCard).forEach(([field, value]) => {
-                        if (value) {
-                            csvContent += `Credit Card Information,${field},${value}\n`;
-                        }
-                    });
+                } else {
+                    // 单条数据处理（原有逻辑）
+                    // 添加基本信息
+                    if (generatedData.identity) {
+                        Object.entries(generatedData.identity).forEach(([field, value]) => {
+                            if (value) {
+                                csvContent += `Basic Information,${field},${value}\n`;
+                            }
+                        });
+                    }
+                    
+                    // 添加地址信息
+                    if (generatedData.address) {
+                        Object.entries(generatedData.address).forEach(([field, value]) => {
+                            if (value) {
+                                csvContent += `Address Information,${field},${value}\n`;
+                            }
+                        });
+                    }
+                    
+                    // 添加信用卡信息
+                    if (generatedData.creditCard) {
+                        Object.entries(generatedData.creditCard).forEach(([field, value]) => {
+                            if (value) {
+                                csvContent += `Credit Card Information,${field},${value}\n`;
+                            }
+                        });
+                    }
                 }
 
                 // 创建Blob对象
@@ -599,6 +664,128 @@
                 // 清理
                 document.body.removeChild(link);
             }
+            
+            // 复制全部数据功能
+            function copyAllData() {
+                const generatedData = window.generatedData;
+                if (!generatedData) {
+                    showToast('没有可复制的信息', 'error');
+                    return;
+                }
+
+                let formattedText = '';
+                
+                // 检查是否为批量数据
+                if (generatedData.batchData) {
+                    // 批量数据复制
+                    formattedText += `=== 批量生成信息 (共 ${generatedData.batchData.length} 条记录) ===\n\n`;
+                    
+                    generatedData.batchData.forEach((item, index) => {
+                        formattedText += `=== 记录 ${index + 1} ===\n`;
+                        
+                        // 添加基本信息
+                        if (item.identity) {
+                            formattedText += '\n--- 基本信息 ---\n';
+                            if (item.identity.fullName) formattedText += `姓名: ${item.identity.fullName}\n`;
+                            if (item.identity.email) formattedText += `邮箱: ${item.identity.email}\n`;
+                            if (item.identity.phoneNumber) formattedText += `电话: ${item.identity.phoneNumber}\n`;
+                            if (item.identity.dateOfBirth) formattedText += `出生日期: ${item.identity.dateOfBirth}\n`;
+                        }
+                        
+                        // 添加地址信息
+                        if (item.address) {
+                            formattedText += '\n--- 地址信息 ---\n';
+                            
+                            // 处理街道地址
+                            let street = '';
+                            if (item.address.building && item.address.street) {
+                                street = `${item.address.building}, ${item.address.street}`;
+                            } else if (item.address.street) {
+                                street = item.address.street;
+                            }
+                            if (street) formattedText += `街道地址: ${street}\n`;
+                            
+                            const city = item.address.city || item.address.district || '';
+                            const state = item.address.state || item.address.county || item.address.region || '';
+                            const zip = item.address.zipCode || item.address.postcode || '';
+                            
+                            if (city) formattedText += `城市: ${city}\n`;
+                            if (state) formattedText += `州/省: ${state}\n`;
+                            if (zip) formattedText += `邮编: ${zip}\n`;
+                            if (item.address.country) formattedText += `国家: ${item.address.country}\n`;
+                        }
+                        
+                        // 添加信用卡信息
+                        if (item.creditCard) {
+                            formattedText += '\n--- 信用卡信息 ---\n';
+                            if (item.creditCard.cardType) formattedText += `卡类型: ${item.creditCard.cardType}\n`;
+                            if (item.creditCard.cardNumber) formattedText += `卡号: ${item.creditCard.cardNumber}\n`;
+                            if (item.creditCard.expiryDate) formattedText += `有效期: ${item.creditCard.expiryDate}\n`;
+                            if (item.creditCard.cvv) formattedText += `CVV: ${item.creditCard.cvv}\n`;
+                        }
+                        
+                        formattedText += '\n' + '='.repeat(50) + '\n\n';
+                    });
+                } else {
+                    // 单条数据复制（原有逻辑）
+                    const resultsContent = document.querySelector('.bg-gray-50');
+                    if (!resultsContent) {
+                        showToast('没有可复制的信息', 'error');
+                        return;
+                    }
+
+                    // 收集所有信息
+                    resultsContent.querySelectorAll('.cursor-pointer').forEach(item => {
+                        const labelElement = item.querySelector('.text-sm');
+                        const valueElement = item.querySelector('.copy-value');
+                        if (labelElement && valueElement && valueElement.textContent.trim()) {
+                            formattedText += `${labelElement.textContent}: ${valueElement.textContent}\n`;
+                        }
+                    });
+                }
+
+                // 检查是否有内容可以复制
+                if (!formattedText.trim()) {
+                    showToast('没有可复制的信息', 'error');
+                    return;
+                }
+
+                // 复制到剪贴板
+                navigator.clipboard.writeText(formattedText).then(() => {
+                    const recordCount = generatedData.batchData ? generatedData.batchData.length : 1;
+                    showToast(`所有信息已成功复制到剪贴板！(共 ${recordCount} 条记录)`, 'success');
+                }).catch(err => {
+                    showToast('复制失败，请重试', 'error');
+                    console.error('复制失败:', err);
+                });
+            }
+
+            // Generate button click handler
+            document.getElementById('generate-btn').addEventListener('click', function() {
+                const country = document.querySelector('.country-option.selected').getAttribute('data-country');
+                const state = document.getElementById('state-select').value;
+                const city = document.getElementById('city-select').value;
+                const quantity = parseInt(document.querySelector('input[type="number"]').value) || 1;
+                
+                // 获取当前选中的信息类型
+                const infoTypes = [];
+                document.querySelectorAll('input[name="info_type"]:checked').forEach(checkbox => {
+                    infoTypes.push(checkbox.value);
+                });
+                
+                // 如果没有选中任何类型，默认生成所有类型
+                if (infoTypes.length === 0) {
+                    infoTypes.push('address', 'identity', 'credit_card');
+                }
+                
+                // 生成新的信息
+                generateInformation(country, state, city, infoTypes, quantity);
+            });
+
+            // Generate more button click handler
+            document.getElementById('generate-more-btn').addEventListener('click', function() {
+                document.getElementById('generate-btn').click();
+            });
 
             // 绑定下载按钮事件
             document.getElementById('download-btn').addEventListener('click', function() {
@@ -613,31 +800,345 @@
                 downloadCSV();
             });
 
-            // Generate button click handler
-            document.getElementById('generate-btn').addEventListener('click', function() {
-                const country = document.querySelector('.country-option.selected').getAttribute('data-country');
-                const state = document.getElementById('state-select').value;
-                const city = document.getElementById('city-select').value;
-                
-                // 获取当前选中的信息类型
-                const infoTypes = [];
-                document.querySelectorAll('input[name="info_type"]:checked').forEach(checkbox => {
-                    infoTypes.push(checkbox.value);
-                });
-                
-                // 如果没有选中任何类型，默认生成所有类型
-                if (infoTypes.length === 0) {
-                    infoTypes.push('address', 'identity', 'credit_card');
-                }
-                
-                // 生成新的信息
-                generateInformation(country, state, city, infoTypes);
+            // 绑定复制全部按钮事件
+            document.getElementById('copy-btn').addEventListener('click', function() {
+                copyAllData();
             });
 
-            // Generate more button click handler
-            document.getElementById('generate-more-btn').addEventListener('click', function() {
-                document.getElementById('generate-btn').click();
-            });
+            // 生成信息的函数
+            function generateInformation(country, state, city, infoTypes, quantity = 1) {
+                // 显示结果区域
+                const resultsSection = document.getElementById('results');
+                resultsSection.classList.remove('hidden');
+
+                // 根据数量决定显示方式
+                const singleResult = document.getElementById('single-result');
+                const batchResults = document.getElementById('batch-results');
+                
+                if (quantity === 1) {
+                    // 单条信息时使用原有样式
+                    singleResult.classList.remove('hidden');
+                    batchResults.classList.add('hidden');
+                    // 生成单条信息
+                    const data = generateSingleInfo(country, state, city, infoTypes);
+                    displaySingleResult(data);
+                } else {
+                    // 批量信息时使用表格样式
+                    singleResult.classList.add('hidden');
+                    batchResults.classList.remove('hidden');
+                    // 生成批量信息
+                    const batchData = generateBatchInfo(country, state, city, infoTypes, quantity);
+                    displayBatchResults(batchData);
+                }
+            }
+
+            // 生成单条信息
+            function generateSingleInfo(country, state, city, infoTypes) {
+                // 调用scripts.js中的真正随机生成逻辑
+                const results = {
+                    identity: null,
+                    address: null,
+                    creditCard: null
+                };
+
+                if (infoTypes.includes('identity')) {
+                    results.identity = generateMockIdentity(country);
+                }
+
+                if (infoTypes.includes('address')) {
+                    results.address = generateMockAddress(country, state, city);
+                }
+
+                if (infoTypes.includes('credit_card')) {
+                    results.creditCard = generateMockCreditCard(country);
+                }
+
+                return results;
+            }
+
+            // 生成批量信息
+            function generateBatchInfo(country, state, city, infoTypes, quantity) {
+                const results = [];
+                for (let i = 0; i < quantity; i++) {
+                    // 为每个记录调用真正的随机生成逻辑
+                    const singleResult = {
+                        identity: null,
+                        address: null,
+                        creditCard: null
+                    };
+
+                    if (infoTypes.includes('identity')) {
+                        singleResult.identity = generateMockIdentity(country);
+                    }
+
+                    if (infoTypes.includes('address')) {
+                        singleResult.address = generateMockAddress(country, state, city);
+                    }
+
+                    if (infoTypes.includes('credit_card')) {
+                        singleResult.creditCard = generateMockCreditCard(country);
+                    }
+
+                    results.push(singleResult);
+                }
+                return results;
+            }
+
+            // 显示单条结果
+            function displaySingleResult(data) {
+                // 字段映射 - 将生成的数据字段映射到HTML中的字段标识符
+                const fieldMapping = {
+                    identity: {
+                        fullName: 'fullName',
+                        email: 'email', 
+                        phoneNumber: 'phone',
+                        dateOfBirth: 'dob'
+                    },
+                    address: {
+                        street: 'streetAddress',
+                        city: 'city',
+                        state: 'stateCode',
+                        state: 'stateName', // 对于美国，state字段既是代码也是名称
+                        zipCode: 'zipCode',
+                        postcode: 'zipCode', // 英国邮编
+                        country: 'country'
+                    },
+                    creditCard: {
+                        cardType: 'cardType',
+                        cardNumber: 'cardNumber',
+                        cvv: 'cvv',
+                        expiryDate: 'expiryDate'
+                    }
+                };
+
+                // 更新基本信息
+                if (data.identity) {
+                    Object.entries(fieldMapping.identity).forEach(([sourceField, targetField]) => {
+                        if (data.identity[sourceField]) {
+                            const element = document.querySelector(`[data-i18n="generator.fields.${targetField}"]`);
+                            if (element) {
+                                const valueElement = element.closest('div').querySelector('.copy-value');
+                                if (valueElement) valueElement.textContent = data.identity[sourceField];
+                            }
+                        }
+                    });
+                }
+
+                // 更新地址信息
+                if (data.address) {
+                    // 处理街道地址
+                    const streetElement = document.querySelector(`[data-i18n="generator.fields.streetAddress"]`);
+                    if (streetElement) {
+                        const valueElement = streetElement.closest('div').querySelector('.copy-value');
+                        if (valueElement) {
+                            let streetAddress = '';
+                            if (data.address.building && data.address.street) {
+                                // 香港格式: 建筑物 + 街道
+                                streetAddress = `${data.address.building}, ${data.address.street}`;
+                            } else if (data.address.street) {
+                                // 美国/英国格式: 只有街道
+                                streetAddress = data.address.street;
+                            }
+                            valueElement.textContent = streetAddress;
+                        }
+                    }
+
+                    // 处理城市
+                    const cityElement = document.querySelector(`[data-i18n="generator.fields.city"]`);
+                    if (cityElement) {
+                        const valueElement = cityElement.closest('div').querySelector('.copy-value');
+                        if (valueElement) valueElement.textContent = data.address.city || data.address.district || '';
+                    }
+
+                    // 处理州/省代码
+                    const stateCodeElement = document.querySelector(`[data-i18n="generator.fields.stateCode"]`);
+                    if (stateCodeElement) {
+                        const valueElement = stateCodeElement.closest('div').querySelector('.copy-value');
+                        if (valueElement) valueElement.textContent = data.address.state || data.address.region || data.address.county || '';
+                    }
+
+                    // 处理州/省名称
+                    const stateNameElement = document.querySelector(`[data-i18n="generator.fields.stateName"]`);
+                    if (stateNameElement) {
+                        const valueElement = stateNameElement.closest('div').querySelector('.copy-value');
+                        if (valueElement) valueElement.textContent = data.address.state || data.address.region || data.address.county || '';
+                    }
+
+                    // 处理邮政编码
+                    const zipElement = document.querySelector(`[data-i18n="generator.fields.zipCode"]`);
+                    if (zipElement) {
+                        const valueElement = zipElement.closest('div').querySelector('.copy-value');
+                        if (valueElement) valueElement.textContent = data.address.zipCode || data.address.postcode || '';
+                    }
+
+                    // 处理国家
+                    const countryElement = document.querySelector(`[data-i18n="generator.fields.country"]`);
+                    if (countryElement) {
+                        const valueElement = countryElement.closest('div').querySelector('.copy-value');
+                        if (valueElement) valueElement.textContent = data.address.country || '';
+                    }
+                }
+
+                // 更新信用卡信息
+                if (data.creditCard) {
+                    Object.entries(fieldMapping.creditCard).forEach(([sourceField, targetField]) => {
+                        if (data.creditCard[sourceField]) {
+                            const element = document.querySelector(`[data-i18n="generator.fields.${targetField}"]`);
+                            if (element) {
+                                const valueElement = element.closest('div').querySelector('.copy-value');
+                                if (valueElement) valueElement.textContent = data.creditCard[sourceField];
+                            }
+                        }
+                    });
+                }
+
+                // 保存生成的数据用于CSV导出
+                window.generatedData = data;
+            }
+
+            // 显示批量结果
+            function displayBatchResults(data) {
+                const tbody = document.getElementById('batch-results-body');
+                tbody.innerHTML = '';
+
+                data.forEach((item, index) => {
+                    const row = document.createElement('tr');
+                    row.className = 'hover:bg-gray-50 cursor-pointer transition-colors duration-200';
+                    row.title = '点击复制此行数据';
+                    
+                    // 添加行点击复制功能
+                    row.addEventListener('click', function() {
+                        copyRowData(item, index + 1);
+                    });
+                    
+                    // 序号
+                    const indexCell = document.createElement('td');
+                    indexCell.className = 'px-6 py-4 whitespace-nowrap text-sm text-gray-500';
+                    indexCell.textContent = index + 1;
+                    
+                    // 基本信息
+                    const basicInfoCell = document.createElement('td');
+                    basicInfoCell.className = 'px-6 py-4 whitespace-nowrap text-sm text-gray-900';
+                    basicInfoCell.innerHTML = `
+                        <div class="text-sm text-gray-900">${item.identity?.fullName || ''}</div>
+                        <div class="text-sm text-gray-500">${item.identity?.email || ''}</div>
+                        <div class="text-sm text-gray-500">${item.identity?.phoneNumber || ''}</div>
+                    `;
+                    
+                    // 地址信息 - 根据不同国家的数据结构进行处理
+                    const addressCell = document.createElement('td');
+                    addressCell.className = 'px-6 py-4 whitespace-nowrap text-sm text-gray-900';
+                    
+                    let street = '';
+                    let cityStateZip = '';
+                    let country = '';
+                    
+                    if (item.address) {
+                        // 处理街道地址
+                        if (item.address.building && item.address.street) {
+                            // 香港格式: 建筑物 + 街道
+                            street = `${item.address.building}, ${item.address.street}`;
+                        } else if (item.address.street) {
+                            // 美国/英国格式: 只有街道
+                            street = item.address.street;
+                        }
+                        
+                        // 处理城市/州/邮编
+                        const city = item.address.city || item.address.district || '';
+                        const state = item.address.state || item.address.county || item.address.region || '';
+                        const zip = item.address.zipCode || item.address.postcode || '';
+                        
+                        if (city && state && zip) {
+                            cityStateZip = `${city}, ${state} ${zip}`;
+                        } else if (city && state) {
+                            cityStateZip = `${city}, ${state}`;
+                        } else if (city) {
+                            cityStateZip = city;
+                        }
+                        
+                        country = item.address.country || '';
+                    }
+                    
+                    addressCell.innerHTML = `
+                        <div class="text-sm text-gray-900">${street}</div>
+                        <div class="text-sm text-gray-500">${cityStateZip}</div>
+                        <div class="text-sm text-gray-500">${country}</div>
+                    `;
+                    
+                    // 信用卡信息
+                    const cardCell = document.createElement('td');
+                    cardCell.className = 'px-6 py-4 whitespace-nowrap text-sm text-gray-900';
+                    cardCell.innerHTML = `
+                        <div class="text-sm text-gray-900">${item.creditCard?.cardType || ''}</div>
+                        <div class="text-sm text-gray-500">${item.creditCard?.cardNumber || ''}</div>
+                        <div class="text-sm text-gray-500">Exp: ${item.creditCard?.expiryDate || ''}</div>
+                    `;
+                    
+                    row.appendChild(indexCell);
+                    row.appendChild(basicInfoCell);
+                    row.appendChild(addressCell);
+                    row.appendChild(cardCell);
+                    
+                    tbody.appendChild(row);
+                });
+                
+                // 保存批量数据用于CSV导出
+                window.generatedData = { batchData: data };
+            }
+
+            // 复制单行数据的函数
+            function copyRowData(item, rowNumber) {
+                let formattedText = `=== 记录 ${rowNumber} ===\n`;
+                
+                // 添加基本信息
+                if (item.identity) {
+                    formattedText += '\n--- 基本信息 ---\n';
+                    if (item.identity.fullName) formattedText += `姓名: ${item.identity.fullName}\n`;
+                    if (item.identity.email) formattedText += `邮箱: ${item.identity.email}\n`;
+                    if (item.identity.phoneNumber) formattedText += `电话: ${item.identity.phoneNumber}\n`;
+                    if (item.identity.dateOfBirth) formattedText += `出生日期: ${item.identity.dateOfBirth}\n`;
+                }
+                
+                // 添加地址信息
+                if (item.address) {
+                    formattedText += '\n--- 地址信息 ---\n';
+                    
+                    // 处理街道地址
+                    let street = '';
+                    if (item.address.building && item.address.street) {
+                        street = `${item.address.building}, ${item.address.street}`;
+                    } else if (item.address.street) {
+                        street = item.address.street;
+                    }
+                    if (street) formattedText += `街道地址: ${street}\n`;
+                    
+                    const city = item.address.city || item.address.district || '';
+                    const state = item.address.state || item.address.county || item.address.region || '';
+                    const zip = item.address.zipCode || item.address.postcode || '';
+                    
+                    if (city) formattedText += `城市: ${city}\n`;
+                    if (state) formattedText += `州/省: ${state}\n`;
+                    if (zip) formattedText += `邮编: ${zip}\n`;
+                    if (item.address.country) formattedText += `国家: ${item.address.country}\n`;
+                }
+                
+                // 添加信用卡信息
+                if (item.creditCard) {
+                    formattedText += '\n--- 信用卡信息 ---\n';
+                    if (item.creditCard.cardType) formattedText += `卡类型: ${item.creditCard.cardType}\n`;
+                    if (item.creditCard.cardNumber) formattedText += `卡号: ${item.creditCard.cardNumber}\n`;
+                    if (item.creditCard.expiryDate) formattedText += `有效期: ${item.creditCard.expiryDate}\n`;
+                    if (item.creditCard.cvv) formattedText += `CVV: ${item.creditCard.cvv}\n`;
+                }
+                
+                // 复制到剪贴板
+                navigator.clipboard.writeText(formattedText).then(() => {
+                    showToast(`记录 ${rowNumber} 已复制到剪贴板！`, 'success');
+                }).catch(err => {
+                    showToast('复制失败，请重试', 'error');
+                    console.error('复制失败:', err);
+                });
+            }
         });
     </script>
 </body>

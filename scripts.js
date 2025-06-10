@@ -1045,18 +1045,24 @@ function generateMockIdentity(country) {
     const names = {
         'us': {
             first: ['James', 'John', 'Robert', 'Michael', 'William', 'David', 'Richard', 'Joseph', 'Thomas', 'Charles',
-                   'Mary', 'Patricia', 'Jennifer', 'Linda', 'Elizabeth', 'Barbara', 'Susan', 'Jessica', 'Sarah', 'Karen'],
-            last: ['Smith', 'Johnson', 'Williams', 'Jones', 'Brown', 'Davis', 'Miller', 'Wilson', 'Moore', 'Taylor']
+                   'Mary', 'Patricia', 'Jennifer', 'Linda', 'Elizabeth', 'Barbara', 'Susan', 'Jessica', 'Sarah', 'Karen',
+                   'Emily', 'Emma', 'Olivia', 'Sophia', 'Isabella', 'Ava', 'Mia', 'Charlotte', 'Amelia', 'Harper'],
+            last: ['Smith', 'Johnson', 'Williams', 'Jones', 'Brown', 'Davis', 'Miller', 'Wilson', 'Moore', 'Taylor',
+                  'Anderson', 'Thomas', 'Jackson', 'White', 'Harris', 'Martin', 'Thompson', 'Garcia', 'Martinez', 'Robinson']
         },
         'uk': {
             first: ['Oliver', 'Jack', 'Harry', 'Jacob', 'Charlie', 'Thomas', 'George', 'Oscar', 'James', 'William',
-                   'Olivia', 'Amelia', 'Isla', 'Ava', 'Emily', 'Isabella', 'Mia', 'Poppy', 'Ella', 'Lily'],
-            last: ['Smith', 'Jones', 'Williams', 'Taylor', 'Brown', 'Davies', 'Evans', 'Wilson', 'Thomas', 'Roberts']
+                   'Olivia', 'Amelia', 'Isla', 'Ava', 'Emily', 'Isabella', 'Mia', 'Poppy', 'Ella', 'Lily',
+                   'Sophia', 'Grace', 'Freya', 'Chloe', 'Daisy', 'Phoebe', 'Alice', 'Florence', 'Charlotte', 'Sienna'],
+            last: ['Smith', 'Jones', 'Williams', 'Taylor', 'Brown', 'Davies', 'Evans', 'Wilson', 'Thomas', 'Roberts',
+                  'Johnson', 'Lewis', 'Walker', 'Robinson', 'Wood', 'Thompson', 'White', 'Watson', 'Jackson', 'Wright']
         },
         'hk': {
             first: ['Ming', 'Wei', 'Jian', 'Hui', 'Xin', 'Yan', 'Ling', 'Fang', 'Yu', 'Xiang',
-                   'Li', 'Na', 'Mei', 'Ying', 'Jie', 'Xia', 'Hong', 'Zhen', 'Juan', 'Fei'],
-            last: ['Wong', 'Chan', 'Lam', 'Leung', 'Li', 'Ho', 'Ng', 'Cheung', 'Tang', 'Yuen']
+                   'Li', 'Na', 'Mei', 'Ying', 'Jie', 'Xia', 'Hong', 'Zhen', 'Juan', 'Fei',
+                   'Jing', 'Yan', 'Xiao', 'Min', 'Hua', 'Yun', 'Qing', 'Xiu', 'Ying', 'Yan'],
+            last: ['Wong', 'Chan', 'Lam', 'Leung', 'Li', 'Ho', 'Ng', 'Cheung', 'Tang', 'Yuen',
+                  'Lau', 'Yeung', 'Chow', 'Tsang', 'Wong', 'Chan', 'Lam', 'Leung', 'Li', 'Ho']
         }
     };
 
@@ -1073,8 +1079,8 @@ function generateMockIdentity(country) {
     const dob = `${birthYear}-${birthMonth.toString().padStart(2, '0')}-${birthDay.toString().padStart(2, '0')}`;
 
     // 生成邮箱
-    const emailDomains = ['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'icloud.com'];
-    const email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}@${getRandomElement(emailDomains)}`;
+    const emailDomains = ['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'icloud.com', 'protonmail.com', 'mail.com', 'aol.com', 'zoho.com', 'yandex.com'];
+    const email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}${getBetterRandom(1, 999)}@${getRandomElement(emailDomains)}`;
 
     // 生成电话号码
     let phoneNumber;
@@ -1111,31 +1117,46 @@ function generateMockIdentity(country) {
  * @returns {Object} 地址信息
  */
 function generateMockAddress(country, state, city) {
-    const addresses = {
+    const streetNames = {
+        'us': ['Main St', 'Oak Ave', 'Maple Dr', 'Washington Blvd', 'Lincoln Rd', 'Park Ave', 'Broadway', 'Market St', 'Lake Dr', 'River Rd',
+               'Hill St', 'Valley Rd', 'Forest Ave', 'Spring St', 'Summer Dr', 'Winter Rd', 'Autumn Ave', 'Sunset Blvd', 'Sunrise Dr', 'Ocean Ave'],
+        'uk': ['High St', 'Station Rd', 'London Rd', 'Church St', 'Victoria Rd', 'Park Lane', 'Oxford St', 'Regent St', 'Bond St', 'Baker St',
+               'Abbey Rd', 'Kings Rd', 'Queens Rd', 'Castle St', 'Bridge St', 'Market St', 'Mill Lane', 'Church Rd', 'School Lane', 'Garden St'],
+        'hk': ['Queen\'s Road Central', 'Des Voeux Road Central', 'Nathan Road', 'Hennessy Road', 'Connaught Road', 'Lockhart Road', 'Gloucester Road', 'Causeway Road', 'King\'s Road', 'Hennessy Road',
+               'Jaffe Road', 'Lockhart Road', 'Fenwick Street', 'Percival Street', 'Hennessy Road', 'Gloucester Road', 'Canal Road', 'Hennessy Road', 'Lockhart Road', 'Fenwick Street']
+    };
+
+    const streetTypes = {
+        'us': ['St', 'Ave', 'Dr', 'Blvd', 'Rd', 'Ln', 'Ct', 'Pl', 'Way', 'Ter'],
+        'uk': ['St', 'Rd', 'Ln', 'Ave', 'Dr', 'Way', 'Pl', 'Ct', 'Ter', 'Cl'],
+        'hk': ['Road', 'Street', 'Avenue', 'Lane', 'Court', 'Place', 'Terrace', 'Drive', 'Way', 'Close']
+    };
+
+    const countryData = {
         'us': {
-            street: `${getBetterRandom(1, 9999)} ${getRandomElement(['Main St', 'Oak Ave', 'Maple Dr', 'Washington Blvd', 'Lincoln Rd'])}`,
-            city: city === 'random' ? getRandomElement(['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix']) : city,
-            state: state === 'random' ? getRandomElement(['NY', 'CA', 'IL', 'TX', 'AZ']) : state,
+            street: `${getBetterRandom(1, 9999)} ${getRandomElement(streetNames.us)}`,
+            city: city === 'random' ? getRandomElement(['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'Philadelphia', 'San Antonio', 'San Diego', 'Dallas', 'San Jose']) : city,
+            state: state === 'random' ? getRandomElement(['NY', 'CA', 'IL', 'TX', 'AZ', 'PA', 'FL', 'OH', 'GA', 'NC']) : state,
             zipCode: `${getBetterRandom(10000, 99999)}`,
             country: 'United States'
         },
         'uk': {
-            street: `${getBetterRandom(1, 999)} ${getRandomElement(['High St', 'Station Rd', 'London Rd', 'Church St', 'Victoria Rd'])}`,
-            city: city === 'random' ? getRandomElement(['London', 'Birmingham', 'Manchester', 'Glasgow', 'Liverpool']) : city,
-            county: getRandomElement(['Greater London', 'West Midlands', 'Greater Manchester', 'Merseyside', 'South Yorkshire']),
+            street: `${getBetterRandom(1, 999)} ${getRandomElement(streetNames.uk)}`,
+            city: city === 'random' ? getRandomElement(['London', 'Birmingham', 'Manchester', 'Glasgow', 'Liverpool', 'Edinburgh', 'Bristol', 'Cardiff', 'Belfast', 'Leicester']) : city,
+            county: getRandomElement(['Greater London', 'West Midlands', 'Greater Manchester', 'Merseyside', 'South Yorkshire', 'West Yorkshire', 'Tyne and Wear', 'Nottinghamshire', 'Bristol', 'Edinburgh']),
             postcode: `${getRandomElement(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'])}${getBetterRandom(10, 99)} ${getBetterRandom(1, 9)}${getRandomElement(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'])}${getRandomElement(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'])}`,
             country: 'United Kingdom'
         },
         'hk': {
-            building: getRandomElement(['Central Plaza', 'Jardine House', 'Pacific Place', 'Times Square', 'IFC']),
-            street: getRandomElement(['Queen\'s Road Central', 'Des Voeux Road Central', 'Nathan Road', 'Hennessy Road', 'Connaught Road']),
-            district: getRandomElement(['Central', 'Wan Chai', 'Causeway Bay', 'Tsim Sha Tsui', 'Mong Kok']),
+            building: getRandomElement(['Central Plaza', 'Jardine House', 'Pacific Place', 'Times Square', 'IFC', 'The Center', 'Exchange Square', 'Landmark', 'Harbour City', 'Elements']),
+            street: getRandomElement(streetNames.hk),
+            district: getRandomElement(['Central', 'Wan Chai', 'Causeway Bay', 'Tsim Sha Tsui', 'Mong Kok', 'North Point', 'Quarry Bay', 'Tai Koo', 'Yau Ma Tei', 'Jordan']),
             region: getRandomElement(['Hong Kong Island', 'Kowloon', 'New Territories']),
             country: 'Hong Kong SAR'
         }
     };
 
-    return addresses[country.toLowerCase()] || addresses['us'];
+    return countryData[country.toLowerCase()] || countryData['us'];
 }
 
 /**
@@ -1148,12 +1169,16 @@ function generateMockCreditCard(country) {
         { name: 'Visa', prefix: '4', length: 16 },
         { name: 'MasterCard', prefix: '5', length: 16 },
         { name: 'American Express', prefix: '3', length: 15 },
-        { name: 'Discover', prefix: '6', length: 16 }
+        { name: 'Discover', prefix: '6', length: 16 },
+        { name: 'JCB', prefix: '35', length: 16 },
+        { name: 'Diners Club', prefix: '36', length: 14 }
     ];
     
     const cardType = getRandomElement(cardTypes);
     let cardNumber = cardType.prefix;
-    for (let i = cardType.prefix.length; i < cardType.length; i++) {
+    
+    // 生成卡号
+    while (cardNumber.length < cardType.length) {
         cardNumber += Math.floor(Math.random() * 10);
     }
     
