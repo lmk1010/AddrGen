@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AddressGen - Generate Random Address Information</title>
+    <title data-i18n="page.title.home">Home - AddressGen</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -75,10 +75,21 @@
             white-space: nowrap;
             pointer-events: none;
             transition: opacity 0.2s ease-in-out;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            opacity: 0;
+        }
+        
+        .copy-tooltip:not(.hidden) {
+            opacity: 1;
         }
         
         [onclick="copyToClipboard(this)"] {
             position: relative;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -282,21 +293,23 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.fullName">Full Name</p>
-                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600"></p>
+                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
                                     <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
                                 </div>
                                 <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.email">Email</p>
-                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600"></p>
+                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
                                     <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
                                 </div>
                                 <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.phone">Phone Number</p>
-                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600"></p>
+                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
+                                    <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
                                 </div>
                                 <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.dob">Date of Birth</p>
-                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600"></p>
+                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
+                                    <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
                                 </div>
                             </div>
                         </div>
@@ -310,27 +323,33 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.streetAddress">Street Address</p>
-                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600"></p>
+                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
+                                    <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
                                 </div>
                                 <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.city">City</p>
-                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600"></p>
+                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
+                                    <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
                                 </div>
                                 <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.stateCode">State Code</p>
-                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600"></p>
+                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
+                                    <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
                                 </div>
                                 <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.stateName">State Name</p>
-                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600"></p>
+                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
+                                    <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
                                 </div>
                                 <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.zipCode">ZIP Code</p>
-                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600"></p>
+                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
+                                    <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
                                 </div>
                                 <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.country">Country</p>
-                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600"></p>
+                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
+                                    <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
                                 </div>
                             </div>
                         </div>
@@ -344,19 +363,23 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.cardType">Card Type</p>
-                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600"></p>
+                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
+                                    <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
                                 </div>
                                 <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.cardNumber">Card Number</p>
-                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600"></p>
+                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
+                                    <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
                                 </div>
                                 <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.cvv">CVV</p>
-                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600"></p>
+                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
+                                    <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
                                 </div>
                                 <div class="cursor-pointer group hover:bg-white p-4 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
                                     <p class="text-sm font-medium text-gray-500" data-i18n="generator.fields.expiryDate">Expiry Date</p>
-                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600"></p>
+                                    <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value"></p>
+                                    <div class="copy-tooltip hidden absolute bg-gray-900 text-white px-2 py-1 rounded text-sm">点击复制</div>
                                 </div>
                             </div>
                         </div>
@@ -490,6 +513,104 @@
             document.getElementById('mobile-menu-button').addEventListener('click', function() {
                 const mobileMenu = document.getElementById('mobile-menu');
                 mobileMenu.classList.toggle('hidden');
+            });
+
+            // 复制功能
+            function copyToClipboard(element) {
+                const textToCopy = element.querySelector('.copy-value').textContent;
+                if (!textToCopy) return; // 如果没有值，不执行复制
+                
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    // 显示复制成功提示
+                    const tooltip = element.querySelector('.copy-tooltip');
+                    tooltip.textContent = '复制成功！';
+                    tooltip.classList.remove('hidden');
+                    
+                    // 2秒后隐藏提示
+                    setTimeout(() => {
+                        tooltip.classList.add('hidden');
+                        tooltip.textContent = '点击复制';
+                    }, 2000);
+                }).catch(err => {
+                    console.error('复制失败:', err);
+                });
+            }
+
+            // 将复制功能绑定到所有可复制的元素
+            document.querySelectorAll('[onclick="copyToClipboard(this)"]').forEach(element => {
+                element.addEventListener('click', function() {
+                    copyToClipboard(this);
+                });
+            });
+
+            // 下载CSV功能
+            function downloadCSV() {
+                // 从scripts.js中获取生成的数据
+                const generatedData = window.generatedData;
+                if (!generatedData) {
+                    alert('没有可用的数据，请先生成信息！');
+                    return;
+                }
+
+                // 转换为CSV格式
+                let csvContent = "Category,Field,Value\n";
+                
+                // 添加基本信息
+                if (generatedData.identity) {
+                    Object.entries(generatedData.identity).forEach(([field, value]) => {
+                        if (value) {
+                            csvContent += `Basic Information,${field},${value}\n`;
+                        }
+                    });
+                }
+                
+                // 添加地址信息
+                if (generatedData.address) {
+                    Object.entries(generatedData.address).forEach(([field, value]) => {
+                        if (value) {
+                            csvContent += `Address Information,${field},${value}\n`;
+                        }
+                    });
+                }
+                
+                // 添加信用卡信息
+                if (generatedData.creditCard) {
+                    Object.entries(generatedData.creditCard).forEach(([field, value]) => {
+                        if (value) {
+                            csvContent += `Credit Card Information,${field},${value}\n`;
+                        }
+                    });
+                }
+
+                // 创建Blob对象
+                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                
+                // 创建下载链接
+                const link = document.createElement('a');
+                const url = URL.createObjectURL(blob);
+                link.setAttribute('href', url);
+                link.setAttribute('download', `random_info_${new Date().toISOString().slice(0,10)}.csv`);
+                link.style.visibility = 'hidden';
+                
+                // 添加到文档并触发点击
+                document.body.appendChild(link);
+                link.click();
+                
+                // 清理
+                document.body.removeChild(link);
+            }
+
+            // 绑定下载按钮事件
+            document.getElementById('download-btn').addEventListener('click', function() {
+                // 确保结果区域是可见的
+                const resultsSection = document.getElementById('results');
+                if (resultsSection.classList.contains('hidden')) {
+                    alert('请先生成信息！');
+                    return;
+                }
+
+                // 直接尝试下载
+                downloadCSV();
             });
 
             // Generate button click handler

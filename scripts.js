@@ -36,6 +36,22 @@ function initMobileMenu() {
  * Language Selector Functionality
  */
 function initLanguageSelector() {
+    // 等待i18next加载完成
+    if (typeof i18next === 'undefined') {
+        // 如果i18next还没加载完成，等待它加载
+        const checkI18next = setInterval(() => {
+            if (typeof i18next !== 'undefined') {
+                clearInterval(checkI18next);
+                setupLanguageSelector();
+            }
+        }, 100);
+        return;
+    }
+    
+    setupLanguageSelector();
+}
+
+function setupLanguageSelector() {
     // Set up language change event handlers
     const languageLinks = document.querySelectorAll('[onclick^="changeLanguage"]');
     
@@ -419,6 +435,9 @@ function generateInformation(country, state, city, infoTypes) {
 
     // 等待所有数据生成完成
     Promise.all(promises).then(() => {
+        // 保存生成的数据到window对象
+        window.generatedData = results;
+
         // 显示结果
         displayResults(results);
         
@@ -526,19 +545,19 @@ function formatIdentityForDisplay(identity) {
     return `
         <div class="cursor-pointer group hover:bg-gray-50 p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
             <p class="text-sm font-medium text-gray-500">姓名</p>
-            <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600">${identity.fullName}</p>
+            <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value">${identity.fullName}</p>
         </div>
         <div class="cursor-pointer group hover:bg-gray-50 p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
             <p class="text-sm font-medium text-gray-500">邮箱</p>
-            <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600">${identity.email}</p>
+            <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value">${identity.email}</p>
         </div>
         <div class="cursor-pointer group hover:bg-gray-50 p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
             <p class="text-sm font-medium text-gray-500">电话</p>
-            <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600">${identity.phoneNumber}</p>
+            <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value">${identity.phoneNumber}</p>
         </div>
         <div class="cursor-pointer group hover:bg-gray-50 p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
             <p class="text-sm font-medium text-gray-500">出生日期</p>
-            <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600">${identity.dateOfBirth}</p>
+            <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value">${identity.dateOfBirth}</p>
         </div>
     `;
 }
@@ -555,7 +574,7 @@ function formatAddressForDisplay(address) {
         html += `
             <div class="cursor-pointer group hover:bg-gray-50 p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
                 <p class="text-sm font-medium text-gray-500">街道地址</p>
-                <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600">${address.street}</p>
+                <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value">${address.street}</p>
             </div>
         `;
     }
@@ -564,7 +583,7 @@ function formatAddressForDisplay(address) {
         html += `
             <div class="cursor-pointer group hover:bg-gray-50 p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
                 <p class="text-sm font-medium text-gray-500">城市</p>
-                <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600">${address.city}</p>
+                <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value">${address.city}</p>
             </div>
         `;
     }
@@ -573,7 +592,7 @@ function formatAddressForDisplay(address) {
         html += `
             <div class="cursor-pointer group hover:bg-gray-50 p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
                 <p class="text-sm font-medium text-gray-500">州/省</p>
-                <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600">${address.state}</p>
+                <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value">${address.state}</p>
             </div>
         `;
     }
@@ -582,7 +601,7 @@ function formatAddressForDisplay(address) {
         html += `
             <div class="cursor-pointer group hover:bg-gray-50 p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
                 <p class="text-sm font-medium text-gray-500">邮编</p>
-                <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600">${address.zipCode}</p>
+                <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value">${address.zipCode}</p>
             </div>
         `;
     }
@@ -591,7 +610,7 @@ function formatAddressForDisplay(address) {
         html += `
             <div class="cursor-pointer group hover:bg-gray-50 p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
                 <p class="text-sm font-medium text-gray-500">国家</p>
-                <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600">${address.country}</p>
+                <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value">${address.country}</p>
             </div>
         `;
     }
@@ -608,23 +627,23 @@ function formatCreditCardForDisplay(creditCard) {
     return `
         <div class="cursor-pointer group hover:bg-gray-50 p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
             <p class="text-sm font-medium text-gray-500">卡类型</p>
-            <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600">${creditCard.cardType}</p>
+            <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value">${creditCard.cardType}</p>
         </div>
         <div class="cursor-pointer group hover:bg-gray-50 p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
             <p class="text-sm font-medium text-gray-500">卡号</p>
-            <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600">${creditCard.cardNumber}</p>
+            <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value">${creditCard.cardNumber}</p>
         </div>
         <div class="cursor-pointer group hover:bg-gray-50 p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
             <p class="text-sm font-medium text-gray-500">持卡人</p>
-            <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600">${creditCard.cardholderName}</p>
+            <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value">${creditCard.cardholderName}</p>
         </div>
         <div class="cursor-pointer group hover:bg-gray-50 p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
             <p class="text-sm font-medium text-gray-500">过期日期</p>
-            <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600">${creditCard.expiryDate}</p>
+            <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value">${creditCard.expiryDate}</p>
         </div>
         <div class="cursor-pointer group hover:bg-gray-50 p-3 rounded-lg transition-all duration-200 border border-transparent hover:border-indigo-200 hover:shadow-md" onclick="copyToClipboard(this)">
             <p class="text-sm font-medium text-gray-500">CVV</p>
-            <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600">${creditCard.cvv}</p>
+            <p class="mt-1 text-lg text-gray-900 group-hover:text-indigo-600 copy-value">${creditCard.cvv}</p>
         </div>
     `;
 }
@@ -866,23 +885,33 @@ function getAlertIcon(type) {
  * @param {HTMLElement} element 包含要复制文本的元素
  */
 function copyToClipboard(element) {
-    // 获取要复制的文本（dd 标签中的内容）
-    const textToCopy = element.querySelector('dd').textContent;
+    // 获取要复制的文本（.copy-value 标签中的内容）
+    const textToCopy = element.querySelector('.copy-value')?.textContent;
+    if (!textToCopy) {
+        console.error('没有找到要复制的文本');
+        return;
+    }
     
     // 使用 Clipboard API 复制文本
     navigator.clipboard.writeText(textToCopy).then(() => {
         // 显示复制成功的提示
         const tooltip = element.querySelector('.copy-tooltip');
-        tooltip.textContent = '已复制！';
-        tooltip.classList.remove('hidden');
+        if (tooltip) {
+            tooltip.textContent = '已复制！';
+            tooltip.classList.remove('hidden');
+            
+            // 2秒后隐藏提示
+            setTimeout(() => {
+                tooltip.textContent = '点击复制';
+                tooltip.classList.add('hidden');
+            }, 2000);
+        }
         
-        // 2秒后隐藏提示
-        setTimeout(() => {
-            tooltip.textContent = '点击复制';
-            tooltip.classList.add('hidden');
-        }, 2000);
+        // 显示 toast 提示
+        showToast('复制成功！', 'success');
     }).catch(err => {
         console.error('复制失败:', err);
+        showToast('复制失败，请重试', 'error');
     });
 }
 
@@ -964,46 +993,14 @@ function copyAllToClipboard() {
 
     let formattedText = '';
 
-    // 收集基本信息
-    const basicInfoSection = resultsContent.querySelector('.space-y-4:first-child');
-    if (basicInfoSection) {
-        formattedText += '=== 基本信息 ===\n';
-        basicInfoSection.querySelectorAll('.cursor-pointer').forEach(item => {
-            const labelElement = item.querySelector('.text-sm');
-            const valueElement = item.querySelector('.text-lg');
-            if (labelElement && valueElement && valueElement.textContent.trim()) {
-                formattedText += `${labelElement.textContent}: ${valueElement.textContent}\n`;
-            }
-        });
-        formattedText += '\n';
-    }
-
-    // 收集地址信息
-    const addressSection = resultsContent.querySelector('.space-y-4:nth-child(2)');
-    if (addressSection) {
-        formattedText += '=== 地址信息 ===\n';
-        addressSection.querySelectorAll('.cursor-pointer').forEach(item => {
-            const labelElement = item.querySelector('.text-sm');
-            const valueElement = item.querySelector('.text-lg');
-            if (labelElement && valueElement && valueElement.textContent.trim()) {
-                formattedText += `${labelElement.textContent}: ${valueElement.textContent}\n`;
-            }
-        });
-        formattedText += '\n';
-    }
-
-    // 收集信用卡信息
-    const creditCardSection = resultsContent.querySelector('.space-y-4:nth-child(3)');
-    if (creditCardSection) {
-        formattedText += '=== 信用卡信息 ===\n';
-        creditCardSection.querySelectorAll('.cursor-pointer').forEach(item => {
-            const labelElement = item.querySelector('.text-sm');
-            const valueElement = item.querySelector('.text-lg');
-            if (labelElement && valueElement && valueElement.textContent.trim()) {
-                formattedText += `${labelElement.textContent}: ${valueElement.textContent}\n`;
-            }
-        });
-    }
+    // 收集所有信息
+    resultsContent.querySelectorAll('.cursor-pointer').forEach(item => {
+        const labelElement = item.querySelector('.text-sm');
+        const valueElement = item.querySelector('.copy-value');
+        if (labelElement && valueElement && valueElement.textContent.trim()) {
+            formattedText += `${labelElement.textContent}: ${valueElement.textContent}\n`;
+        }
+    });
 
     // 检查是否有内容可以复制
     if (!formattedText.trim()) {
@@ -1117,14 +1114,14 @@ function generateMockAddress(country, state, city) {
     const addresses = {
         'us': {
             street: `${getBetterRandom(1, 9999)} ${getRandomElement(['Main St', 'Oak Ave', 'Maple Dr', 'Washington Blvd', 'Lincoln Rd'])}`,
-            city: city || getRandomElement(['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix']),
-            state: state || getRandomElement(['NY', 'CA', 'IL', 'TX', 'AZ']),
+            city: city === 'random' ? getRandomElement(['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix']) : city,
+            state: state === 'random' ? getRandomElement(['NY', 'CA', 'IL', 'TX', 'AZ']) : state,
             zipCode: `${getBetterRandom(10000, 99999)}`,
             country: 'United States'
         },
         'uk': {
             street: `${getBetterRandom(1, 999)} ${getRandomElement(['High St', 'Station Rd', 'London Rd', 'Church St', 'Victoria Rd'])}`,
-            city: city || getRandomElement(['London', 'Birmingham', 'Manchester', 'Glasgow', 'Liverpool']),
+            city: city === 'random' ? getRandomElement(['London', 'Birmingham', 'Manchester', 'Glasgow', 'Liverpool']) : city,
             county: getRandomElement(['Greater London', 'West Midlands', 'Greater Manchester', 'Merseyside', 'South Yorkshire']),
             postcode: `${getRandomElement(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'])}${getBetterRandom(10, 99)} ${getBetterRandom(1, 9)}${getRandomElement(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'])}${getRandomElement(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'])}`,
             country: 'United Kingdom'
